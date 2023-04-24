@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1035880612000",
+    "project_id": "quickhire-409e0",
+    "storage_bucket": "quickhire-409e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035880612000:android:92beae4cb39c3662c909c5",
+        "android_client_info": {
+          "package_name": "my.edu.tarc.firebsaetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035880612000-f3lrqtsuopd42msj5vuaetrgnmsgv7nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBger-t1FNQfQSw_q-ub2NRdPmGKyFgElA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035880612000-f3lrqtsuopd42msj5vuaetrgnmsgv7nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035880612000:android:3f0f55ca7f8b71fbc909c5",
+        "android_client_info": {
+          "package_name": "my.edu.tarc.quickhire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035880612000-f3lrqtsuopd42msj5vuaetrgnmsgv7nk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBger-t1FNQfQSw_q-ub2NRdPmGKyFgElA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035880612000-f3lrqtsuopd42msj5vuaetrgnmsgv7nk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
