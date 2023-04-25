@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
+<!--    app:startDestination="@+id/navigation_home"-->
+
 
     <fragment
         android:id="@+id/navigation_home"
@@ -16,10 +18,39 @@
         android:name="my.edu.tarc.quickhire.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
-
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="my.edu.tarc.quickhire.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/nav_editProfile"
+        android:name="my.edu.tarc.quickhire.ui.Profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_nav_editProfile_to_nav_profileFragment"
+            app:destination="@id/nav_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_notification"
+        android:name="my.edu.tarc.quickhire.ui.notifications.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_nav_notification_to_nav_notificationDetail"
+            app:destination="@id/nav_notificationDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_notificationDetail"
+        android:name="my.edu.tarc.quickhire.ui.notifications.NotificationDetailFragment"
+        android:label="fragment_notification_detail"
+        tools:layout="@layout/fragment_notification_detail" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="my.edu.tarc.quickhire.ui.Profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/nav_upload"
+        android:name="my.edu.tarc.quickhire.ui.notifications.UploadFragment"
+        android:label="fragment_upload"
+        tools:layout="@layout/fragment_upload" />
+
+
 </navigation>
