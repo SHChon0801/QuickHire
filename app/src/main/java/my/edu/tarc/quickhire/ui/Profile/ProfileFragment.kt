@@ -67,7 +67,7 @@ class ProfileFragment : Fragment() {
         loadUserInfo()
 
         editButton.setOnClickListener{
-            findNavController().navigate(com.google.firebase.database.R.id.nav_editProfile)
+            findNavController().navigate(R.id.nav_editProfile)
         }
 
         return binding.root
@@ -108,7 +108,7 @@ class ProfileFragment : Fragment() {
                     try{
                         Glide.with(requireContext())
                             .load(profilePic)
-                            .placeholder(com.google.firebase.database.R.drawable.profileunknown)
+                            .placeholder(R.drawable.profileunknown)
                             .into(binding.imageProfile)
                     }catch (e: Exception){
 
