@@ -1,25 +1,22 @@
 package my.edu.tarc.quickhire.ui.Profile
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.quickhiretest.R
-import com.example.quickhiretest.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentProfileBinding
 
-
 class ProfileFragment : Fragment() {
-
     private var _binding: FragmentProfileBinding? = null
 
     // This property is only valid between onCreateView and
@@ -52,14 +49,10 @@ class ProfileFragment : Fragment() {
     //firebase auth
     private lateinit var auth: FirebaseAuth
 
-
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-
+    ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         val editButton=binding.editDetail
@@ -74,7 +67,7 @@ class ProfileFragment : Fragment() {
         loadUserInfo()
 
         editButton.setOnClickListener{
-            findNavController().navigate(R.id.nav_editProfile)
+            findNavController().navigate(com.google.firebase.database.R.id.nav_editProfile)
         }
 
         return binding.root
@@ -115,7 +108,7 @@ class ProfileFragment : Fragment() {
                     try{
                         Glide.with(requireContext())
                             .load(profilePic)
-                            .placeholder(R.drawable.profileunknown)
+                            .placeholder(com.google.firebase.database.R.drawable.profileunknown)
                             .into(binding.imageProfile)
                     }catch (e: Exception){
 
@@ -217,4 +210,6 @@ class ProfileFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
