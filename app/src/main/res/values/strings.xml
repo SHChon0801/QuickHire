@@ -18,4 +18,8 @@
     <string name="register">Register</string>
     <string name="login_page">Login Page</string>
     <string name="register_page">Register Page</string>
+    <string name="role">Role</string>
+    <string name="sign_up_as">Sign Up As</string>
+    <string name="organization">Organization</string>
+    <string name="employee">Employee</string>
 </resources>

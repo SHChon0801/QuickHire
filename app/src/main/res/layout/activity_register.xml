@@ -104,8 +104,8 @@
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="172dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginBottom="64dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
@@ -114,12 +114,44 @@
         android:id="@+id/textViewLoginPage"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:text="@string/login_page"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/sign_up_as"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmPassword" />
+
+    <RadioGroup
+        android:id="@+id/rgGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="@+id/textView5">
+
+        <RadioButton
+            android:id="@+id/rbOrg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/organization" />
+
+        <RadioButton
+            android:id="@+id/rbEmp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/employee" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
