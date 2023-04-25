@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.Profile.Edit.EditProfileFragment"
+         >
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:background="#0000FFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/baseline_arrow_back_24" />
+
+            <LinearLayout
+                android:id="@+id/layoutPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="150dp"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="150dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:scaleType="fitCenter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/images"
+                        android:contentDescription="@string/des_imageview" />
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/chg_prof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutPhoto"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/change_photo"
+                android:textAlignment="center"
+                android:textColor="@color/blue1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="191dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/personal_detail"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutEditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputName"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_person_24" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditEmail"
+                android:layout_below="@id/layoutEditName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/e_mail">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputMail"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_email_24"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditContact"
+                android:layout_below="@id/layoutEditEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/phone_number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputPhone"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_phone_24"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditState"
+                android:layout_below="@id/layoutEditContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/stated">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/statedEdit"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_location_on_24"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditCurrentJob"
+                android:layout_below="@id/layoutEditState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/current_job">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/currentJobEdit"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_work_24"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditTimePrefer"
+                android:layout_below="@id/layoutEditCurrentJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/time_prefer">
+
+                    <Spinner
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_edit_24"
+                        android:layout_weight="1"
+                        android:hint="@string/time_prefer"
+                        android:entries="@array/time_prefer" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/preferTimeEdit"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_access_time_24"
+                        android:inputType="date" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditEducation"
+                android:layout_below="@id/layoutEditTimePrefer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/education">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/educationEdit"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_menu_book_24"
+                         />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditSkill"
+                android:layout_below="@id/layoutEditEducation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/skill">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/skillEdit"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_pending_actions_24"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/headline1"
+                android:layout_below="@id/layoutEditSkill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/LabelEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/personal_description"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/headline"
+                android:layout_below="@id/headline1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="370dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/something_about_yourself">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputDes"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_edit_24" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/done_profile"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="95dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/headline"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="41dp"
+                android:text="@string/done"
+                app:cornerRadius="20dp"
+                app:strokeColor="@color/green"
+                android:textColor="@color/green"
+                />
+
+            <Button
+                android:id="@+id/cancel_profile"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="95dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/headline"
+                android:layout_marginStart="235dp"
+                android:layout_marginTop="41dp"
+                android:text="@string/cancel"
+                app:cornerRadius="20dp"
+                app:strokeColor="@color/red"
+                android:textColor="@color/red"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</layout>
