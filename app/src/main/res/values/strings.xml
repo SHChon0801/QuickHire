@@ -22,4 +22,78 @@
     <string name="sign_up_as">Sign Up As</string>
     <string name="organization">Organization</string>
     <string name="employee">Employee</string>
+
+
+    //Profile
+    <string name="title_profile">Profile</string>
+    <string-array name="time_prefer">
+        <item>8.00 am - 10.00 am</item>
+        <item>10.00 am - 12.00 pm</item>
+        <item>12.00 pm - 2.00 pm</item>
+        <item>2.00 pm - 4.00 pm</item>
+        <item>4.00 pm - 6.00 pm</item>
+        <item>6.00 pm - 8.00 pm</item>
+    </string-array>
+
+    //Profile Page
+    <string name="title_inbox">Inbox</string>
+    <string name="des_image">image</string>
+    <string name="des_imageview">imageView</string>
+    <string name="exp_about">A job seeker who are more patient for the work</string>
+    <string name="exp_name">Ong Shen Hoi</string>
+    <string name="current_job_tab">Current Job</string>
+    <string name="exp_job">Engineer</string>
+    <string name="stated_tag">Stated</string>
+    <string name="exp_stated">Kuala Lumpur</string>
+    <string name="time_prefered_tag">Time Preferred</string>
+    <string name="exp_time">8.000 am - 10.00 am</string>
+    <string name="contact_info_tag">Contact Info</string>
+    <string name="email_tag">Email :</string>
+    <string name="exp_email">ong@gmail.com</string>
+    <string name="phone_tag">Phone :</string>
+    <string name="exp_phone">017–6468809</string>
+    <string name="educational_tag">Educational</string>
+    <string name="exp_edu">Diploma</string>
+    <string name="skill_tag">Skill</string>
+    <string name="exp_skill">Engineer</string>
+    <string name="log_out">Log Out</string>
+
+    //Profile Page
+<!--    <string name="title_inbox">Inbox</string>-->
+<!--    <string name="des_image">image</string>-->
+<!--    <string name="des_imageview">imageView</string>-->
+<!--    <string name="exp_about">A job seeker who are more patient for the work</string>-->
+<!--    <string name="exp_name">Ong Shen Hoi</string>-->
+<!--    <string name="current_job_tab">Current Job</string>-->
+<!--    <string name="exp_job">Engineer</string>-->
+<!--    <string name="stated_tag">Stated</string>-->
+<!--    <string name="exp_stated">Kuala Lumpur</string>-->
+<!--    <string name="time_prefered_tag">Time Preferred</string>-->
+<!--    <string name="exp_time">8.000 am - 10.00 am</string>-->
+<!--    <string name="contact_info_tag">Contact Info</string>-->
+<!--    <string name="email_tag">Email :</string>-->
+<!--    <string name="exp_email">ong@gmail.com</string>-->
+<!--    <string name="phone_tag">Phone :</string>-->
+<!--    <string name="exp_phone">017–6468809</string>-->
+<!--    <string name="educational_tag">Educational</string>-->
+<!--    <string name="exp_edu">Diploma</string>-->
+<!--    <string name="skill_tag">Skill</string>-->
+<!--    <string name="exp_skill">Engineer</string>-->
+<!--    <string name="log_out">Log Out</string>-->
+
+    //Edit Page
+    <string name="change_photo">Change Photo</string>
+    <string name="personal_detail">Personal Detail</string>
+    <string name="name">Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="stated">Stated</string>
+    <string name="current_job">Current Job</string>
+    <string name="time_prefer">Time Prefer</string>
+    <string name="education">Education</string>
+    <string name="skill">Skill</string>
+    <string name="personal_description">Personal Description</string>
+    <string name="something_about_yourself">Something about yourself</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
 </resources>

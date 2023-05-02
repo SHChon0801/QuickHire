@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -53,17 +54,17 @@ class EditProfileFragment : Fragment() {
 
         val backButton=binding.back
         val changePhoto=binding.chgProf
-        val confirmButton=binding.doneProfile
-        val cancelButton=binding.cancelProfile
+        val confirmButton:Button=binding.doneProfile
+        val cancelButton:Button=binding.cancelProfile
 
         //firebase auth
         auth = FirebaseAuth.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser
         loadPic()
 
-        backButton.setOnClickListener{
-            findNavController().navigateUp()
-        }
+//        backButton.setOnClickListener{
+//            findNavController().navigateUp()
+//        }
 
         changePhoto.setOnClickListener{
             pickImageGallery()
@@ -87,17 +88,17 @@ class EditProfileFragment : Fragment() {
             validateEmail()
 
             database =
-                FirebaseDatabase.getInstance("https://quickhiretest-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                    .getReference("Users")
+                FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                    .getReference("Organizations")
 
             if (currentUser != null) {
                 database.child(currentUser.uid).child("name").setValue(name)
                 database.child(currentUser.uid).child("about").setValue(about)
                 database.child(currentUser.uid).child("state").setValue(state)
-                database.child(currentUser.uid).child("job").setValue(currentJob)
+                database.child(currentUser.uid).child("currentJob").setValue(currentJob)
                 database.child(currentUser.uid).child("email").setValue(email)
                 database.child(currentUser.uid).child("phone").setValue(telNo)
-                database.child(currentUser.uid).child("time").setValue(timePrefer)
+                database.child(currentUser.uid).child("timePrefer").setValue(timePrefer)
                 database.child(currentUser.uid).child("education").setValue(education)
                 database.child(currentUser.uid).child("skill").setValue(skill)
                 database.child(currentUser.uid).child("profilePic").setValue(uri)

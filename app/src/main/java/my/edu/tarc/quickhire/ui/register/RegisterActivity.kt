@@ -22,6 +22,20 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var databaseReferenceOrg: DatabaseReference
     private lateinit var databaseReferenceEmp: DatabaseReference
     private lateinit var database: FirebaseDatabase
+
+    //Test
+    private lateinit var profilePic:String
+    private lateinit var name:String
+    private lateinit var about:String
+    private lateinit var state:String
+    private lateinit var currentJob:String
+    private lateinit var phone:String
+    private lateinit var timePrefer:String
+    private lateinit var education:String
+    private lateinit var skill:String
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -31,6 +45,10 @@ class RegisterActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         databaseReferenceOrg = database.getReference("Employees")
         databaseReferenceEmp = database.getReference("Organizations")
+
+        //Testing
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
 
 
 
@@ -59,15 +77,29 @@ class RegisterActivity : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                         if(it.isSuccessful){
 
-                            val newUser = User(email,password,role)
+                            profilePic=""
+                            name=""
+                            about=""
+                            state=""
+                            currentJob=""
+                            phone=""
+                            timePrefer=""
+                            education=""
+                            skill=""
 
-                            when(userRole) {
-                                R.id.rbEmp ->{
-                                    databaseReferenceEmp.child(password).setValue(newUser)
-                                }
-                                R.id.rbOrg ->{
-                                    databaseReferenceOrg.child(password).setValue(newUser)
+                            val newUser = User(name,about,state,currentJob,phone,timePrefer,
+                                education,skill,email,password,role,profilePic)
 
+                            if(currentUser!=null) {
+                                when (userRole) {
+                                    R.id.rbEmp -> {
+                                        databaseReferenceEmp.child(currentUser.uid)
+                                            .setValue(newUser)
+                                    }
+                                    R.id.rbOrg -> {
+                                        databaseReferenceOrg.child(password).setValue(newUser)
+
+                                    }
                                 }
                             }
 

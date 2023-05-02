@@ -74,19 +74,19 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadUserInfo(){
-        val datab = FirebaseDatabase.getInstance("https://quickhiretest-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
-        val dataRef = datab.getReference("Users").child(auth.currentUser!!.uid)
+        val dataRef = datab.getReference("Organizations").child(auth.currentUser!!.uid)
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {
                     val name = snapshot.child("name").value as String
                     val about = snapshot.child("about").value as String
                     val state = snapshot.child("state").value as String
-                    val currentJob = snapshot.child("job").value as String
+                    val currentJob = snapshot.child("currentJob").value as String
                     val email = snapshot.child("email").value as String
                     var phone = snapshot.child("phone").value as String
-                    val timePrefer = snapshot.child("time").value as String
+                    val timePrefer = snapshot.child("timePrefer").value as String
                     val education=snapshot.child("education").value as String
                     val skill=snapshot.child("skill").value as String
                     val profilePic = snapshot.child("profilePic").value as String
