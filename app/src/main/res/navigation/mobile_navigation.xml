@@ -51,6 +51,11 @@
         android:name="my.edu.tarc.quickhire.ui.notifications.UploadFragment"
         android:label="fragment_upload"
         tools:layout="@layout/fragment_upload" />
+    <activity
+        android:id="@+id/nav_loginActivity"
+        android:name="my.edu.tarc.quickhire.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 
 </navigation>

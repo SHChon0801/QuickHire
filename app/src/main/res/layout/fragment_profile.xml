@@ -430,7 +430,7 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="150dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="70dp"
                     android:text="@string/log_out"
                     android:textColor="@color/red"
                     app:cornerRadius="20dp"
