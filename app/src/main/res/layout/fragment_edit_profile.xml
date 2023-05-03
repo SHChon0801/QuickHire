@@ -99,6 +99,7 @@
                         android:id="@+id/inputName"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_person_24" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -124,6 +125,7 @@
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/baseline_email_24"
+                        android:drawablePadding="16dp"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,6 +151,7 @@
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/baseline_phone_24"
+                        android:drawablePadding="16dp"
                         android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -175,6 +178,7 @@
                         android:id="@+id/statedEdit"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_location_on_24"
                         />
 
@@ -201,6 +205,7 @@
                         android:id="@+id/currentJobEdit"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_work_24"
                        />
 
@@ -223,25 +228,19 @@
                     android:drawableStart="@drawable/baseline_edit_24"
                     android:hint="@string/time_prefer">
 
-                    <Spinner
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/baseline_edit_24"
-                        android:layout_weight="1"
-                        android:hint="@string/time_prefer"
-                        android:entries="@array/time_prefer" />
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/preferTimeEdit"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_access_time_24"
-                        android:inputType="date" />
+                        android:inputType="none"
+                        />
+
 
                 </com.google.android.material.textfield.TextInputLayout>
-
 
 
             </LinearLayout>
@@ -265,6 +264,7 @@
                         android:id="@+id/educationEdit"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_menu_book_24"
                         />
 
@@ -291,6 +291,7 @@
                         android:id="@+id/skillEdit"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_pending_actions_24"
                         />
 
@@ -338,6 +339,7 @@
                         android:id="@+id/inputDes"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_edit_24" />
 
                 </com.google.android.material.textfield.TextInputLayout>

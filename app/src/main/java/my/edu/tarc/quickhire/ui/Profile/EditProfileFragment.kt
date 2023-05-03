@@ -148,10 +148,27 @@ class EditProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {
                     val name = snapshot.child("name").value as String
+                    val about = snapshot.child("about").value as String
+                    val state = snapshot.child("state").value as String
+                    val currentJob = snapshot.child("currentJob").value as String
+                    val email = snapshot.child("email").value as String
+                    var phone = snapshot.child("phone").value as String
+                    val timePrefer = snapshot.child("timePrefer").value as String
+                    val education=snapshot.child("education").value as String
+                    val skill=snapshot.child("skill").value as String
+
                     dataRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                             binding.inputName.setText(name)
+                            binding.inputDes.setText(about)
+                            binding.statedEdit.setText(state)
+                            binding.currentJobEdit.setText(currentJob)
+                            binding.inputMail.setText(email)
+                            binding.inputPhone.setText(phone)
+                            binding.preferTimeEdit.setText(timePrefer)
+                            binding.educationEdit.setText(education)
+                            binding.skillEdit.setText(skill)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
@@ -159,43 +176,6 @@ class EditProfileFragment : Fragment() {
                         }
                     })
 
-
-//                    val name = snapshot.child("name").value as String
-//                    val about = snapshot.child("about").value as String
-//                    val state = snapshot.child("state").value as String
-//                    val currentJob = snapshot.child("currentJob").value as String
-//                    val email = snapshot.child("email").value as String
-//                    var phone = snapshot.child("phone").value as String
-//                    val timePrefer = snapshot.child("timePrefer").value as String
-//                    val education=snapshot.child("education").value as String
-//                    val skill=snapshot.child("skill").value as String
-//                    val profilePic = snapshot.child("profilePic").value as String
-//
-//                    val editName: TextInputLayout = binding.EditName
-//
-//
-//                    //set data
-//                    binding.EditName
-//                    binding.inputName.text
-//                    val email = binding.inputMail.text.toString()
-//                    val telNo = binding.inputPhone.text.toString()
-//                    val state=binding.statedEdit.text.toString()
-//                    val currentJob=binding.currentJobEdit.text.toString()
-//                    val timePrefer=binding.preferTimeEdit.text.toString()
-//                    val education=binding.educationEdit.text.toString()
-//                    val skill=binding.skillEdit.text.toString()
-//                    val about=binding.inputDes.text.toString()
-//                    val uri = imageUri.toString()
-//
-//                    binding.name.text = name
-//                    binding.about.text = about
-//                    binding.currentJob.text = currentJob
-//                    binding.stated.text = state
-//                    binding.TimePrefer.text = timePrefer
-//                    binding.Email.text = email
-//                    binding.ContactNumber.text = phone
-//                    binding.educational.text = education
-//                    binding.skill.text = skill
 
                 }else{
                     Toast.makeText(requireContext(), "Retrieved failed", Toast.LENGTH_SHORT).show()
