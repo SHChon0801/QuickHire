@@ -1,6 +1,5 @@
 package my.edu.tarc.quickhire.ui.Profile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import my.edu.tarc.quickhire.MainActivity
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentProfileBinding
+import kotlin.math.log
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -124,7 +123,6 @@ class ProfileFragment : Fragment() {
                     }
                 }else{
                     Toast.makeText(requireContext(), "Retrieved failed", Toast.LENGTH_SHORT).show()
-
                 }
             }
 

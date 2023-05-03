@@ -45,7 +45,7 @@
                         android:scaleType="fitCenter"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/profileunknown"
+                        app:srcCompat="@drawable/images"
                         android:contentDescription="@string/des_imageview" />
 
 
@@ -87,7 +87,6 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/EditName"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,8 +205,7 @@
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="16dp"
-                        android:drawableStart="@drawable/baseline_work_24"
-                       />
+                        android:drawableStart="@drawable/baseline_work_24" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -236,7 +234,6 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="16dp"
                         android:drawableStart="@drawable/baseline_access_time_24"
-                        android:inputType="none"
                         />
 
 
@@ -355,11 +352,11 @@
                 android:layout_below="@+id/headline"
                 android:layout_marginStart="75dp"
                 android:layout_marginTop="41dp"
-                android:layout_marginBottom="70dp"
                 android:text="@string/done"
                 app:cornerRadius="20dp"
                 app:strokeColor="@color/green"
                 android:textColor="@color/green"
+                android:layout_marginBottom="70dp"
                 />
 
             <Button
@@ -370,10 +367,10 @@
                 android:layout_below="@+id/headline"
                 android:layout_marginStart="235dp"
                 android:layout_marginTop="41dp"
-                android:layout_marginBottom="70dp"
                 android:text="@string/cancel"
                 app:cornerRadius="20dp"
                 app:strokeColor="@color/red"
+                android:layout_marginBottom="70dp"
                 android:textColor="@color/red"/>
 
 
