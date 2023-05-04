@@ -102,7 +102,7 @@ class NotificationFragment : Fragment() {
     fun searchList(text: String) {
         val searchList = java.util.ArrayList<NotificationData>()
         for (dataClass in dataList) {
-            if (dataClass.dataTitle?.lowercase()
+            if (dataClass.notificationTitle?.lowercase()
                     ?.contains(text.lowercase(Locale.getDefault())) == true
             ) {
                 searchList.add(dataClass)

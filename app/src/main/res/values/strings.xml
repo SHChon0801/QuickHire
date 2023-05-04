@@ -96,4 +96,8 @@
     <string name="something_about_yourself">Something about yourself</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
+
+    //Notification
+    <string name="welcome_title">Welcome to Quick Hire</string>
+    <string name="welcome_des">Welcome to our application Quick Hire. You can enjoy all the feature inside to find a new job or find a new partner in your job enviroonment</string>
 </resources>

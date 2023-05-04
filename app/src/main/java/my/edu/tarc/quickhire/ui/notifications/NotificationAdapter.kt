@@ -29,20 +29,20 @@ class NotificationAdapter (private val context: Context, private var dataList: L
         return MyViewHolder(view)
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        Glide.with(context).load(dataList[position].dataImage)
+        Glide.with(context).load(dataList[position].notificationImage)
             .into(holder.recImage)
-        holder.recTitle.text = dataList[position].dataTitle
-        holder.recDesc.text = dataList[position].dataDesc
-        holder.recPriority.text = dataList[position].dataPriority
+        holder.recTitle.text = dataList[position].notificationTitle
+        holder.recDesc.text = dataList[position].notificationDec
+        holder.recTime.text = dataList[position].notificationTime
 
         holder.recCard.setOnClickListener {
 
             holder.recCard.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("Image", dataList[holder.adapterPosition].dataImage)
-                bundle.putString("Description", dataList[holder.adapterPosition].dataDesc)
-                bundle.putString("Title", dataList[holder.adapterPosition].dataTitle)
-                bundle.putString("Priority", dataList[holder.adapterPosition].dataPriority)
+                bundle.putString("Image", dataList[holder.adapterPosition].notificationImage)
+                bundle.putString("Description", dataList[holder.adapterPosition].notificationDec)
+                bundle.putString("Title", dataList[holder.adapterPosition].notificationTitle)
+                bundle.putString("Time", dataList[holder.adapterPosition].notificationTime)
 
                 val navController = holder.itemView.findNavController()
                 navController.navigate(R.id.action_nav_notification_to_nav_notificationDetail, bundle)
@@ -101,13 +101,13 @@ class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var recImage: ImageView
     var recTitle: TextView
     var recDesc: TextView
-    var recPriority: TextView
+    var recTime: TextView
     var recCard: CardView
     init {
         recImage = itemView.findViewById(R.id.recImage)
         recTitle = itemView.findViewById(R.id.recTitle)
         recDesc = itemView.findViewById(R.id.recDesc)
-        recPriority = itemView.findViewById(R.id.recPriority)
+        recTime = itemView.findViewById(R.id.recPriority)
         recCard = itemView.findViewById(R.id.recCard)
     }
 }
