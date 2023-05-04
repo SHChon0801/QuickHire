@@ -43,9 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="20dp"
-        android:text="Priority"
+        android:text="Time"
         android:layout_gravity="center"
-        android:id="@+id/detailPriority"
+        android:id="@+id/detailTime"
         android:textColor="@color/lavender"
         android:textSize="18sp"/>
     <TextView

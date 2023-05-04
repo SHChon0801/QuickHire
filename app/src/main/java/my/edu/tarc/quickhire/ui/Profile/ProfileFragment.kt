@@ -85,7 +85,7 @@ class ProfileFragment : Fragment() {
     private fun loadUserInfo(){
         val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
-        val dataRef = datab.getReference("Organizations").child(auth.currentUser!!.uid)
+        val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {

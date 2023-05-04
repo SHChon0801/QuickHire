@@ -112,8 +112,6 @@ class RegisterActivity : AppCompatActivity() {
 
             val n_title=getString(R.string.welcome_title)
             val n_des=getString(R.string.welcome_des)
-
-            val n_pic="R.drawable.profileunknown"
             val n_time = "$date-$month-$year"
 
 
@@ -180,11 +178,17 @@ class RegisterActivity : AppCompatActivity() {
                                         uploadTask.addOnSuccessListener { taskSnapshot ->
                                             // Get the download URL of the uploaded image
                                             val downloadUrl = taskSnapshot.metadata?.reference?.downloadUrl.toString()
+
+                                            // Create an ArrayList to hold the notifications
+                                            val notifications = ArrayList<NotificationData>()
                                             val notificationClass = NotificationData(n_title, n_des, n_time, downloadUrl)
+
+                                            notifications.add(notificationClass)
+
                                             // Save the notification data to Realtime Database
                                             databaseReferenceEmp.child(currentUser.uid).apply {
                                                 setValue(newUser)
-                                                child("notification").setValue(notificationClass)
+                                                child("notification").setValue(notifications)
                                             }
 
 

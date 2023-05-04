@@ -32,11 +32,11 @@ class NotificationDetailFragment : Fragment() {
         val image = arguments?.getString("Image")
         val description = arguments?.getString("Description")
         val title = arguments?.getString("Title")
-        val priority = arguments?.getString("Priority")
+        val time = arguments?.getString("Time")
 
         binding.detailDesc.text = description
         binding.detailTitle.text = title
-        binding.detailPriority.text = priority
+        binding.detailTime.text = time
         Glide.with(this).load(image).into(binding.detailImage)
 
 //        val bundle = arguments

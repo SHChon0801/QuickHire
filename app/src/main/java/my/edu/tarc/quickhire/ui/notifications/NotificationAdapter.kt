@@ -1,5 +1,6 @@
 package my.edu.tarc.quickhire.ui.notifications
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -48,40 +49,6 @@ class NotificationAdapter (private val context: Context, private var dataList: L
                 navController.navigate(R.id.action_nav_notification_to_nav_notificationDetail, bundle)
             }
 
-
-//            val bundle=Bundle()
-//            bundle.putString("Image", dataList[holder.adapterPosition].dataImage)
-//            bundle.putString("Description", dataList[holder.adapterPosition].dataDesc)
-//            bundle.putString("Title", dataList[holder.adapterPosition].dataTitle)
-//            bundle.putString("Priority", dataList[holder.adapterPosition].dataPriority)
-//
-//            val detailFragment = DetailFragment()
-//            detailFragment.arguments = bundle
-//
-//            findNavController().navigate(R.id.action_nav_editProfile_to_nav_profile, bundle)
-
-
-//            val bundleTest=Bundle()
-//            bundleTest.putString("key","value")
-//            val receivingFragment = DetailFragment()
-//            receivingFragment.arguments = bundle
-//
-//            requireActivity().supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, receivingFragment)
-//                .commit()
-
-//
-//            val x=holder.recTitle.text
-//            val bundle=Bundle()
-
-
-
-//            val intent = Intent(context, DetailFragment::class.java)
-//            intent.putExtra("Image", dataList[holder.adapterPosition].dataImage)
-//            intent.putExtra("Description", dataList[holder.adapterPosition].dataDesc)
-//            intent.putExtra("Title", dataList[holder.adapterPosition].dataTitle)
-//            intent.putExtra("Priority", dataList[holder.adapterPosition].dataPriority)
-//            context.startActivity(intent)
         }
     }
 
@@ -92,6 +59,7 @@ class NotificationAdapter (private val context: Context, private var dataList: L
         return dataList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun searchDataList(searchList: List<NotificationData>) {
         dataList = searchList
         notifyDataSetChanged()
