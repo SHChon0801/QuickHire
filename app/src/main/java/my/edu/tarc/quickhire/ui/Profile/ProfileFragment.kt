@@ -16,6 +16,7 @@ import com.google.firebase.database.*
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentProfileBinding
 import kotlin.math.log
+import java.lang.Exception
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null

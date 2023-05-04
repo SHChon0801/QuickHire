@@ -30,8 +30,9 @@ import my.edu.tarc.quickhire.R
 
 
 class EditProfileFragment : Fragment() {
-    private var _binding: FragmentEditProfileBinding? = null
-    private val binding get() = _binding!!
+//    private var _binding: FragmentEditProfileBinding? = null
+//    private val binding get() = _binding!!
+    private lateinit var binding: FragmentEditProfileBinding
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,7 +50,8 @@ class EditProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= FragmentEditProfileBinding.inflate(inflater,container,false)
+        //_binding= FragmentEditProfileBinding.inflate(inflater,container,false)
+        binding= FragmentEditProfileBinding.inflate(inflater,container,false)
 
         val backButton=binding.back
         val changePhoto=binding.chgProf
@@ -248,6 +250,6 @@ class EditProfileFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        //_binding = null
     }
 }
