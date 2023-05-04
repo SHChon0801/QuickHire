@@ -71,6 +71,16 @@ class NotificationFragment : Fragment() {
                         notificationList.add(dataClass)
                     }
                 }
+
+//                for (itemSnapshot in snapshot.children) {
+//                    val notificationMap = itemSnapshot.getValue() as HashMap<*, *>
+//                    val n_title = notificationMap["notificationTitle"] as String
+//                    val n_des = notificationMap["notificationDec"] as String
+//                    val n_time = notificationMap["notificationTime"] as String
+//                    val n_pic = notificationMap["notificationImage"] as String
+//                    val dataClass = NotificationData(n_title, n_des, n_time, n_pic)
+//                    notificationList.add(dataClass)
+//                }
                 notificationAdapter.notifyDataSetChanged()
                 dialog.dismiss()
             }

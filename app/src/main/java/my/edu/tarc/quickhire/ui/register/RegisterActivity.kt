@@ -82,30 +82,24 @@ class RegisterActivity : AppCompatActivity() {
             val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
             val date = calendar.get(Calendar.DATE)
 
-//            val storageRef = FirebaseStorage.getInstance().getReference("images")
-//            val imageRef = storageRef.child("welcome_image.jpg")
-//
-//            val n_pic = BitmapFactory.decodeResource(resources, R.drawable.profileunknown)
-//            val baos = ByteArrayOutputStream()
-//            n_pic.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-//            val data = baos.toByteArray()
-
-// Get a reference to the Firebase Storage
+            // Get a reference to the Firebase Storage
             val storageRef = Firebase.storage.reference
 
-// Get a reference to the drawable image
-            val drawableRef = resources.getDrawable(R.drawable.profileunknown, null)
+            // Get a reference to the drawable image
+           // val drawableRef = resources.getDrawable(R.drawable.profileunknown, null)
+            val drawableRef = resources.getDrawable(R.drawable.welcome, null)
             val bitmap = (drawableRef as BitmapDrawable).bitmap
 
-// Get a reference to the Firebase Storage path where you want to upload the image
-            val imageRef = storageRef.child("images/profileunknown.jpg")
+            // Get a reference to the Firebase Storage path where you want to upload the image
+            //val imageRef = storageRef.child("images/profileunknown.png")
+            val imageRef = storageRef.child("images/welcome.png")
 
-// Convert the bitmap to a byte array
+            // Convert the bitmap to a byte array
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
             val data = baos.toByteArray()
 
-// Upload the image to Firebase Storage
+            // Upload the image to Firebase Storage
             val uploadTask = imageRef.putBytes(data)
 
 
@@ -149,18 +143,6 @@ class RegisterActivity : AppCompatActivity() {
                             val newUser = User(name,about,state,currentJob,phone,timePrefer,
                                 education,skill,email,password,role,profilePic)
 
-//                            imageRef.putBytes(data)
-//                                .addOnSuccessListener { taskSnapshot ->
-//                                    // Handle successful upload
-//                                }
-//                                .addOnFailureListener { exception ->
-//                                    // Handle failed upload
-//                                }
-
-
-
-
-
                             if(currentUser!=null) {
                                 when (userRole) {
                                     R.id.rbEmp -> {
@@ -176,7 +158,7 @@ class RegisterActivity : AppCompatActivity() {
 //                                            }
 
                                         uploadTask.addOnSuccessListener { taskSnapshot ->
-                                            // Get the download URL of the uploaded image
+
                                             val downloadUrl = taskSnapshot.metadata?.reference?.downloadUrl.toString()
 
                                             // Create an ArrayList to hold the notifications
@@ -190,6 +172,29 @@ class RegisterActivity : AppCompatActivity() {
                                                 setValue(newUser)
                                                 child("notification").setValue(notifications)
                                             }
+
+
+//                                            // Get the download URL of the uploaded image
+//                                            taskSnapshot.storage.downloadUrl.addOnCompleteListener { urlTask ->
+//                                                if (urlTask.isSuccessful) {
+//                                                    val downloadUrl = urlTask.result.toString()
+//
+//                                                    // Create an ArrayList to hold the notifications
+//                                                    val notifications = ArrayList<NotificationData>()
+//                                                    val notificationClass = NotificationData(n_title, n_des, n_time, downloadUrl)
+//
+//                                                    notifications.add(notificationClass)
+//
+//                                                    // Save the notification data to Realtime Database
+//                                                    databaseReferenceEmp.child(currentUser.uid).apply {
+//                                                        setValue(newUser)
+//                                                        child("notification").setValue(notifications)
+//                                                    }
+//                                                } else {
+//                                                    // Handle any errors that occurred while retrieving the download URL
+//                                                    Log.e(TAG, "Failed to retrieve download URL: ${urlTask.exception?.message}")
+//                                                }
+//                                            }
 
 
                                         }
