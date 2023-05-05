@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/jobImage"
+            android:id="@+id/employerJobImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -27,37 +27,37 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/jobName"
+            android:id="@+id/employerJobName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview"
-            app:layout_constraintStart_toStartOf="@+id/jobImage"
-            app:layout_constraintTop_toBottomOf="@+id/jobImage" />
+            app:layout_constraintStart_toStartOf="@+id/employerJobImage"
+            app:layout_constraintTop_toBottomOf="@+id/employerJobImage" />
 
         <TextView
-            android:id="@+id/jobDescription"
+            android:id="@+id/employerJobDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview"
-            app:layout_constraintStart_toStartOf="@+id/jobName"
-            app:layout_constraintTop_toBottomOf="@+id/jobName" />
+            app:layout_constraintStart_toStartOf="@+id/employerJobName"
+            app:layout_constraintTop_toBottomOf="@+id/employerJobName" />
 
         <TextView
-            android:id="@+id/jobSpecialist"
+            android:id="@+id/employerJobSpecialist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:text="@string/textview"
-            app:layout_constraintStart_toStartOf="@+id/jobDescription"
-            app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
+            app:layout_constraintStart_toStartOf="@+id/employerJobDescription"
+            app:layout_constraintTop_toBottomOf="@+id/employerJobDescription" />
 
         <TextView
-            android:id="@+id/jobPayRate"
+            android:id="@+id/employerJobPayRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview"
-            app:layout_constraintStart_toStartOf="@+id/jobSpecialist"
-            app:layout_constraintTop_toBottomOf="@+id/jobSpecialist" />
+            app:layout_constraintStart_toStartOf="@+id/employerJobSpecialist"
+            app:layout_constraintTop_toBottomOf="@+id/employerJobSpecialist" />
 
         <Button
             android:id="@+id/button"
@@ -68,6 +68,6 @@
             android:text="@string/apply"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jobImage" />
+            app:layout_constraintTop_toBottomOf="@+id/employerJobImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

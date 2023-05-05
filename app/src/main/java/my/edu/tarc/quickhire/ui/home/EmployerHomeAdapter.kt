@@ -29,10 +29,10 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
     }
 
     class HomeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val rvJobImage: ImageView = itemView.findViewById(R.id.jobImage)
-        val rvJobName: TextView = itemView.findViewById(R.id.jobName)
-        val rvJobDescription: TextView = itemView.findViewById(R.id.jobDescription)
-        val rvJobSpecialist: TextView = itemView.findViewById(R.id.jobSpecialist)
-        val rvJobPayRate: TextView = itemView.findViewById(R.id.jobPayRate)
+        val rvJobImage: ImageView = itemView.findViewById(R.id.employerJobImage)
+        val rvJobName: TextView = itemView.findViewById(R.id.employerJobName)
+        val rvJobDescription: TextView = itemView.findViewById(R.id.employerJobDescription)
+        val rvJobSpecialist: TextView = itemView.findViewById(R.id.employerJobSpecialist)
+        val rvJobPayRate: TextView = itemView.findViewById(R.id.employerJobPayRate)
     }
 }
