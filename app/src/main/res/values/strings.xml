@@ -1,8 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">QuickHire</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_search">Search</string>
+    <string name="title_post">Post</string>
     <string name="you_might_be_interested_in">You might be interested in</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
@@ -100,4 +102,75 @@
     //Notification
     <string name="welcome_title">Welcome to Quick Hire</string>
     <string name="welcome_des">Welcome to our application Quick Hire. You can enjoy all the feature inside to find a new job or find a new partner in your job enviroonment</string>
+
+    //search and post
+    <string name="upload_image">Upload Image</string>
+    <string name="job_name">Job Name:</string>
+    <string name="job_specialist">Job Specialist:</string>
+    <string name="job_des">Job Description:</string>
+    <string name="job_payrate">Job Pay Rate Per Hour:</string>
+    <string name="areacity">Area/City:</string>
+
+    <string-array name="areaoptions">
+        <item>Alor Setar</item>
+        <item>Batu Gajah</item>
+        <item>Batu Pahat</item>
+        <item>Bentong</item>
+        <item>Bintulu</item>
+        <item>George Town</item>
+        <item>Ipoh</item>
+        <item>Iskandar Puteri</item>
+        <item>Johor Bahru</item>
+        <item>Kangar</item>
+        <item>Klang</item>
+        <item>Kota Bharu</item>
+        <item>Kota Kinabalu</item>
+        <item>Kota Samarahan</item>
+        <item>Kuala Dungun</item>
+        <item>Kuala Kangsar</item>
+        <item>Kuala Lumpur</item>
+        <item>Kuala Selangor</item>
+        <item>Kuala Terengganu</item>
+        <item>Kuantan</item>
+        <item>Kulai</item>
+        <item>Kuching</item>
+        <item>Lahad Datu</item>
+        <item>Manjung</item>
+        <item>Miri</item>
+        <item>Muar</item>
+        <item>Pengerang</item>
+        <item>Petaling Jaya</item>
+        <item>Putrajaya</item>
+        <item>Raub District</item>
+        <item>Sandakan</item>
+        <item>Sarikei</item>
+        <item>Segamat District</item>
+        <item>Seremban</item>
+        <item>Shah Alam</item>
+        <item>Sibu</item>
+        <item>Sungai Petani</item>
+        <item>Taiping</item>
+        <item>Temerloh</item>
+        <item>Teluk Intan</item>
+        <item>Tumpat</item>
+        <item>Tawau</item>
+    </string-array>
+
+    <string-array name="joboptions">
+        <item>Software Engineer</item>
+        <item>Data Scientist</item>
+        <item>Marketing Manager</item>
+        <item>Graphic Designer</item>
+        <item>Human Resources Specialist</item>
+        <item>Financial Analyst</item>
+        <item>Web Developer</item>
+        <item>Product Manager</item>
+        <item>Operations Manager</item>
+        <item>Sales Representative</item>
+        <item>Customer Service Representative</item>
+        <item>IT Support Specialist</item>
+        <item>Content Writer</item>
+        <item>Business Analyst</item>
+        <item>Project Manager</item>
+    </string-array>
 </resources>

@@ -56,6 +56,14 @@
         android:name="my.edu.tarc.quickhire.ui.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="my.edu.tarc.quickhire.ui.SearchandPost.SearchFragment"
+        android:label="@string/title_search" />
+    <fragment
+        android:id="@+id/nav_post"
+        android:name="my.edu.tarc.quickhire.ui.SearchandPost.PostingFragment"
+        android:label="@string/title_post" />
 
 
 </navigation>
