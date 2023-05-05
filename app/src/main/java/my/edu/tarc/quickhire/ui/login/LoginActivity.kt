@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import my.edu.tarc.quickhire.MainActivity
-import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.ActivityLoginBinding
+import my.edu.tarc.quickhire.ui.register.NewRegisterActivity
 import my.edu.tarc.quickhire.ui.register.RegisterActivity
+import androidx.navigation.findNavController
+import my.edu.tarc.quickhire.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -46,8 +48,9 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.textViewRegisterPage.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, NewRegisterActivity::class.java)
             startActivity(intent)
+
         }
     }
 }
