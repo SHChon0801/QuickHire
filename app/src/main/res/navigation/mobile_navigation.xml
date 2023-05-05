@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/nav_employer_home">
 <!--    app:startDestination="@+id/navigation_home"-->
 
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="my.edu.tarc.quickhire.ui.home.HomeFragment"
+        android:id="@+id/nav_employer_home"
+        android:name="my.edu.tarc.quickhire.ui.home.EmployerHomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_employer_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/nav_dashboard"
         android:name="my.edu.tarc.quickhire.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />

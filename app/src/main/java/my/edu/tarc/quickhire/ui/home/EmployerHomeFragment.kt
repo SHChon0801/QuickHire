@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
-import my.edu.tarc.quickhire.databinding.FragmentHomeBinding
+import my.edu.tarc.quickhire.databinding.FragmentEmployerHomeBinding
 
-class HomeFragment : Fragment() {
+class EmployerHomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentEmployerHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
             val job = Job(jobImageList[i], jobNameList[i], jobDescriptionList[i], jobSpecialistList[i], jobPayRateList[i])
             dataList.add(job)
         }
-        recyclerView.adapter = HomeAdapter(dataList)
+        recyclerView.adapter = EmployerHomeAdapter(dataList)
     }
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this)[HomeViewModel::class.java]
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentEmployerHomeBinding.inflate(inflater, container, false)
 
         jobImageList = arrayOf(
             R.drawable.baseline_arrow_back_24,

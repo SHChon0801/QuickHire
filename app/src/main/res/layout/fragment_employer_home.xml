@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="auto"
     android:paddingBottom="55dp"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.EmployerHomeFragment">
 
     <TextView
         android:id="@+id/text_home"

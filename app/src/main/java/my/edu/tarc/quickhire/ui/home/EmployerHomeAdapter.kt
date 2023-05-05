@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
 
-class HomeAdapter(private val dataList: ArrayList<Job>): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class EmployerHomeAdapter(private val dataList: ArrayList<Job>): RecyclerView.Adapter<EmployerHomeAdapter.HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.job, parent, false)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="auto"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.EmployerHomeFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
