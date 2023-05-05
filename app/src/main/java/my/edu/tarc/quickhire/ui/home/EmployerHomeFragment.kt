@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
@@ -21,7 +19,7 @@ class EmployerHomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var dataList: ArrayList<Job>
+    private lateinit var dataList: ArrayList<EmployerJob>
     private lateinit var jobImageList: Array<Int>
     private lateinit var jobNameList: Array<String>
     private lateinit var jobDescriptionList: Array<String>
@@ -30,8 +28,8 @@ class EmployerHomeFragment : Fragment() {
 
     private fun getData() {
         for (i in jobImageList.indices) {
-            val job = Job(jobImageList[i], jobNameList[i], jobDescriptionList[i], jobSpecialistList[i], jobPayRateList[i])
-            dataList.add(job)
+            val employerJob = EmployerJob(jobImageList[i], jobNameList[i], jobDescriptionList[i], jobSpecialistList[i], jobPayRateList[i])
+            dataList.add(employerJob)
         }
         recyclerView.adapter = EmployerHomeAdapter(dataList)
     }
@@ -41,9 +39,6 @@ class EmployerHomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
-
         _binding = FragmentEmployerHomeBinding.inflate(inflater, container, false)
 
         jobImageList = arrayOf(
@@ -112,12 +107,6 @@ class EmployerHomeFragment : Fragment() {
         )
 
         val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = "You might be interested in"
-        }
 
         recyclerView = root.findViewById(R.id.jobRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)

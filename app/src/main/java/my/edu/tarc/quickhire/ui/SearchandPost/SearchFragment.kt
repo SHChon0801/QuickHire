@@ -6,11 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import my.edu.tarc.quickhire.R
-import my.edu.tarc.quickhire.databinding.FragmentEmployerHomeBinding
 import my.edu.tarc.quickhire.databinding.FragmentSearchBinding
-import my.edu.tarc.quickhire.ui.home.HomeViewModel
 
 class SearchFragment : Fragment() {
 

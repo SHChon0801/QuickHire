@@ -66,7 +66,7 @@
     <!--    <string name="des_imageview">imageView</string>-->
     <!--    <string name="exp_about">A job seeker who are more patient for the work</string>-->
     <!--    <string name="exp_name">Ong Shen Hoi</string>-->
-    <!--    <string name="current_job_tab">Current Job</string>-->
+    <!--    <string name="current_job_tab">Current EmployerJob</string>-->
     <!--    <string name="exp_job">Engineer</string>-->
     <!--    <string name="stated_tag">Stated</string>-->
     <!--    <string name="exp_stated">Kuala Lumpur</string>-->
@@ -112,6 +112,7 @@
     <string name="areacity">Area/City:</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="your_job_listings">Your Job Listings</string>
 
     <string-array name="areaoptions">
         <item>Alor Setar</item>

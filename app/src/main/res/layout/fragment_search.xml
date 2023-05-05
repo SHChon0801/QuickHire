@@ -129,6 +129,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/job" />
+        tools:listitem="@layout/recycler_employer_job" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
