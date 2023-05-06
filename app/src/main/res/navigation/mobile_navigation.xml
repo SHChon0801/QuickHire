@@ -61,14 +61,40 @@
         android:name="my.edu.tarc.quickhire.ui.SearchandPost.SearchFragment"
         android:label="@string/title_search" />
     <fragment
-        android:id="@+id/nav_post"
-        android:name="my.edu.tarc.quickhire.ui.SearchandPost.PostingFragment"
-        android:label="@string/title_post" />
-    <fragment
         android:id="@+id/nav_organization_home"
         android:name="my.edu.tarc.quickhire.ui.home.OrganizationHomeFragment"
         android:label="fragment_organization_home"
         tools:layout="@layout/fragment_organization_home" />
+    <fragment
+        android:id="@+id/nav_editProfileOrganization"
+        android:name="my.edu.tarc.quickhire.ui.Profile.organization.EditProfileOrganizationFragment"
+        android:label="EditProfileOrganizationFragment" >
+        <action
+            android:id="@+id/action_nav_editProfileOrganization_to_nav_profileOrganization"
+            app:destination="@id/nav_profileOrganization" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_notificationDetailOrganization"
+        android:name="my.edu.tarc.quickhire.ui.notifications.organization.NotificationDetailOrganizationFragment"
+        android:label="fragment_notification_detail_organization"
+        tools:layout="@layout/fragment_notification_detail_organization" />
+    <fragment
+        android:id="@+id/nav_notificationOrganization"
+        android:name="my.edu.tarc.quickhire.ui.notifications.organization.NotificationOrganizationFragment"
+        android:label="fragment_notification_organization"
+        tools:layout="@layout/fragment_notification_organization" >
+        <action
+            android:id="@+id/action_nav_notificationOrganization_to_nav_notificationDetail"
+            app:destination="@id/nav_notificationDetail" />
+        <action
+            android:id="@+id/action_nav_notificationOrganization_to_nav_notificationDetailOrganization"
+            app:destination="@id/nav_notificationDetailOrganization" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_profileOrganization"
+        android:name="my.edu.tarc.quickhire.ui.Profile.organization.ProfileOrganizationFragment"
+        android:label="fragment_profile_organization"
+        tools:layout="@layout/fragment_profile_organization" />
 
 
 </navigation>

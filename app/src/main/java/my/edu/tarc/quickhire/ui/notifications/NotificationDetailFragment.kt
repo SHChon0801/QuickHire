@@ -33,6 +33,7 @@ class NotificationDetailFragment : Fragment() {
         val description = arguments?.getString("Description")
         val title = arguments?.getString("Title")
         val time = arguments?.getString("Time")
+        val type = arguments?.getString("Type")
 
         binding.detailDesc.text = description
         binding.detailTitle.text = title

@@ -96,7 +96,9 @@
     <string name="education">Education</string>
     <string name="skill">Skill</string>
     <string name="personal_description">Personal Description</string>
+    <string name="company_description">Company Description</string>
     <string name="something_about_yourself">Something about yourself</string>
+    <string name="something_about_company">Something about company</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
 
@@ -114,6 +116,11 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="your_job_listings">Your Job Listings</string>
+    <string name="company_detail">Company Detail</string>
+    <string name="job_provided">Job Provided</string>
+    <string name="address">Address</string>
+    <string name="job_provided_tag">Job Provided</string>
+    <string name="address_tag">Address</string>
 
     <string-array name="areaoptions">
         <item>Alor Setar</item>

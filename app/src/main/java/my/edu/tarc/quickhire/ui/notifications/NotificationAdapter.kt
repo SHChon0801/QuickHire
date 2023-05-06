@@ -35,6 +35,7 @@ class NotificationAdapter (private val context: Context, private var dataList: L
         holder.recTitle.text = dataList[position].notificationTitle
         holder.recDesc.text = dataList[position].notificationDec
         holder.recTime.text = dataList[position].notificationTime
+        holder.recType.text = dataList[position].notificationType
 
         holder.recCard.setOnClickListener {
 
@@ -44,9 +45,14 @@ class NotificationAdapter (private val context: Context, private var dataList: L
                 bundle.putString("Description", dataList[holder.adapterPosition].notificationDec)
                 bundle.putString("Title", dataList[holder.adapterPosition].notificationTitle)
                 bundle.putString("Time", dataList[holder.adapterPosition].notificationTime)
+                bundle.putString("Type", dataList[holder.adapterPosition].notificationType)
 
                 val navController = holder.itemView.findNavController()
+                //first_type
                 navController.navigate(R.id.action_nav_notification_to_nav_notificationDetail, bundle)
+
+                //second_type
+                navController.navigate(R.id.action_nav_notificationOrganization_to_nav_notificationDetailOrganization, bundle)
             }
 
         }
@@ -70,6 +76,7 @@ class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var recTitle: TextView
     var recDesc: TextView
     var recTime: TextView
+    var recType: TextView
     var recCard: CardView
     init {
         recImage = itemView.findViewById(R.id.recImage)
@@ -77,5 +84,6 @@ class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         recDesc = itemView.findViewById(R.id.recDesc)
         recTime = itemView.findViewById(R.id.recPriority)
         recCard = itemView.findViewById(R.id.recCard)
+        recType = itemView.findViewById(R.id.recType)
     }
 }

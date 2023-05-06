@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.notifications.NotificationDetailFragment">
-
+    tools:context=".ui.notifications.organization.NotificationDetail2Fragment">
 
     <ImageButton
         android:id="@+id/back"
@@ -58,5 +57,23 @@
         android:id="@+id/detailDesc"
         android:textColor="@color/lavender"
         android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/apply"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="95dp"
+        android:layout_height="50dp"
+        android:text="@string/done"
+        android:textColor="@color/green"
+        />
+
+    <Button
+        android:id="@+id/reject"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="95dp"
+        android:layout_height="50dp"
+
+        android:text="@string/cancel"
+        android:textColor="@color/red" />
 
 </LinearLayout>
