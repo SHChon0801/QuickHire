@@ -34,6 +34,10 @@ class RegisterPage1Fragment : Fragment() {
 
         }
 
+        binding.btnOrg.setOnClickListener {
+            findNavController().navigate(R.id.action_registerPage1Fragment_to_registerPage3Fragment)
+        }
+
 
 
 

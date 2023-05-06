@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.register.RegisterPage2Fragment">
+    tools:context=".ui.register.RegisterPage3Fragment">
 
 
     <TextView
-        android:id="@+id/textViewHeader"
-        android:layout_width="0dp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Sign Up As  Employee"
+        android:text="Sign Up As Organization"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,17 +19,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHeader">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -39,47 +38,47 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView28"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="70dp"
                 android:text="@string/password"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="70dp"
                 android:text="@string/confirm_password"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="70dp"
                 android:text="@string/name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <TextView
-                android:id="@+id/textView31"
+                android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="70dp"
                 android:text="@string/phone_number"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/editTextOrgEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginEnd="16dp"
@@ -90,7 +89,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editTextPass"
+                android:id="@+id/editTextOrgPass"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="32dp"
@@ -99,66 +98,53 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrgEmail" />
 
             <EditText
-                android:id="@+id/editTextConfirmPass"
+                android:id="@+id/editTextOrgConfirmPass"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="@string/confirm_password"
                 android:inputType="textPassword"
+                android:hint="@string/confirm_password"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPass" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrgPass" />
 
             <EditText
-                android:id="@+id/editTextLastName"
-                android:layout_width="100dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:hint="@string/last_name"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPass" />
-
-            <EditText
-                android:id="@+id/editTextPhone"
+                android:id="@+id/editTextOrgName"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/org_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrgConfirmPass" />
+
+            <EditText
+                android:id="@+id/editTextPhone2"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
-
-            <EditText
-                android:id="@+id/editTextFirstName"
-                android:layout_width="100dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:hint="@string/first_name"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/editTextLastName"
-                app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPass" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrgName" />
 
             <Button
-                android:id="@+id/btnEmpReg"
+                android:id="@+id/btnOrgReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
-
+                app:layout_constraintTop_toBottomOf="@+id/editTextPhone2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

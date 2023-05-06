@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_registerPage1Fragment_to_registerPage2Fragment"
             app:destination="@id/registerPage2Fragment" />
+        <action
+            android:id="@+id/action_registerPage1Fragment_to_registerPage3Fragment"
+            app:destination="@id/registerPage3Fragment" />
     </fragment>
     <fragment
         android:id="@+id/registerPage2Fragment"
         android:name="my.edu.tarc.quickhire.ui.register.RegisterPage2Fragment"
         android:label="fragment_register_page2"
         tools:layout="@layout/fragment_register_page2" />
+    <fragment
+        android:id="@+id/registerPage3Fragment"
+        android:name="my.edu.tarc.quickhire.ui.register.RegisterPage3Fragment"
+        android:label="fragment_register_page3"
+        tools:layout="@layout/fragment_register_page3" />
 </navigation>

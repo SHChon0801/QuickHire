@@ -1,7 +1,8 @@
 package my.edu.tarc.quickhire
 
 data class User(
-    val name:String?=null,
+    val firstName:String?=null,
+    val lastName:String?=null,
     val about:String?=null,
     val state:String?=null,
     val currentJob:String?=null,
