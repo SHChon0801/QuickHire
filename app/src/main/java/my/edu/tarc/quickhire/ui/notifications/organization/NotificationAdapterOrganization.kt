@@ -1,29 +1,22 @@
-package my.edu.tarc.quickhire.ui.notifications
+package my.edu.tarc.quickhire.ui.notifications.organization
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import my.edu.tarc.quickhire.R
+import my.edu.tarc.quickhire.ui.notifications.MyViewHolder
+import my.edu.tarc.quickhire.ui.notifications.NotificationData
 
-
-class NotificationAdapter (private val context: Context, private var dataList: List<NotificationData>) : RecyclerView.Adapter<MyViewHolder>()
-//class MyAdapter (private val parentFragment: Fragment: Context, private var dataList: List<DataClass>) : RecyclerView.Adapter<MyViewHolder>()
-
+class NotificationAdapterOrganization(private val context: Context, private var dataList: List<NotificationData>) : RecyclerView.Adapter<MyViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.recycler_notification, parent, false)
@@ -49,10 +42,18 @@ class NotificationAdapter (private val context: Context, private var dataList: L
 
                 val navController = holder.itemView.findNavController()
                 //first_type
-                navController.navigate(R.id.action_nav_notification_to_nav_notificationDetail, bundle)
+                if(holder.recType.text=="first_type") {
+                    navController.navigate(
+                        R.id.action_nav_notificationOrganization_to_nav_notificationDetailOrganization,
+                        bundle
+                    )
+                }
 
                 //second_type
-                //navController.navigate(R.id.action_nav_notificationOrganization_to_nav_notificationDetailOrganization, bundle)
+                if(holder.recType.text=="second_type") {
+                    navController.navigate(R.id.action_nav_notificationOrganization_to_nav_notificationDetail2, bundle)
+                }
+                //navController.navigate(R.id.action_nav_notificationOrganization_to_nav_notificationDetail2, bundle)
             }
 
         }

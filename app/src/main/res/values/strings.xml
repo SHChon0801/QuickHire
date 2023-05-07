@@ -121,6 +121,9 @@
     <string name="address">Address</string>
     <string name="job_provided_tag">Job Provided</string>
     <string name="address_tag">Address</string>
+    <string name="reject">Reject</string>
+    <string name="Congrate">Congratulations, you have been admitted</string>
+    <string name="Congrate_detail">Congratulations. Based on your previous job request, we think you are the perfect candidate for this job. We urge you to contact us as soon as possible to ensure that this job still exists.</string>
 
     <string-array name="areaoptions">
         <item>Alor Setar</item>

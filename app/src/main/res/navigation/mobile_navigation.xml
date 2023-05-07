@@ -84,17 +84,22 @@
         android:label="fragment_notification_organization"
         tools:layout="@layout/fragment_notification_organization" >
         <action
-            android:id="@+id/action_nav_notificationOrganization_to_nav_notificationDetail"
-            app:destination="@id/nav_notificationDetail" />
-        <action
             android:id="@+id/action_nav_notificationOrganization_to_nav_notificationDetailOrganization"
             app:destination="@id/nav_notificationDetailOrganization" />
+        <action
+            android:id="@+id/action_nav_notificationOrganization_to_nav_notificationDetail2"
+            app:destination="@id/nav_notificationDetail2" />
     </fragment>
     <fragment
         android:id="@+id/nav_profileOrganization"
         android:name="my.edu.tarc.quickhire.ui.Profile.organization.ProfileOrganizationFragment"
         android:label="fragment_profile_organization"
         tools:layout="@layout/fragment_profile_organization" />
+    <fragment
+        android:id="@+id/nav_notificationDetail2"
+        android:name="my.edu.tarc.quickhire.ui.notifications.organization.NotificationDetail2Fragment"
+        android:label="fragment_notification_detail2"
+        tools:layout="@layout/fragment_notification_detail2" />
 
 
 </navigation>

@@ -63,8 +63,11 @@
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="95dp"
         android:layout_height="50dp"
-        android:text="@string/done"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="80dp"
+        android:text="@string/apply"
         android:textColor="@color/green"
+
         />
 
     <Button
@@ -72,8 +75,10 @@
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="95dp"
         android:layout_height="50dp"
-
-        android:text="@string/cancel"
+        android:layout_marginTop="-50dp"
+        android:layout_marginStart="250dp"
+        android:text="@string/reject"
         android:textColor="@color/red" />
+
 
 </LinearLayout>

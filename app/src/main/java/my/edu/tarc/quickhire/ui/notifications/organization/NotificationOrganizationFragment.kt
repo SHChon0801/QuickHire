@@ -30,7 +30,7 @@ class NotificationOrganizationFragment : Fragment() {
     //Recycler View
     private lateinit var notificationRecv: RecyclerView
     private lateinit var notificationList: ArrayList<NotificationData>
-    private lateinit var notificationAdapter: NotificationAdapter
+    private lateinit var notificationAdapter: NotificationAdapterOrganization
 
     var databaseReference: DatabaseReference?=null
     //private lateinit var databaseReference: DatabaseReference
@@ -53,7 +53,7 @@ class NotificationOrganizationFragment : Fragment() {
         dialog.show()
 
         notificationList = ArrayList()
-        notificationAdapter = NotificationAdapter(requireContext(), notificationList)
+        notificationAdapter = NotificationAdapterOrganization(requireContext(), notificationList)
         binding.recycleViewNotification.adapter = notificationAdapter
         databaseReference = FirebaseDatabase.getInstance()
             .getReference("Organizations").child(currentUser!!.uid).child("notification")
