@@ -126,8 +126,6 @@ class NotificationDetail2Fragment : Fragment() {
 
         }
 
-
-
         binding.reject.setOnClickListener {
 
             //firebase auth
