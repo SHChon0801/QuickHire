@@ -59,6 +59,7 @@ class NotificationFragment : Fragment() {
         //Send email
         val UID = "EfXOASI7MfRCwzGioeGJhU0O5Ui1"
 
+        //Here
         notificationList = ArrayList()
         notificationAdapter = NotificationAdapter(requireContext(), notificationList)
         binding.recycleViewNotification.adapter = notificationAdapter
