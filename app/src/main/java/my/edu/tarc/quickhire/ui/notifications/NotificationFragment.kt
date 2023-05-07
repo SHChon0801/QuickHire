@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,11 @@ class NotificationFragment : Fragment() {
     //private lateinit var databaseReference: DatabaseReference
      var eventListener:ValueEventListener?=null
 
+
+    //Send Email
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +55,9 @@ class NotificationFragment : Fragment() {
         builder.setView(R.layout.progress_layout)
         val dialog = builder.create()
         dialog.show()
+
+        //Send email
+        val UID = "EfXOASI7MfRCwzGioeGJhU0O5Ui1"
 
         notificationList = ArrayList()
         notificationAdapter = NotificationAdapter(requireContext(), notificationList)
@@ -88,6 +97,69 @@ class NotificationFragment : Fragment() {
                 dialog.dismiss()
             }
         })
+
+        binding.test.setOnClickListener {
+            //firebase auth
+            auth = FirebaseAuth.getInstance()
+            val currentUser = FirebaseAuth.getInstance().currentUser
+
+
+            //Apply notification
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
+            val date = calendar.get(Calendar.DATE)
+
+
+            val n_title =getString(R.string.request_job_title)
+            val n_des =getString(R.string.request_job)
+            val n_time = "$date-$month-$year"
+            val n_type = "second_type"
+            val n_UID = "XSYRrUjyHEgN6UNqPrLSCfJQQ4m2"
+            val n_image ="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fjob_want.jpg?alt=media&token=3144914c-33a8-4698-b25e-a62d7d191b42"
+//
+//            database = FirebaseDatabase.getInstance()
+//                .getReference("Organizations").child(currentUser!!.uid).child("notification")
+//
+            // Retrieve the employee's list of notifications from the database
+
+
+            // Initialize the database reference
+            database = FirebaseDatabase.getInstance()
+                .getReference("Organizations").child(UID).child("notification")
+
+            // Retrieve the employee's list of notifications from the database
+            database.get().addOnSuccessListener { snapshot ->
+                val notificationsEmp = snapshot.getValue(object :
+                    GenericTypeIndicator<ArrayList<NotificationData>>() {})
+
+                // Create a new notification and add it to the list
+                val notificationEmp =
+                    NotificationData(n_title, n_des, n_time, n_type, n_UID, n_image)
+                notificationsEmp?.add(notificationEmp)
+
+                // Update the employee's list of notifications in the database
+                database.setValue(notificationsEmp).addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Notification added", Toast.LENGTH_SHORT)
+                        .show()
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to add notification",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to retrieve notifications",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            Toast.makeText(requireContext(), "Apply Success", Toast.LENGTH_SHORT).show()
+
+        }
 
         binding.search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
