@@ -25,11 +25,13 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
         Glide.with(holder.rvJobImage.context).load(currentItem.jobImage).into(holder.rvJobImage)
         holder.rvJobName.text = currentItem.jobName
         holder.rvJobDescription.text = currentItem.jobDescription
+        holder.rvJobPayRate.text = currentItem.jobPayRate.toString()
     }
 
     class HomeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val rvJobImage: ImageView = itemView.findViewById(R.id.employerJobImage)
         val rvJobName: TextView = itemView.findViewById(R.id.employerJobName)
         val rvJobDescription: TextView = itemView.findViewById(R.id.employerJobDescription)
+        val rvJobPayRate: TextView = itemView.findViewById(R.id.employerJobPayRate)
     }
 }
