@@ -45,7 +45,6 @@ class EditProfileFragment : Fragment() {
     private lateinit var uid: String
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,7 +73,8 @@ class EditProfileFragment : Fragment() {
         }
 
         confirmButton.setOnClickListener{
-            val name = binding.inputName.text.toString()
+            val firstname = binding.inputFirstName.text.toString()
+            val lastname = binding.inputLastName.text.toString()
             val email = binding.inputMail.text.toString()
             val telNo = binding.inputPhone.text.toString()
             val state=binding.statedEdit.text.toString()
@@ -90,21 +90,30 @@ class EditProfileFragment : Fragment() {
             validateTel()
             validateEmail()
 
+
+            val user = FirebaseAuth.getInstance().currentUser
+            val userEmail = user?.email
+
+            val encodedEmail = userEmail?.replace(".","-")
+            val dataRef = FirebaseDatabase.getInstance().reference.child("Employees").child(encodedEmail?:"")
+
+
             database =
                 FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                     .getReference("Employees")
 
             if (currentUser != null) {
-                database.child(currentUser.uid).child("name").setValue(name)
-                database.child(currentUser.uid).child("about").setValue(about)
-                database.child(currentUser.uid).child("state").setValue(state)
-                database.child(currentUser.uid).child("currentJob").setValue(currentJob)
-                database.child(currentUser.uid).child("email").setValue(email)
-                database.child(currentUser.uid).child("phone").setValue(telNo)
-                database.child(currentUser.uid).child("timePrefer").setValue(timePrefer)
-                database.child(currentUser.uid).child("education").setValue(education)
-                database.child(currentUser.uid).child("skill").setValue(skill)
-                database.child(currentUser.uid).child("profilePic").setValue(uri)
+                dataRef.child("firstName").setValue(firstname)
+                dataRef.child("lastName").setValue(lastname)
+                dataRef.child("about").setValue(about)
+                dataRef.child("state").setValue(state)
+                dataRef.child("currentJob").setValue(currentJob)
+                dataRef.child("email").setValue(email)
+                dataRef.child("phone").setValue(telNo)
+                dataRef.child("timePrefer").setValue(timePrefer)
+                dataRef.child("education").setValue(education)
+                dataRef.child("skill").setValue(skill)
+                dataRef.child("profilePic").setValue(uri)
 
             }
             Toast.makeText(requireContext(), "Profile Updated Successfully!!", Toast.LENGTH_SHORT)
@@ -145,11 +154,20 @@ class EditProfileFragment : Fragment() {
     private fun loadUserInfo(){
         val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
-        val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
+
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+        val dataRef = FirebaseDatabase.getInstance().reference.child("Employees").child(encodedEmail?:"")
+
+
+        //val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {
-                    val name = snapshot.child("name").value as String
+                    val firstname = snapshot.child("firstName").value as String
+                    val lastname = snapshot.child("lastName").value as String
                     val about = snapshot.child("about").value as String
                     val state = snapshot.child("state").value as String
                     val currentJob = snapshot.child("currentJob").value as String
@@ -162,7 +180,8 @@ class EditProfileFragment : Fragment() {
                     dataRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                            binding.inputName.setText(name)
+                            binding.inputFirstName.setText(firstname)
+                            binding.inputLastName.setText(lastname)
                             binding.inputDes.setText(about)
                             binding.statedEdit.setText(state)
                             binding.currentJobEdit.setText(currentJob)
@@ -193,9 +212,18 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun loadPic() {
-        val datab =
-            FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
+//        val datab =
+//            FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+
+
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+        val dataRef = FirebaseDatabase.getInstance().reference.child("Employees").child(encodedEmail?:"")
+
+
+       // val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value != null) {
@@ -226,7 +254,7 @@ class EditProfileFragment : Fragment() {
 
 
     private fun validateName() {
-        val name = binding.inputName.text.toString()
+        val name = binding.inputFirstName.text.toString()
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireContext(), "Enter your name", Toast.LENGTH_SHORT).show()
         }

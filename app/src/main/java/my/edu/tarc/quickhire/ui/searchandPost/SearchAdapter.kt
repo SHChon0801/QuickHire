@@ -1,6 +1,5 @@
-package my.edu.tarc.quickhire.ui.SearchandPost
+package my.edu.tarc.quickhire.ui.searchandPost
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import my.edu.tarc.quickhire.R
-import my.edu.tarc.quickhire.ui.home.EmployerHomeAdapter
 import my.edu.tarc.quickhire.ui.home.EmployerJob
 
 class SearchAdapter(private val jobs: List<EmployerJob>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
@@ -34,11 +31,13 @@ class SearchAdapter(private val jobs: List<EmployerJob>) : RecyclerView.Adapter<
         private val jobImage: ImageView = itemView.findViewById(R.id.employerJobImage)
         private val jobNameTextView: TextView = itemView.findViewById(R.id.employerJobName)
         private val jobDescriptionTextView: TextView = itemView.findViewById(R.id.employerJobDescription)
+        private val jobPayRateTextView: TextView = itemView.findViewById(R.id.employerJobPayRate)
 
         fun bind(job: EmployerJob) {
             Glide.with(jobImage.context).load(job.jobImage).into(jobImage)
             jobNameTextView.text = job.jobName
             jobDescriptionTextView.text = job.jobDescription
+            jobPayRateTextView.text = job.jobPayRate.toString()
         }
     }
 }

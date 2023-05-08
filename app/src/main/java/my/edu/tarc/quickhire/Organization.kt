@@ -5,5 +5,10 @@ data class Organization (
     val password: String? = null,
     val orgName: String? = null,
     val phone: String? = null,
-    val role: String? = null
+    val role: String? = null,
+    val about: String? = null,
+    val job: String? = null,
+    val address: String? = null,
+    val profilePic: String? = null
+
 )

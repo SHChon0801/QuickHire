@@ -84,21 +84,24 @@ class ProfileOrganizationFragment : Fragment() {
     }
 
     private fun loadUserInfo(){
-        val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        //val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
-        val dataRef = datab.getReference("Organizations").child(auth.currentUser!!.uid)
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+        val dataRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(encodedEmail?:"")
+
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {
-                    val name = snapshot.child("name").value as String
+                    val name = snapshot.child("orgName").value as String
                     val about = snapshot.child("about").value as String
                     val job = snapshot.child("job").value as String
                     val address = snapshot.child("address").value as String
                     val email = snapshot.child("email").value as String
                     var phone = snapshot.child("phone").value as String
                     val profilePic = snapshot.child("profilePic").value as String
-
-
 
                     //set data
                     binding.name.text = name

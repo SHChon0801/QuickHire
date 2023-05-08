@@ -52,11 +52,16 @@ class NotificationOrganizationFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
 
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+
         notificationList = ArrayList()
         notificationAdapter = NotificationAdapterOrganization(requireContext(), notificationList)
         binding.recycleViewNotification.adapter = notificationAdapter
         databaseReference = FirebaseDatabase.getInstance()
-            .getReference("Organizations").child(currentUser!!.uid).child("notification")
+            .getReference("Organizations").child(encodedEmail?:"").child("notification")
 
 //        databaseReference = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 //            .getReference("Employees").child(currentUser!!.uid).child("notification")

@@ -14,6 +14,8 @@ import my.edu.tarc.quickhire.Organization
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage2Binding
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage3Binding
+import my.edu.tarc.quickhire.ui.notifications.NotificationData
+import java.util.*
 
 
 class RegisterPage3Fragment : Fragment() {
@@ -22,7 +24,11 @@ class RegisterPage3Fragment : Fragment() {
     private lateinit var databaseReferenceOrg: DatabaseReference
     private lateinit var database: FirebaseDatabase
 
-
+    //Profile
+    private lateinit var about:String
+    private lateinit var job:String
+    private lateinit var address:String
+    private lateinit var profilePic:String
 
 
     override fun onCreateView(
@@ -45,9 +51,28 @@ class RegisterPage3Fragment : Fragment() {
             val phone = binding.editTextOrgPhone.text.toString()
             var role = "Organization"
 
+
+            //Profile
+            profilePic=""
+            address=""
+            job=""
+            about=""
+
+            //Welcome notification
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
+            val date = calendar.get(Calendar.DATE)
+
+            val n_title=getString(R.string.welcome_title)
+            val n_des=getString(R.string.welcome_des)
+            val n_time = "$date-$month-$year"
+            val n_type = "first_type"
+            val n_image="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fwelcome.png?alt=media&token=2fc39e88-398e-410b-989c-76f68e35718a"
+            val n_UID="no-reply@gmail.com"
+
+
             val encodedEmail = email.replace(".","-")
-
-
 
 
             val orgRef = database.reference.child("Organizations")
@@ -60,10 +85,19 @@ class RegisterPage3Fragment : Fragment() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if(it.isSuccessful){
 
-                            val newOrg = Organization(email,password,name,phone,role)
+                            // Create an ArrayList to hold the notifications
+                            val notifications = ArrayList<NotificationData>()
+                            val notificationClass = NotificationData(n_title, n_des, n_time,n_type,n_UID, n_image)
+                            notifications.add(notificationClass)
+
+                            val newOrg = Organization(email,password,name,phone,role,about,job,address,profilePic)
 
 
-                            newOrgRef.setValue(newOrg)
+                            //newOrgRef.setValue(newOrg)
+                            newOrgRef.apply {
+                                setValue(newOrg)
+                                child("notification").setValue(notifications)
+                            }
 
                         }  else{
                             showToast(it.exception.toString(),Toast.LENGTH_SHORT)
