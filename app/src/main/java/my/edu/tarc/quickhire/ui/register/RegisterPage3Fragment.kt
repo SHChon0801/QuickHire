@@ -42,7 +42,7 @@ class RegisterPage3Fragment : Fragment() {
             val password = binding.editTextOrgPass.text.toString()
             val confirmPassword = binding.editTextOrgConfirmPass.text.toString()
             val name = binding.editTextOrgName.text.toString()
-            val phone = binding.editTextPhoneOrg.text.toString()
+            val phone = binding.editTextOrgPhone.text.toString()
             var role = "Organization"
 
             val encodedEmail = email.replace(".","-")

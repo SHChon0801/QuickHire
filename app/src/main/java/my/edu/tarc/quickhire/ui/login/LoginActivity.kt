@@ -30,11 +30,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        val prefEmail = getEncryptedSharedPreferences()?.getString("email",null).toString()
-        val prefPass = getEncryptedSharedPreferences()?.getString("password",null).toString()
+        val prefEmail = getEncryptedSharedPreferences()?.getString("email","").toString()
+        val prefPass = getEncryptedSharedPreferences()?.getString("password","").toString()
 
         binding.editTextEmail.setText(prefEmail)
         binding.editTextPassword.setText(prefPass)
@@ -66,14 +67,14 @@ class LoginActivity : AppCompatActivity() {
                                     val role = employeesSnapshot.child("role").getValue(String::class.java)
                                     Log.d("TAG", "UID : $userEmail")
                                     Log.d("TAG", "role: $role")
-                                    binding.textView17.text = role
+
                                     getEncryptedSharedPreferences()?.edit()
                                         ?.putString("email",email)
                                         ?.putString("password",password)
                                         ?.apply()
 
-                                    Log.d("ENCRYPTED email ",getEncryptedSharedPreferences()?.getString("email",null).toString())
-                                    Log.d("ENCRYPTED password ",getEncryptedSharedPreferences()?.getString("password",null).toString())
+                                    Log.d("ENCRYPTED email ",getEncryptedSharedPreferences()?.getString("email","").toString())
+                                    Log.d("ENCRYPTED password ",getEncryptedSharedPreferences()?.getString("password","").toString())
 
                                 } else {
                                     organizationsRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -82,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                                                 val role = organizationsSnapshot.child("role").getValue(String::class.java)
                                                 Log.d("TAG", "UID : $userEmail")
                                                 Log.d("TAG", "role: $role")
-                                                binding.textView17.text = role
+
 
                                                 getEncryptedSharedPreferences()?.edit()
                                                     ?.putString("email",email)
