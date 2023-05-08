@@ -11,11 +11,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#BCBCBC">
 
         <ImageView
             android:id="@+id/employerJobImage"
-            android:layout_width="125dp"
+            android:layout_width="match_parent"
             android:layout_height="125dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -33,6 +34,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/textview"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/employerJobImage" />
 
@@ -43,6 +47,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/textview"
+            android:textColor="#454040"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/employerJobName" />
 
@@ -53,6 +58,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/textview"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/employerJobDescription" />
 

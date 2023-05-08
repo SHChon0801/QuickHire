@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentSearchBinding
+import my.edu.tarc.quickhire.ui.SearchandPost.SearchAdapter
 import my.edu.tarc.quickhire.ui.home.EmployerJob
 
 class SearchFragment : Fragment() {
@@ -74,6 +76,19 @@ class SearchFragment : Fragment() {
         val areaSpinner = binding.spinner
         val specialistSpinner = binding.spinner1
 
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // Perform search when user submits the query (e.g., presses search button)
+                performSearch(query, selectedArea, selectedSpecialist)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // Perform search as the user types
+                performSearch(newText, selectedArea, selectedSpecialist)
+                return true
+            }
+        })
         // Set up listener for areaSpinner
         areaSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

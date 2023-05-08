@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentPostingBinding
 import my.edu.tarc.quickhire.ui.home.EmployerJob
 import java.util.*
