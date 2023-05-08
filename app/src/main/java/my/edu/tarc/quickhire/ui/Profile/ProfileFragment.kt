@@ -1,6 +1,7 @@
 package my.edu.tarc.quickhire.ui.Profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,31 +26,9 @@ class ProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    //Recycle view Stuff
-    private lateinit var eduRv: RecyclerView
-    //private lateinit var educateList: ArrayList<UserEdu>
-    //private lateinit var eduAdapter:EduAdapter
-    private lateinit var recv: RecyclerView
-    //private lateinit var userList: ArrayList<UserSkills>
-    //private lateinit var userAdapter: UserAdapter
-
-    private lateinit var database: DatabaseReference
-    private lateinit var nameInput: TextView
-    private lateinit var aboutInput: TextView
-    private lateinit var currentJobInput: TextView
-    private lateinit var statedInput: TextView
-    private lateinit var timePreferInput: TextView
-    private lateinit var emailInput: TextView
-    private lateinit var phoneInput: TextView
-    private lateinit var educationInput: TextView
-    private lateinit var skillInput: TextView
-
-
-    private lateinit var navController: NavController
-    private lateinit var uid: String
-
     //firebase auth
     private lateinit var auth: FirebaseAuth
+    private lateinit var authtest: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,13 +39,9 @@ class ProfileFragment : Fragment() {
         val editButton=binding.editDetail
         val logOutButton=binding.buttonLogOut
 
-        //ArrayList
-//        userList = ArrayList<UserSkills>()
-//        educateList = ArrayList<UserEdu>()
-
-
         //Authenticator
         auth = FirebaseAuth.getInstance()
+        authtest = FirebaseAuth.getInstance()
         loadUserInfo()
 
         editButton.setOnClickListener{
@@ -83,17 +58,25 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadUserInfo(){
-        val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        //val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
-        val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+        val dataRef = FirebaseDatabase.getInstance().reference.child("Employees").child(encodedEmail?:"")
+
+        //val dataRef = datab.getReference("Employees").child(emailUid)
+
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {
-                    val name = snapshot.child("name").value as String
+                    val firstname = snapshot.child("firstName").value as String
+                    val lastname = snapshot.child("lastName").value as String
                     val about = snapshot.child("about").value as String
                     val state = snapshot.child("state").value as String
                     val currentJob = snapshot.child("currentJob").value as String
-                    val email = snapshot.child("email").value as String
+                    val email1 = snapshot.child("email").value as String
                     var phone = snapshot.child("phone").value as String
                     val timePrefer = snapshot.child("timePrefer").value as String
                     val education=snapshot.child("education").value as String
@@ -103,12 +86,12 @@ class ProfileFragment : Fragment() {
 
 
                     //set data
-                    binding.name.text = name
+                    binding.name.text = firstname+(" ")+lastname
                     binding.about.text = about
                     binding.currentJob.text = currentJob
                     binding.stated.text = state
                     binding.TimePrefer.text = timePrefer
-                    binding.Email.text = email
+                    binding.Email.text = email1
                     binding.ContactNumber.text = phone
                     binding.educational.text = education
                     binding.skill.text = skill
@@ -135,85 +118,6 @@ class ProfileFragment : Fragment() {
         dataRef.addListenerForSingleValueEvent(eventListener)
     }
 
-//    fun onDataChange(dataSnapshot: DataSnapshot) {
-//        for (keyId in dataSnapshot.children) {
-//            if (keyId.child("email").value == email) {
-//                fname = keyId.child("fullName").getValue<String>(String::class.java)
-//                profession = keyId.child("profession").getValue<String>(String::class.java)
-//                workplace = keyId.child("workplace").getValue<String>(String::class.java)
-//                phone = keyId.child("phone").getValue<String>(String::class.java)
-//                facebook = keyId.child("facebook").getValue<String>(String::class.java)
-//                twitter = keyId.child("twitter").getValue<String>(String::class.java)
-//                break
-//            }
-//        }
-//        nameTxtView.setText(fname)
-//        emailTxtView.setText(email)
-//        occupationTxtView.setText(profession)
-//        workTxtView.setText(workplace)
-//        phoneTxtView.setText(phone)
-//        videoTxtView.setText(phone)
-//        facebookTxtView.setText(facebook)
-//        twitterTxtView.setText(twitter)
-//    }
-
-//    private fun loadSkill(){
-//        val currentUser = FirebaseAuth.getInstance().currentUser
-//        val datab = FirebaseDatabase.getInstance("https://job-alley-3f825-default-rtdb.firebaseio.com/")
-//        val dataRef = datab.getReference("Users").child(currentUser!!.uid).child("skill")
-//        val skillListener = object :ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                if(snapshot.exists()){
-//                    for(skillSnapshot in snapshot.children){
-//                        val usersSkill = skillSnapshot.getValue(UserSkills::class.java)
-//
-//                        if (usersSkill != null) {
-//                            userList.add(usersSkill)
-//                        }
-//                        userAdapter.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(requireContext(), "Retrieved failed", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        }
-//        dataRef.addListenerForSingleValueEvent(skillListener)
-//    }
-//    private fun loadEdu(){
-//        val currentUser = FirebaseAuth.getInstance().currentUser
-//        val datab = FirebaseDatabase.getInstance("https://job-alley-3f825-default-rtdb.firebaseio.com/")
-//        val dataRef = datab.getReference("Users").child(currentUser!!.uid).child("education")
-//        val eduListener = object :ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val TAG: String = "EducationFragment"
-//                Log.d(TAG, snapshot.exists().toString())
-//                if(snapshot.exists()){
-//                    for(eduSnapshot in snapshot.children){
-////                       val sch = snapshot.child("uschool").value as String
-////                        val educate = eduSnapshot.child("uSchool").getValue()
-//                        Log.d(TAG, currentUser.uid)
-//                        val educate = eduSnapshot.getValue(UserEdu::class.java)
-//                        Log.d(TAG, eduSnapshot.toString())
-//                        Log.d(TAG, educate.toString())
-//                        if (educate != null) {
-//                            educateList.add(educate)
-//                        }
-//                        eduAdapter.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(requireContext(), "Retrieved failed", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        }
-//        dataRef.addListenerForSingleValueEvent(eduListener)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

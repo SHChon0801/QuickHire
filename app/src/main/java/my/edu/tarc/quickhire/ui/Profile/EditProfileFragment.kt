@@ -44,8 +44,6 @@ class EditProfileFragment : Fragment() {
     private var imageUri: Uri? = null
     private lateinit var uid: String
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

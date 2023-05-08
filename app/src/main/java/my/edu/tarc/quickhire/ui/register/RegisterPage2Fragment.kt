@@ -15,6 +15,8 @@ import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage1Binding
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage2Binding
 import my.edu.tarc.quickhire.ui.login.LoginActivity
+import my.edu.tarc.quickhire.ui.notifications.NotificationData
+import java.util.*
 
 
 class RegisterPage2Fragment : Fragment() {
@@ -22,6 +24,15 @@ class RegisterPage2Fragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var databaseReferenceEmp: DatabaseReference
     private lateinit var database: FirebaseDatabase
+
+    //Profile
+    private lateinit var profilePic:String
+    private lateinit var about:String
+    private lateinit var state:String
+    private lateinit var currentJob:String
+    private lateinit var timePrefer:String
+    private lateinit var education:String
+    private lateinit var skill:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +56,28 @@ class RegisterPage2Fragment : Fragment() {
             val phone = binding.editTextPhone.text.toString()
             val role = "Employee"
 
+            //Profile
+            profilePic=""
+            about=""
+            state=""
+            currentJob=""
+            timePrefer=""
+            education=""
+            skill=""
+
+            //Welcome notification
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
+            val date = calendar.get(Calendar.DATE)
+
+            val n_title=getString(R.string.welcome_title)
+            val n_des=getString(R.string.welcome_des)
+            val n_time = "$date-$month-$year"
+            val n_type = "first_type"
+            val n_image="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fwelcome.png?alt=media&token=2fc39e88-398e-410b-989c-76f68e35718a"
+            val n_UID="no-reply@gmail.com"
+
             val encodedEmail = email.replace(".","-")
 
 
@@ -62,10 +95,21 @@ class RegisterPage2Fragment : Fragment() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if(it.isSuccessful){
 
-                            val newEmp = Employee(email,password,firstName,lastName,phone,role)
+                            // Create an ArrayList to hold the notifications
+                            val notifications = ArrayList<NotificationData>()
+                            val notificationClass = NotificationData(n_title, n_des, n_time,n_type,n_UID, n_image)
+                            notifications.add(notificationClass)
+
+                            val newEmp = Employee(email,password,firstName,lastName,phone,role,about,state,currentJob,timePrefer,education,skill,profilePic)
 
 
-                            newEmployeeRef.setValue(newEmp)
+                            //newEmployeeRef.setValue(newEmp)
+
+                            // Save the notification data to Realtime Database
+                            newEmployeeRef.apply {
+                                setValue(newEmp)
+                                child("notification").setValue(notifications)
+                            }
 
 
 
