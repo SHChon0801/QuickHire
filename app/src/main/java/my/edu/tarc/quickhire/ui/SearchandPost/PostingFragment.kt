@@ -144,11 +144,9 @@ class PostingFragment : Fragment() {
         val jobArea = myJobArea.selectedItem.toString()
         val jobPayRate = myJobPayRate.text.toString().trim().toDouble()
         val imageUriString = selectedImageUri.toString()
-        val imageName = imageUriString.substringAfterLast("/").substringBeforeLast(".")
-        val resourceId =
-            resources.getIdentifier(imageName, "drawable", requireContext().packageName)
+
         val job = EmployerJob(
-            jobImage = resourceId,
+            jobImage = imageUriString,
             jobID = ++lastAssignedJobId,
             jobName = jobName,
             jobDescription = jobDescription,

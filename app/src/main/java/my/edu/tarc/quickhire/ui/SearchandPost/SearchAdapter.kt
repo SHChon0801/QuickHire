@@ -31,15 +31,11 @@ class SearchAdapter(private val jobs: List<EmployerJob>) : RecyclerView.Adapter<
         private val jobImage: ImageView = itemView.findViewById(R.id.employerJobImage)
         private val jobNameTextView: TextView = itemView.findViewById(R.id.employerJobName)
         private val jobDescriptionTextView: TextView = itemView.findViewById(R.id.employerJobDescription)
-        private val jobSpecialistTextView: TextView = itemView.findViewById(R.id.employerJobSpecialist)
-        private val jobPayRateTextView: TextView = itemView.findViewById(R.id.employerJobPayRate)
 
         fun bind(job: EmployerJob) {
             job.jobImage?.let { jobImage.setImageResource(it) }
             jobNameTextView.text = job.jobName
             jobDescriptionTextView.text = job.jobDescription
-            jobSpecialistTextView.text = job.jobSpecialist
-            jobPayRateTextView.text = job.jobPayRate.toString()
         }
     }
 
