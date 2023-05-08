@@ -19,14 +19,16 @@ class EmployerHomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataList: ArrayList<EmployerJob>
     private lateinit var jobImageList: Array<Int>
+    private lateinit var jobID: Array<Int>
     private lateinit var jobNameList: Array<String>
     private lateinit var jobDescriptionList: Array<String>
+    private lateinit var jobArea: Array<String>
     private lateinit var jobSpecialistList: Array<String>
     private lateinit var jobPayRateList: Array<Double>
 
     private fun getData() {
         for (i in jobImageList.indices) {
-            val employerJob = EmployerJob(jobImageList[i], jobNameList[i], jobDescriptionList[i], jobSpecialistList[i], jobPayRateList[i])
+            val employerJob = EmployerJob(jobImageList[i],jobID[i], jobNameList[i], jobDescriptionList[i], jobArea[i], jobSpecialistList[i], jobPayRateList[i])
             dataList.add(employerJob)
         }
         recyclerView.adapter = EmployerHomeAdapter(dataList)
@@ -52,6 +54,18 @@ class EmployerHomeFragment : Fragment() {
             R.drawable.baseline_arrow_back_24
         )
 
+        jobID = arrayOf(
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+        )
         jobNameList = arrayOf(
             "ntest1",
             "ntest2",
@@ -77,7 +91,18 @@ class EmployerHomeFragment : Fragment() {
             "dtest4",
             "dtest5",
         )
-
+        jobArea = arrayOf(
+            "ntest1",
+            "ntest2",
+            "ntest3",
+            "ntest4",
+            "ntest5",
+            "ntest1",
+            "ntest2",
+            "ntest3",
+            "ntest4",
+            "ntest5",
+        )
         jobSpecialistList = arrayOf(
             "stest1",
             "stest2",

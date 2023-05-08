@@ -21,7 +21,7 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
-        holder.rvJobImage.setImageResource(currentItem.jobImage)
+        currentItem.jobImage?.let { holder.rvJobImage.setImageResource(it) }
         holder.rvJobName.text = currentItem.jobName
         holder.rvJobDescription.text = currentItem.jobDescription
         holder.rvJobSpecialist.text = currentItem.jobSpecialist

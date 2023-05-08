@@ -102,15 +102,39 @@
                 android:text="@string/job_specialist"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/etJobSpecialist"
+            <Spinner
+                android:id="@+id/jobspinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Job Specialist"
-                android:textSize="20sp" />
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:backgroundTint="@color/tabBackgroundColor"
+                android:entries="@array/joboptions"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/areacity"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/areaspinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:backgroundTint="@color/tabBackgroundColor"
+                android:entries="@array/areaoptions"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,7 +164,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnClear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

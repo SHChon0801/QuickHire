@@ -12,6 +12,7 @@ data class User(
     val skill:String?=null,
     val email: String? = null, val password: String? = null, val role: String? =null,
     val profilePic:String?=null
+
 )
 
 
