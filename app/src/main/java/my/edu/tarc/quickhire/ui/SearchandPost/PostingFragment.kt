@@ -16,10 +16,12 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentPostingBinding
 import my.edu.tarc.quickhire.ui.home.EmployerJob
 import java.io.IOException
+import java.util.*
 
 class PostingFragment : Fragment() {
     private lateinit var binding: FragmentPostingBinding
@@ -69,39 +71,21 @@ class PostingFragment : Fragment() {
 
     private val galleryActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
-        ActivityResultCallback<ActivityResult> { result ->
-            //get uri of the image
+        ActivityResultCallback { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data
                 selectedImageUri = data!!.data
-                binding.imageView2.setImageURI(selectedImageUri)
+                selectedImageUri?.let { uri ->
+                    // Call the function to upload the image to Firebase Storage
+                    uploadImageToStorage(uri)
+                    binding.imageView2.setImageURI(uri)
+                }
             } else {
                 Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_SHORT).show()
             }
-
         }
     )
-//    private fun selectImage() {
-//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-//            selectedImageUri = data.data
-//            try {
-//                val bitmap = MediaStore.Images.Media.getBitmap(
-//                    requireContext().contentResolver,
-//                    selectedImageUri
-//                )
-//                imageView.setImageBitmap(bitmap)
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
+
 
     private fun postJob() {
         if (validateInputs()) {
@@ -168,6 +152,7 @@ class PostingFragment : Fragment() {
         val jobArea = myJobArea.selectedItem.toString()
         val jobPayRate = myJobPayRate.text.toString().trim().toDouble()
         val imageUriString = selectedImageUri.toString()
+
         val job = EmployerJob(
             jobImage = imageUriString,
             jobID = ++lastAssignedJobId,
@@ -188,6 +173,48 @@ class PostingFragment : Fragment() {
         imageView.setImageResource(0)
         selectedImageUri = null
         binding.jobspinner.setSelection(0)
+    }
+    private fun uploadImageToStorage(imageUri: Uri) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef = storageRef.child("images/${UUID.randomUUID()}.jpg")
+
+        val uploadTask = imageRef.putFile(imageUri)
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imageRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val imageUrl = task.result.toString()
+                // Call the function to save the image URL to the Realtime Database
+                saveImageUrlToDatabase(imageUrl)
+            } else {
+                // Handle the failure case
+            }
+        }
+    }
+
+    private fun saveImageUrlToDatabase(imageUrl: String) {
+        val databaseRef = FirebaseDatabase.getInstance().reference
+        val jobRef = databaseRef.child("jobs").push()
+
+        val job = EmployerJob(
+            jobImage = imageUrl,
+            // Set other properties of the EmployerJob object as needed
+            // ...
+        )
+
+        jobRef.setValue(job)
+            .addOnSuccessListener {
+                // Image URL and other job details are saved successfully
+                // Handle the success case
+            }
+            .addOnFailureListener {
+                // Handle the failure case
+            }
     }
 }
 
