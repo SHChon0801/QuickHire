@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentPostingBinding
-import my.edu.tarc.quickhire.ui.home.EmployerJob
+import my.edu.tarc.quickhire.ui.home.Job
 import java.util.*
 
 class PostingFragment : Fragment() {
@@ -144,14 +144,14 @@ class PostingFragment : Fragment() {
         return true
     }
 
-    private fun createJob(): EmployerJob {
+    private fun createJob(): Job {
         val jobName = myJobName.text.toString().trim()
         val jobDescription = myJobDescription.text.toString().trim()
         val jobSpecialist = myJobSpecialist.selectedItem.toString()
         val jobArea = myJobArea.selectedItem.toString()
         val jobPayRate = myJobPayRate.text.toString().trim().toDouble()
 
-        val job = EmployerJob(
+        val job = Job(
             jobImage = "images/$imageFileName.jpg",
             jobID = ++lastAssignedJobId,
             jobName = jobName,
@@ -199,9 +199,9 @@ class PostingFragment : Fragment() {
         val databaseRef = FirebaseDatabase.getInstance().reference
         val jobRef = databaseRef.child("jobs").push()
 
-        val job = EmployerJob(
+        val job = Job(
             jobImage = imageUrl,
-            // Set other properties of the EmployerJob object as needed
+            // Set other properties of the Job object as needed
             // ...
         )
 

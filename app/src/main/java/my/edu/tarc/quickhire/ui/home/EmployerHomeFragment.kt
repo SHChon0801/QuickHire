@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,43 +26,48 @@ class EmployerHomeFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private val database = Firebase.database.reference
-    // Initialize dataList with an empty ArrayList
-    private var dataList: ArrayList<EmployerJob> = ArrayList()
+    private var dataList: ArrayList<Job> = ArrayList()
 
     private fun getData() {
-        // Show a loading indicator, such as a progress bar or spinner
-
         database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Hide the loading indicator
+                dataList.clear()
 
                 if (snapshot.exists()) {
                     for (jobSnapshot in snapshot.children) {
-                        val job = jobSnapshot.getValue(EmployerJob::class.java)
+                        val job = jobSnapshot.getValue(Job::class.java)
                         if (job != null) {
                             dataList.add(job)
                         }
                     }
-                    // Check for nullability before setting the adapter
-                    if (recyclerView.adapter == null) {
-                        recyclerView.adapter = EmployerHomeAdapter(dataList)
+
+                    if (dataList.isEmpty()) {
+                        // Hide the RecyclerView and show a message indicating that there are no jobs available
                     } else {
-                        recyclerView.adapter?.notifyDataSetChanged()
+                        if (recyclerView.adapter == null) {
+                            recyclerView.adapter = EmployerHomeAdapter(dataList)
+                        } else {
+                            recyclerView.adapter?.notifyDataSetChanged()
+                        }
                     }
-                    // Show a message to the user indicating that no jobs were found
                 } else {
                     // Hide the RecyclerView and show a message indicating that there are no jobs available
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Hide the loading indicator
-                // Log the error message as a warning and print the stack trace of the error
                 Log.w(TAG, "Database operation cancelled: ${error.message}", error.toException())
                 Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun performSearch(query: String) {
+        val filteredList = dataList.filter { job ->
+            val isMatchingQuery = job.jobName!!.contains(query, ignoreCase = true)
+            isMatchingQuery
+        }
+        recyclerView.adapter = EmployerHomeAdapter(filteredList)
     }
 
     override fun onCreateView(
@@ -71,15 +77,26 @@ class EmployerHomeFragment : Fragment() {
     ): View {
         _binding = FragmentEmployerHomeBinding.inflate(inflater, container, false)
 
-        val root: View = binding.root
-
-        recyclerView = root.findViewById(R.id.employerJobRecyclerView)
+        recyclerView = binding.root.findViewById(R.id.employerJobRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
         getData()
 
-        return root
+        val searchView = binding.searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                performSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                performSearch(newText)
+                return true
+            }
+        })
+
+        return binding.root
     }
 
     override fun onDestroyView() {

@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
-import my.edu.tarc.quickhire.ui.home.EmployerJob
+import my.edu.tarc.quickhire.ui.home.Job
 
-class SearchAdapter(private val jobs: List<EmployerJob>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
@@ -35,7 +35,7 @@ class SearchAdapter(private val jobs: List<EmployerJob>) : RecyclerView.Adapter<
         private val jobNameTextView: TextView = itemView.findViewById(R.id.employerJobName)
         private val jobDescriptionTextView: TextView = itemView.findViewById(R.id.employerJobDescription)
         private val jobPayRate: TextView = itemView.findViewById(R.id.employerJobPayRate)
-        fun bind(job: EmployerJob) {
+        fun bind(job: Job) {
             val storageRef = FirebaseStorage.getInstance().reference
             val imageRef =
                 job.jobImage?.let { storageRef.child(it) } // Assuming job.jobImage contains the path to the image in Firebase Storage

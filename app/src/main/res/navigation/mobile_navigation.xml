@@ -12,7 +12,11 @@
         android:id="@+id/nav_employer_home"
         android:name="my.edu.tarc.quickhire.ui.home.EmployerHomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_employer_home" />
+        tools:layout="@layout/fragment_employer_home" >
+        <action
+            android:id="@+id/action_nav_employer_home_to_employerHomeDetailFragment"
+            app:destination="@id/nav_employer_home_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_dashboard"
@@ -65,7 +69,11 @@
         android:id="@+id/nav_organization_home"
         android:name="my.edu.tarc.quickhire.ui.home.OrganizationHomeFragment"
         android:label="fragment_organization_home"
-        tools:layout="@layout/fragment_organization_home" />
+        tools:layout="@layout/fragment_organization_home" >
+        <action
+            android:id="@+id/action_nav_organization_home_to_organizationHomeDetailFragment"
+            app:destination="@id/nav_organization_home_detail" />
+    </fragment>
     <fragment
         android:id="@+id/nav_editProfileOrganization"
         android:name="my.edu.tarc.quickhire.ui.Profile.organization.EditProfileOrganizationFragment"
@@ -105,6 +113,16 @@
         android:id="@+id/nav_post"
         android:name="my.edu.tarc.quickhire.ui.searchandPost.PostingFragment"
         android:label="@string/title_post" />
+    <fragment
+        android:id="@+id/nav_employer_home_detail"
+        android:name="my.edu.tarc.quickhire.ui.home.EmployerHomeDetailFragment"
+        android:label="fragment_employer_home_detail"
+        tools:layout="@layout/fragment_employer_home_detail" />
+    <fragment
+        android:id="@+id/nav_organization_home_detail"
+        android:name="my.edu.tarc.quickhire.ui.home.OrganizationHomeDetailFragment"
+        android:label="fragment_organization_home_detail"
+        tools:layout="@layout/fragment_organization_home_detail" />
 
 
 </navigation>

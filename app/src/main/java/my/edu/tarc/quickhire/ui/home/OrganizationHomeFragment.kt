@@ -1,12 +1,21 @@
 package my.edu.tarc.quickhire.ui.home
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentOrganizationHomeBinding
 
@@ -17,16 +26,43 @@ class OrganizationHomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var dataList: ArrayList<OrganizationJob>
-    private lateinit var jobImageList: Array<Int>
-    private lateinit var jobNameList: Array<String>
+    private val database = Firebase.database.reference
+    private lateinit var dataList: ArrayList<Job>
 
     private fun getData() {
-        for (i in jobImageList.indices) {
-            val organizationJob = OrganizationJob(jobImageList[i], jobNameList[i])
-            dataList.add(organizationJob)
+        database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (jobSnapshot in snapshot.children) {
+                        val job = jobSnapshot.getValue(Job::class.java)
+                        if (job != null) {
+                            dataList.add(job)
+                        }
+                    }
+                    if (recyclerView.adapter == null) {
+                        recyclerView.adapter = OrganizationHomeAdapter(dataList)
+                    } else {
+                        recyclerView.adapter?.notifyDataSetChanged()
+                    }
+                } else {
+                    // Hide the RecyclerView and show a message indicating that there are no jobs available
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(ContentValues.TAG, "Database operation cancelled: ${error.message}", error.toException())
+                Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun performSearch(query: String) {
+        val filteredList = dataList.filter { job ->
+            val isMatchingQuery = job.jobName!!.contains(query, ignoreCase = true)
+            isMatchingQuery
         }
-        recyclerView.adapter = OrganizationHomeAdapter(dataList)
+        recyclerView.adapter = OrganizationHomeAdapter(filteredList)
     }
 
     override fun onCreateView(
@@ -36,31 +72,6 @@ class OrganizationHomeFragment : Fragment() {
     ): View {
         _binding = FragmentOrganizationHomeBinding.inflate(inflater, container, false)
 
-        jobImageList = arrayOf(
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24
-        )
-
-        jobNameList = arrayOf(
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-        )
 
         val root: View = binding.root
         recyclerView = root.findViewById(R.id.organizationJobRecyclerView)
@@ -69,6 +80,19 @@ class OrganizationHomeFragment : Fragment() {
 
         dataList = arrayListOf()
         getData()
+
+        val searchView = binding.searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                performSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                performSearch(newText)
+                return true
+            }
+        })
 
         return root
     }

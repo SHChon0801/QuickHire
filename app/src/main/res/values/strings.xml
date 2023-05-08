@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">QuickHire</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -11,7 +11,6 @@
     <string name="textview">TextView</string>
     <string name="todo">TODO</string>
     <string name="apply">APPLY</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
@@ -67,7 +66,7 @@
     <!--    <string name="des_imageview">imageView</string>-->
     <!--    <string name="exp_about">A job seeker who are more patient for the work</string>-->
     <!--    <string name="exp_name">Ong Shen Hoi</string>-->
-    <!--    <string name="current_job_tab">Current EmployerJob</string>-->
+    <!--    <string name="current_job_tab">Current Job</string>-->
     <!--    <string name="exp_job">Engineer</string>-->
     <!--    <string name="stated_tag">Stated</string>-->
     <!--    <string name="exp_stated">Kuala Lumpur</string>-->
@@ -132,7 +131,6 @@
     <string name="request_job_title">New job hire request</string>
 
     <string-array name="areaoptions">
-        <item></item>
         <item>Alor Setar</item>
         <item>Batu Gajah</item>
         <item>Batu Pahat</item>
@@ -178,7 +176,6 @@
     </string-array>
 
     <string-array name="joboptions">
-        <item></item>
         <item>Software Engineer</item>
         <item>Data Scientist</item>
         <item>Marketing Manager</item>

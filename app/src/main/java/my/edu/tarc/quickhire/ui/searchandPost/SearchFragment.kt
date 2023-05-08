@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentSearchBinding
 import my.edu.tarc.quickhire.ui.SearchandPost.SearchAdapter
-import my.edu.tarc.quickhire.ui.home.EmployerJob
+import my.edu.tarc.quickhire.ui.home.Job
 
 class SearchFragment : Fragment() {
 
@@ -20,16 +20,16 @@ class SearchFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val binding get() = _binding!!
     private val databaseHelper = FirebaseDatabaseHelper()
-    private lateinit var dataList: ArrayList<EmployerJob>
+    private lateinit var dataList: ArrayList<Job>
     private var selectedArea: String? = null
     private var selectedSpecialist: String? = null
 
-    private fun pushJobToFirebase(job: EmployerJob) {
+    private fun pushJobToFirebase(job: Job) {
         val key = databaseHelper.pushJob(job)
     }
     private fun readJobsData() {
         databaseHelper.readJobsData(object : FirebaseDatabaseHelper.OnDataFetchListener {
-            override fun onDataFetched(jobs: List<EmployerJob>) {
+            override fun onDataFetched(jobs: List<Job>) {
                 // Handle fetched job data
                 for (job in jobs) {
                     dataList.add(job)

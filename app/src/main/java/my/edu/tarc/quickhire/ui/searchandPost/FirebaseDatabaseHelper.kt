@@ -1,12 +1,12 @@
 package my.edu.tarc.quickhire.ui.searchandPost
 
 import com.google.firebase.database.*
-import my.edu.tarc.quickhire.ui.home.EmployerJob
+import my.edu.tarc.quickhire.ui.home.Job
 
 class FirebaseDatabaseHelper {
     private lateinit var mReferenceJob: DatabaseReference
     private lateinit var mDatabase: FirebaseDatabase
-    private var employerJobs: ArrayList<EmployerJob> = ArrayList()
+    private var jobs: ArrayList<Job> = ArrayList()
     val database = FirebaseDatabase.getInstance()
 
     init {
@@ -17,16 +17,16 @@ class FirebaseDatabaseHelper {
     fun readJobsData(listener: OnDataFetchListener) {
         mReferenceJob.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                employerJobs.clear()
+                jobs.clear()
 
                 for (jobSnapshot in snapshot.children) {
-                    val job = jobSnapshot.getValue(EmployerJob::class.java)
+                    val job = jobSnapshot.getValue(Job::class.java)
                     job?.let {
-                        employerJobs.add(it)
+                        jobs.add(it)
                     }
                 }
 
-                listener.onDataFetched(employerJobs)
+                listener.onDataFetched(jobs)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -36,7 +36,7 @@ class FirebaseDatabaseHelper {
         })
     }
 
-    fun pushJob(job: EmployerJob): String {
+    fun pushJob(job: Job): String {
         val newJobRef = mReferenceJob.push()
         newJobRef.setValue(job)
             .addOnSuccessListener {
@@ -48,7 +48,7 @@ class FirebaseDatabaseHelper {
         return newJobRef.key ?: ""
     }
     interface OnDataFetchListener {
-        fun onDataFetched(jobs: List<EmployerJob>)
+        fun onDataFetched(jobs: List<Job>)
         fun onCancelled(exception: Exception)
     }
 }

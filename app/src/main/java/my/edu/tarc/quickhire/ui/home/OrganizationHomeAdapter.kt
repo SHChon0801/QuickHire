@@ -1,18 +1,22 @@
 package my.edu.tarc.quickhire.ui.home
 
+import android.content.ContentValues
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
+import my.edu.tarc.quickhire.databinding.RecyclerOrganizationJobBinding
 
-class OrganizationHomeAdapter(private val dataList: ArrayList<OrganizationJob>): RecyclerView.Adapter<OrganizationHomeAdapter.HomeViewHolder>() {
+class OrganizationHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter<OrganizationHomeAdapter.HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_organization_job, parent, false)
-        return HomeViewHolder(itemView)
+        val binding = RecyclerOrganizationJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomeViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -21,13 +25,36 @@ class OrganizationHomeAdapter(private val dataList: ArrayList<OrganizationJob>):
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
-        holder.rvJobImage.setImageResource(currentItem.jobImage)
-        holder.rvJobName.text = currentItem.jobName
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageRef =
+            currentItem.jobImage.let { storageRef.child(it.toString()) } // Assuming job.jobImage contains the path to the image in Firebase Storage
+
+        // Fetch the download URL of the image
+        imageRef.downloadUrl.addOnSuccessListener { uri ->
+            // Load the image using Glide
+            Glide.with(holder.binding.root.context)
+                .load(uri)
+                .into(holder.binding.organizationJobImage)
+        }.addOnFailureListener { exception ->
+            // Handle any errors
+            Log.e(ContentValues.TAG, "Failed to retrieve image download URL: ${exception.message}")
+        }
+        holder.binding.organizationJobName.text = currentItem.jobName
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("jobImage", currentItem.jobImage)
+                putString("jobName", currentItem.jobName)
+                putString("jobDescription", currentItem.jobDescription)
+                putString("jobArea", currentItem.jobArea)
+                putString("jobSpecialist", currentItem.jobSpecialist)
+//                putDouble("jobPayRate", currentItem.jobPayRate)
+            }
+            holder.itemView.findNavController().navigate(R.id.action_nav_employer_home_to_employerHomeDetailFragment, bundle)
+        }
     }
 
-    class HomeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val rvJobImage: ImageView = itemView.findViewById(R.id.organizationJobImage)
-        val rvJobName: TextView = itemView.findViewById(R.id.organizationJobName)
+    class HomeViewHolder(val binding: RecyclerOrganizationJobBinding): RecyclerView.ViewHolder(binding.root) {
+
     }
 
 
