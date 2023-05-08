@@ -51,29 +51,4 @@ class FirebaseDatabaseHelper {
         fun onDataFetched(jobs: List<EmployerJob>)
         fun onCancelled(exception: Exception)
     }
-
-    fun readJobsDataByName(jobName: String?, listener: OnDataFetchListener) {
-        mReferenceJob.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                employerJobs.clear()
-
-                for (jobSnapshot in snapshot.children) {
-                    val job = jobSnapshot.getValue(EmployerJob::class.java)
-                    job?.let {
-                        if (jobName.isNullOrEmpty() || it.jobName!!.contains(jobName, ignoreCase = true)) {
-                            employerJobs.add(it)
-                        }
-                    }
-                }
-
-                listener.onDataFetched(employerJobs)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database read error
-                listener.onCancelled(error.toException())
-            }
-        })
-    }
-
 }
