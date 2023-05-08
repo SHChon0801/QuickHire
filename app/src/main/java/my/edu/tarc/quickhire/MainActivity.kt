@@ -13,8 +13,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -26,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                //R.id.nav_employer_home, R.id.nav_dashboard,R.id.nav_notification,R.id.nav_profile
-                R.id.nav_employer_home, R.id.nav_dashboard,R.id.nav_notificationOrganization,R.id.nav_profileOrganization
+                R.id.nav_employer_home, R.id.nav_dashboard,R.id.nav_notification,R.id.nav_profile
+                //R.id.nav_employer_home, R.id.nav_dashboard,R.id.nav_notificationOrganization,R.id.nav_profileOrganization
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

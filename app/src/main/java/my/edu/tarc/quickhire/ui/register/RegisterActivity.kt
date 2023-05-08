@@ -107,6 +107,7 @@ class RegisterActivity : AppCompatActivity() {
             val n_time = "$date-$month-$year"
             val n_type = "first_type"
             val n_image="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fwelcome.png?alt=media&token=2fc39e88-398e-410b-989c-76f68e35718a"
+            val n_UID="None"
 
 
 
@@ -163,7 +164,7 @@ class RegisterActivity : AppCompatActivity() {
 
                                             // Create an ArrayList to hold the notifications
                                             val notifications = ArrayList<NotificationData>()
-                                            val notificationClass = NotificationData(n_title, n_des, n_time,n_type, downloadUrl)
+                                            val notificationClass = NotificationData(n_title, n_des, n_time,n_type,n_UID, downloadUrl)
 
                                             notifications.add(notificationClass)
 
