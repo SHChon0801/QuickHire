@@ -104,11 +104,6 @@ class NotificationFragment : Fragment() {
         })
 
         binding.test.setOnClickListener {
-            //firebase auth
-            auth = FirebaseAuth.getInstance()
-            val currentUser = FirebaseAuth.getInstance().currentUser
-
-
 
             //Apply notification
             val calendar = Calendar.getInstance()
