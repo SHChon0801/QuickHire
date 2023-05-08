@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background"
     tools:context=".ui.register.RegisterPage2Fragment">
 
 
@@ -11,8 +12,11 @@
         android:id="@+id/textViewHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_bold"
         android:gravity="center"
         android:text="Sign Up As  Employee"
+        android:textColor="@color/White"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,113 +33,74 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/email"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="70dp"
-                android:text="@string/password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="70dp"
-                android:text="@string/confirm_password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="70dp"
-                android:text="@string/name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="70dp"
-                android:text="@string/phone_number"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView30" />
-
             <EditText
                 android:id="@+id/editTextEmpPass"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:textColor="@color/White"
+                android:textColorHint="@color/Emperor"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextEmpEmail" />
 
             <EditText
                 android:id="@+id/editTextEmpConfirmPass"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/confirm_password"
                 android:inputType="textPassword"
+
+                android:textColor="@color/White"
+                android:textColorHint="@color/Emperor"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextEmpPass" />
 
             <EditText
                 android:id="@+id/editTextLastName"
-                android:layout_width="100dp"
+                android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/last_name"
                 android:inputType="textPersonName"
+                android:textColor="@color/White"
+                android:textColorHint="@color/Emperor"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextEmpConfirmPass" />
-
-            <EditText
-                android:id="@+id/editTextEmpPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:hint="@string/phone_number"
-                android:inputType="phone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
 
             <EditText
                 android:id="@+id/editTextFirstName"
-                android:layout_width="100dp"
+                android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/editTextLastName"
+                android:textColor="@color/White"
+                android:textColorHint="@color/Emperor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.489"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextEmpConfirmPass" />
 
             <Button
@@ -143,31 +108,74 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:backgroundTint="@color/blue1"
                 android:text="@string/register"
+                android:textColor="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextEmpPhone" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="84dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toStartOf="@+id/btnEmpReg"
-                app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
             <EditText
                 android:id="@+id/editTextEmpEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:textColor="@color/White"
+                android:textColorHint="@color/Emperor"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextEmpPhone"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:textColor="@color/White"
+                android:textColorHint="@color/Emperor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ubuntu"
+                android:gravity="center"
+                android:text="Have an account?"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnEmpReg" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/White"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/btnEmpReg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
