@@ -21,16 +21,20 @@ import my.edu.tarc.quickhire.databinding.FragmentEmployerHomeBinding
 class EmployerHomeFragment : Fragment() {
 
     private var _binding: FragmentEmployerHomeBinding? = null
-
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
     private val database = Firebase.database.reference
-    private lateinit var dataList: ArrayList<EmployerJob>
+    // Initialize dataList with an empty ArrayList
+    private var dataList: ArrayList<EmployerJob> = ArrayList()
 
     private fun getData() {
+        // Show a loading indicator, such as a progress bar or spinner
+
         database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                // Hide the loading indicator
+
                 if (snapshot.exists()) {
                     for (jobSnapshot in snapshot.children) {
                         val job = jobSnapshot.getValue(EmployerJob::class.java)
@@ -38,13 +42,22 @@ class EmployerHomeFragment : Fragment() {
                             dataList.add(job)
                         }
                     }
-                    recyclerView.adapter = EmployerHomeAdapter(dataList)
+                    // Check for nullability before setting the adapter
+                    if (recyclerView.adapter != null) {
+//                        recyclerView.adapter?.notifyDataSetChanged()
+                    } else {
+                        recyclerView.adapter = EmployerHomeAdapter(dataList)
+                    }
+                    // Show a message to the user indicating that no jobs were found
+                } else {
+                    // Hide the RecyclerView and show a message indicating that there are no jobs available
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle the error
-                Log.e(TAG, "Database operation cancelled: ${error.message}")
+                // Hide the loading indicator
+                // Log the error message as a warning and print the stack trace of the error
+                Log.w(TAG, "Database operation cancelled: ${error.message}", error.toException())
                 Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -63,7 +76,6 @@ class EmployerHomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        dataList = arrayListOf()
         getData()
 
         return root
