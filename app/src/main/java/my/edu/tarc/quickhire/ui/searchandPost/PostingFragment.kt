@@ -21,7 +21,7 @@ import java.util.*
 class PostingFragment : Fragment() {
     private lateinit var binding: FragmentPostingBinding
     private val databaseHelper = FirebaseDatabaseHelper()
-
+    private lateinit var imageFileName : String
     private lateinit var myJobName: EditText
     private lateinit var myJobDescription: EditText
     private lateinit var myJobSpecialist: Spinner
@@ -47,6 +47,7 @@ class PostingFragment : Fragment() {
         binding = FragmentPostingBinding.inflate(inflater, container, false)
         //firebase auth
         imageView = binding.imageView2
+        binding.imageView2.setImageResource(R.drawable.profileunknown)
         btnPostJob = binding.btnPostJob
         btnUploadImage = binding.imageButton
         btnUploadImage.setOnClickListener {
@@ -71,9 +72,11 @@ class PostingFragment : Fragment() {
                 val data = result.data
                 selectedImageUri = data!!.data
                 selectedImageUri?.let { uri ->
-                    // Call the function to upload the image to Firebase Storage
-                    uploadImageToStorage(uri)
+                    // Generate a unique image filename
+                    imageFileName = UUID.randomUUID().toString()
+                    // Call the function to upload the image to Firebase Storage and create the job
                     binding.imageView2.setImageURI(uri)
+                    uploadImageToStorage(uri)
                 }
             } else {
                 Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_SHORT).show()
@@ -146,10 +149,9 @@ class PostingFragment : Fragment() {
         val jobSpecialist = myJobSpecialist.selectedItem.toString()
         val jobArea = myJobArea.selectedItem.toString()
         val jobPayRate = myJobPayRate.text.toString().trim().toDouble()
-        val imageUriString = selectedImageUri.toString()
 
         val job = EmployerJob(
-            jobImage = imageUriString,
+            jobImage = "images/$imageFileName.jpg",
             jobID = ++lastAssignedJobId,
             jobName = jobName,
             jobDescription = jobDescription,
@@ -171,7 +173,7 @@ class PostingFragment : Fragment() {
     }
     private fun uploadImageToStorage(imageUri: Uri) {
         val storageRef = FirebaseStorage.getInstance().reference
-        val imageRef = storageRef.child("images/${UUID.randomUUID()}.jpg")
+        val imageRef = storageRef.child("images/$imageFileName.jpg")
 
         val uploadTask = imageRef.putFile(imageUri)
         uploadTask.continueWithTask { task ->
