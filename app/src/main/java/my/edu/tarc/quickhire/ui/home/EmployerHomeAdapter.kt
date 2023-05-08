@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import my.edu.tarc.quickhire.R
 
 class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): RecyclerView.Adapter<EmployerHomeAdapter.HomeViewHolder>() {
@@ -21,11 +22,7 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
-        currentItem.jobImage?.let {
-            val imageResource = holder.itemView.context.resources.getIdentifier(it, "drawable", holder.itemView.context.packageName)
-            holder.rvJobImage.setImageResource(imageResource)
-        }
-
+        Glide.with(holder.rvJobImage.context).load(currentItem.jobImage).into(holder.rvJobImage)
         holder.rvJobName.text = currentItem.jobName
         holder.rvJobDescription.text = currentItem.jobDescription
     }

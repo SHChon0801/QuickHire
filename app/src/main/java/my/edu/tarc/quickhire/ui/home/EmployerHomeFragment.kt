@@ -46,7 +46,7 @@ class EmployerHomeFragment : Fragment() {
                     if (recyclerView.adapter == null) {
                         recyclerView.adapter = EmployerHomeAdapter(dataList)
                     } else {
-//                        recyclerView.adapter?.notifyDataSetChanged()
+                        recyclerView.adapter?.notifyDataSetChanged()
                     }
                     // Show a message to the user indicating that no jobs were found
                 } else {
