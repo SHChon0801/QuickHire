@@ -1,35 +1,66 @@
 package my.edu.tarc.quickhire.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentEmployerHomeBinding
 
 class EmployerHomeFragment : Fragment() {
 
     private var _binding: FragmentEmployerHomeBinding? = null
-
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var dataList: ArrayList<EmployerJob>
-    private lateinit var jobImageList: Array<Int>
-    private lateinit var jobNameList: Array<String>
-    private lateinit var jobDescriptionList: Array<String>
-    private lateinit var jobSpecialistList: Array<String>
-    private lateinit var jobPayRateList: Array<Double>
+    private val database = Firebase.database.reference
+    // Initialize dataList with an empty ArrayList
+    private var dataList: ArrayList<EmployerJob> = ArrayList()
 
     private fun getData() {
-        for (i in jobImageList.indices) {
-            val employerJob = EmployerJob(jobImageList[i], jobNameList[i], jobDescriptionList[i], jobSpecialistList[i], jobPayRateList[i])
-            dataList.add(employerJob)
-        }
-        recyclerView.adapter = EmployerHomeAdapter(dataList)
+        // Show a loading indicator, such as a progress bar or spinner
+
+        database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Hide the loading indicator
+
+                if (snapshot.exists()) {
+                    for (jobSnapshot in snapshot.children) {
+                        val job = jobSnapshot.getValue(EmployerJob::class.java)
+                        if (job != null) {
+                            dataList.add(job)
+                        }
+                    }
+                    // Check for nullability before setting the adapter
+                    if (recyclerView.adapter != null) {
+//                        recyclerView.adapter?.notifyDataSetChanged()
+                    } else {
+                        recyclerView.adapter = EmployerHomeAdapter(dataList)
+                    }
+                    // Show a message to the user indicating that no jobs were found
+                } else {
+                    // Hide the RecyclerView and show a message indicating that there are no jobs available
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Hide the loading indicator
+                // Log the error message as a warning and print the stack trace of the error
+                Log.w(TAG, "Database operation cancelled: ${error.message}", error.toException())
+                Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onCreateView(
@@ -39,78 +70,12 @@ class EmployerHomeFragment : Fragment() {
     ): View {
         _binding = FragmentEmployerHomeBinding.inflate(inflater, container, false)
 
-        jobImageList = arrayOf(
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24
-        )
-
-        jobNameList = arrayOf(
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-        )
-
-        jobDescriptionList = arrayOf(
-            "dtest1",
-            "dtest2",
-            "dtest3",
-            "dtest4",
-            "dtest5",
-            "dtest1",
-            "dtest2",
-            "dtest3",
-            "dtest4",
-            "dtest5",
-        )
-
-        jobSpecialistList = arrayOf(
-            "stest1",
-            "stest2",
-            "stest3",
-            "stest4",
-            "stest5",
-            "stest1",
-            "stest2",
-            "stest3",
-            "stest4",
-            "stest5",
-        )
-
-        jobPayRateList = arrayOf(
-            0.1,
-            0.2,
-            0.3,
-            0.4,
-            0.5,
-            0.1,
-            0.2,
-            0.3,
-            0.4,
-            0.5,
-        )
-
         val root: View = binding.root
 
         recyclerView = root.findViewById(R.id.employerJobRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        dataList = arrayListOf()
         getData()
 
         return root

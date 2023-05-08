@@ -130,6 +130,7 @@
     <string name="request_job_title">New job hire request</string>
 
     <string-array name="areaoptions">
+        <item></item>
         <item>Alor Setar</item>
         <item>Batu Gajah</item>
         <item>Batu Pahat</item>
@@ -175,6 +176,7 @@
     </string-array>
 
     <string-array name="joboptions">
+        <item></item>
         <item>Software Engineer</item>
         <item>Data Scientist</item>
         <item>Marketing Manager</item>

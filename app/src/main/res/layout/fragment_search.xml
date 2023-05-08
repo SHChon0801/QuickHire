@@ -121,6 +121,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRecycleView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -129,6 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="1.0"
+        android:layout_marginBottom="80dp"
         tools:listitem="@layout/recycler_employer_job" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
