@@ -75,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
                                     Log.d("ENCRYPTED email ",getEncryptedSharedPreferences()?.getString("email",null).toString())
                                     Log.d("ENCRYPTED password ",getEncryptedSharedPreferences()?.getString("password",null).toString())
 
+
+
                                 } else {
                                     organizationsRef.addListenerForSingleValueEvent(object : ValueEventListener {
                                         override fun onDataChange(organizationsSnapshot: DataSnapshot) {
@@ -100,7 +102,11 @@ class LoginActivity : AppCompatActivity() {
                                         override fun onCancelled(error: DatabaseError) {
                                             Log.e("TAG", "Failed to read value.", error.toException())
                                         }
-                                    })
+
+
+                                    }
+
+                                    )
                                 }
                             }
 

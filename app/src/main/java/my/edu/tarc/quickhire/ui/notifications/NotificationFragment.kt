@@ -57,17 +57,21 @@ class NotificationFragment : Fragment() {
         dialog.show()
 
         //Send email
-        val UID = "EfXOASI7MfRCwzGioeGJhU0O5Ui1"
+        val UID = "aaa@gmail-com"
+
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+
 
         //Here
         notificationList = ArrayList()
         notificationAdapter = NotificationAdapter(requireContext(), notificationList)
         binding.recycleViewNotification.adapter = notificationAdapter
         databaseReference = FirebaseDatabase.getInstance()
-            .getReference("Employees").child(currentUser!!.uid).child("notification")
+            .getReference("Employees").child(encodedEmail?:"").child("notification")
 
-//        databaseReference = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
-//            .getReference("Employees").child(currentUser!!.uid).child("notification")
         dialog.show()
 
         eventListener = databaseReference!!.addValueEventListener(object : ValueEventListener {
@@ -105,18 +109,23 @@ class NotificationFragment : Fragment() {
             val currentUser = FirebaseAuth.getInstance().currentUser
 
 
+
             //Apply notification
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
             val date = calendar.get(Calendar.DATE)
 
+            val user = FirebaseAuth.getInstance().currentUser
+            val userEmail = user?.email
+
+            val encodedEmail = userEmail?.replace(".","-")
 
             val n_title =getString(R.string.request_job_title)
             val n_des =getString(R.string.request_job)
             val n_time = "$date-$month-$year"
             val n_type = "second_type"
-            val n_UID = "XSYRrUjyHEgN6UNqPrLSCfJQQ4m2"
+            val n_UID =encodedEmail
             val n_image ="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fjob_want.jpg?alt=media&token=3144914c-33a8-4698-b25e-a62d7d191b42"
 //
 //            database = FirebaseDatabase.getInstance()

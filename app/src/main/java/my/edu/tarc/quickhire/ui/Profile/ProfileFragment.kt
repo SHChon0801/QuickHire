@@ -28,7 +28,6 @@ class ProfileFragment : Fragment() {
 
     //firebase auth
     private lateinit var auth: FirebaseAuth
-    private lateinit var authtest: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +40,7 @@ class ProfileFragment : Fragment() {
 
         //Authenticator
         auth = FirebaseAuth.getInstance()
-        authtest = FirebaseAuth.getInstance()
+
         loadUserInfo()
 
         editButton.setOnClickListener{
@@ -77,7 +76,7 @@ class ProfileFragment : Fragment() {
                     val state = snapshot.child("state").value as String
                     val currentJob = snapshot.child("currentJob").value as String
                     val email1 = snapshot.child("email").value as String
-                    var phone = snapshot.child("phone").value as String
+                    val phone = snapshot.child("phone").value as String
                     val timePrefer = snapshot.child("timePrefer").value as String
                     val education=snapshot.child("education").value as String
                     val skill=snapshot.child("skill").value as String
