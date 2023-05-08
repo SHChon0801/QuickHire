@@ -1,7 +1,7 @@
 package my.edu.tarc.quickhire.ui.home
 
 data class EmployerJob(
-    val jobImage: Int?=null,
+    val jobImage: String?=null,
     val jobID: Int?=null,
     val jobName: String?=null,
     val jobDescription: String?=null,

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import my.edu.tarc.quickhire.R
 
 class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): RecyclerView.Adapter<EmployerHomeAdapter.HomeViewHolder>() {
@@ -21,7 +22,7 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
-        currentItem.jobImage?.let { holder.rvJobImage.setImageResource(it) }
+//        currentItem.jobImage?.let { holder.rvJobImage.setImageResource(it) }
         holder.rvJobName.text = currentItem.jobName
         holder.rvJobDescription.text = currentItem.jobDescription
         holder.rvJobSpecialist.text = currentItem.jobSpecialist
