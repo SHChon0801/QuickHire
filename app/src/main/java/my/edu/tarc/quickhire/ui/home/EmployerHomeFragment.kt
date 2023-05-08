@@ -1,12 +1,20 @@
 package my.edu.tarc.quickhire.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentEmployerHomeBinding
 
@@ -17,21 +25,29 @@ class EmployerHomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
+    private val database = Firebase.database.reference
     private lateinit var dataList: ArrayList<EmployerJob>
-    private lateinit var jobImageList: Array<Int>
-    private lateinit var jobID: Array<Int>
-    private lateinit var jobNameList: Array<String>
-    private lateinit var jobDescriptionList: Array<String>
-    private lateinit var jobArea: Array<String>
-    private lateinit var jobSpecialistList: Array<String>
-    private lateinit var jobPayRateList: Array<Double>
 
     private fun getData() {
-        for (i in jobImageList.indices) {
-            val employerJob = EmployerJob(jobImageList[i],jobID[i], jobNameList[i], jobDescriptionList[i], jobArea[i], jobSpecialistList[i], jobPayRateList[i])
-            dataList.add(employerJob)
-        }
-        recyclerView.adapter = EmployerHomeAdapter(dataList)
+        database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (jobSnapshot in snapshot.children) {
+                        val job = jobSnapshot.getValue(EmployerJob::class.java)
+                        if (job != null) {
+                            dataList.add(job)
+                        }
+                    }
+                    recyclerView.adapter = EmployerHomeAdapter(dataList)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error
+                Log.e(TAG, "Database operation cancelled: ${error.message}")
+                Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onCreateView(
@@ -40,94 +56,6 @@ class EmployerHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEmployerHomeBinding.inflate(inflater, container, false)
-
-        jobImageList = arrayOf(
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24,
-            R.drawable.baseline_arrow_back_24
-        )
-
-        jobID = arrayOf(
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-        )
-        jobNameList = arrayOf(
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-        )
-
-        jobDescriptionList = arrayOf(
-            "dtest1",
-            "dtest2",
-            "dtest3",
-            "dtest4",
-            "dtest5",
-            "dtest1",
-            "dtest2",
-            "dtest3",
-            "dtest4",
-            "dtest5",
-        )
-        jobArea = arrayOf(
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-            "ntest1",
-            "ntest2",
-            "ntest3",
-            "ntest4",
-            "ntest5",
-        )
-        jobSpecialistList = arrayOf(
-            "stest1",
-            "stest2",
-            "stest3",
-            "stest4",
-            "stest5",
-            "stest1",
-            "stest2",
-            "stest3",
-            "stest4",
-            "stest5",
-        )
-
-        jobPayRateList = arrayOf(
-            0.1,
-            0.2,
-            0.3,
-            0.4,
-            0.5,
-            0.1,
-            0.2,
-            0.3,
-            0.4,
-            0.5,
-        )
 
         val root: View = binding.root
 

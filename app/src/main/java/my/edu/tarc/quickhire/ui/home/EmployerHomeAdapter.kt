@@ -25,6 +25,7 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
         holder.rvJobName.text = currentItem.jobName
         holder.rvJobDescription.text = currentItem.jobDescription
         holder.rvJobSpecialist.text = currentItem.jobSpecialist
+        holder.rvJobArea.text = currentItem.jobArea
         holder.rvJobPayRate.text = currentItem.jobPayRate.toString()
     }
 
@@ -33,6 +34,7 @@ class EmployerHomeAdapter(private val dataList: ArrayList<EmployerJob>): Recycle
         val rvJobName: TextView = itemView.findViewById(R.id.employerJobName)
         val rvJobDescription: TextView = itemView.findViewById(R.id.employerJobDescription)
         val rvJobSpecialist: TextView = itemView.findViewById(R.id.employerJobSpecialist)
+        val rvJobArea: TextView = itemView.findViewById(R.id.employerJobArea)
         val rvJobPayRate: TextView = itemView.findViewById(R.id.employerJobPayRate)
     }
 }
