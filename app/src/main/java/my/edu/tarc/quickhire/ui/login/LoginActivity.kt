@@ -1,6 +1,7 @@
 package my.edu.tarc.quickhire.ui.login
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,8 @@ import my.edu.tarc.quickhire.databinding.ActivityLoginBinding
 import my.edu.tarc.quickhire.ui.register.NewRegisterActivity
 import my.edu.tarc.quickhire.ui.register.RegisterActivity
 import androidx.navigation.findNavController
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -30,10 +33,13 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        val prefEmail = getEncryptedSharedPreferences()?.getString("email",null).toString()
+        val prefPass = getEncryptedSharedPreferences()?.getString("password",null).toString()
+
+        binding.editTextEmail.setText(prefEmail)
+        binding.editTextPassword.setText(prefPass)
 
 
-
-        //val database = FirebaseDatabase.getInstance()
 
 
 
@@ -61,6 +67,14 @@ class LoginActivity : AppCompatActivity() {
                                     Log.d("TAG", "UID : $userEmail")
                                     Log.d("TAG", "role: $role")
                                     binding.textView17.text = role
+                                    getEncryptedSharedPreferences()?.edit()
+                                        ?.putString("email",email)
+                                        ?.putString("password",password)
+                                        ?.apply()
+
+                                    Log.d("ENCRYPTED email ",getEncryptedSharedPreferences()?.getString("email",null).toString())
+                                    Log.d("ENCRYPTED password ",getEncryptedSharedPreferences()?.getString("password",null).toString())
+
                                 } else {
                                     organizationsRef.addListenerForSingleValueEvent(object : ValueEventListener {
                                         override fun onDataChange(organizationsSnapshot: DataSnapshot) {
@@ -69,6 +83,15 @@ class LoginActivity : AppCompatActivity() {
                                                 Log.d("TAG", "UID : $userEmail")
                                                 Log.d("TAG", "role: $role")
                                                 binding.textView17.text = role
+
+                                                getEncryptedSharedPreferences()?.edit()
+                                                    ?.putString("email",email)
+                                                    ?.putString("password",password)
+                                                    ?.apply()
+
+                                                Log.d("TAG",getEncryptedSharedPreferences()?.getString("email",null).toString())
+
+
                                             } else {
 
                                             }
@@ -85,6 +108,8 @@ class LoginActivity : AppCompatActivity() {
                                 Log.e("TAG", "Failed to read value.", error.toException())
                             }
                         })
+
+
 
 
 
@@ -107,6 +132,19 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+    }
+
+
+
+    fun getEncryptedSharedPreferences(): SharedPreferences? {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            "secret_shared_prefs_file",
+            masterKeyAlias,
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 }
 
