@@ -59,7 +59,7 @@
         tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/nav_search"
-        android:name="my.edu.tarc.quickhire.ui.SearchandPost.SearchFragment"
+        android:name="my.edu.tarc.quickhire.ui.searchandPost.SearchFragment"
         android:label="@string/title_search" />
     <fragment
         android:id="@+id/nav_organization_home"
@@ -103,7 +103,7 @@
         tools:layout="@layout/fragment_notification_detail2" />
     <fragment
         android:id="@+id/nav_post"
-        android:name="my.edu.tarc.quickhire.ui.SearchandPost.PostingFragment"
+        android:name="my.edu.tarc.quickhire.ui.searchandPost.PostingFragment"
         android:label="@string/title_post" />
 
 

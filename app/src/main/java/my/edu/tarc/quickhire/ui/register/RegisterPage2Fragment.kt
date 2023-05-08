@@ -48,12 +48,12 @@ class RegisterPage2Fragment : Fragment() {
 
 
         binding.btnEmpReg.setOnClickListener {
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPass.text.toString()
-            val confirmPassword = binding.editTextConfirmPass.text.toString()
+            val email = binding.editTextEmpEmail.text.toString()
+            val password = binding.editTextEmpPass.text.toString()
+            val confirmPassword = binding.editTextEmpConfirmPass.text.toString()
             val firstName = binding.editTextFirstName.text.toString()
             val lastName = binding.editTextLastName.text.toString()
-            val phone = binding.editTextPhone.text.toString()
+            val phone = binding.editTextEmpPhone.text.toString()
             val role = "Employee"
 
             //Profile

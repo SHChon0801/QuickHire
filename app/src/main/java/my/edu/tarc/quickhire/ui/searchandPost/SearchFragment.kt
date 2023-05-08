@@ -1,4 +1,4 @@
-package my.edu.tarc.quickhire.ui.SearchandPost
+package my.edu.tarc.quickhire.ui.searchandPost
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

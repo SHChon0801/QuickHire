@@ -1,4 +1,4 @@
-package my.edu.tarc.quickhire.ui.SearchandPost
+package my.edu.tarc.quickhire.ui.searchandPost
 
 import com.google.firebase.database.*
 import my.edu.tarc.quickhire.ui.home.EmployerJob

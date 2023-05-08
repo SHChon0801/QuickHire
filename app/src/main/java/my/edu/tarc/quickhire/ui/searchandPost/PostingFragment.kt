@@ -1,26 +1,21 @@
-package my.edu.tarc.quickhire.ui.SearchandPost
+package my.edu.tarc.quickhire.ui.searchandPost
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentPostingBinding
 import my.edu.tarc.quickhire.ui.home.EmployerJob
-import java.io.IOException
 import java.util.*
 
 class PostingFragment : Fragment() {
