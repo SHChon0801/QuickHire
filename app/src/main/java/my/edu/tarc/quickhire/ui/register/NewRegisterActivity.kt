@@ -18,5 +18,7 @@ class NewRegisterActivity : AppCompatActivity() {
 
 
 
+
+
     }
 }

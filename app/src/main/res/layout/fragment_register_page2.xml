@@ -159,6 +159,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
 
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="84dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/btnEmpReg"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
