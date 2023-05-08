@@ -5,11 +5,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import my.edu.tarc.quickhire.R
@@ -45,10 +49,11 @@ class PostingFragment : Fragment() {
         //_binding= FragmentEditProfileBinding.inflate(inflater,container,false)
         binding = FragmentPostingBinding.inflate(inflater, container, false)
         //firebase auth
+        imageView = binding.imageView2
         btnPostJob = binding.btnPostJob
         btnUploadImage = binding.imageButton
         btnUploadImage.setOnClickListener {
-            selectImage()
+            pickImageGallery()
         }
         btnPostJob.setOnClickListener {
             postJob()
@@ -56,28 +61,47 @@ class PostingFragment : Fragment() {
 
         return binding.root
     }
-
-    private fun selectImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    private fun pickImageGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        galleryActivityResultLauncher.launch(intent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            selectedImageUri = data.data
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(
-                    requireContext().contentResolver,
-                    selectedImageUri
-                )
-                imageView.setImageBitmap(bitmap)
-            } catch (e: IOException) {
-                e.printStackTrace()
+    private val galleryActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback<ActivityResult> { result ->
+            //get uri of the image
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                selectedImageUri = data!!.data
+                binding.imageView2.setImageURI(selectedImageUri)
+            } else {
+                Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_SHORT).show()
             }
+
         }
-    }
+    )
+//    private fun selectImage() {
+//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+//            selectedImageUri = data.data
+//            try {
+//                val bitmap = MediaStore.Images.Media.getBitmap(
+//                    requireContext().contentResolver,
+//                    selectedImageUri
+//                )
+//                imageView.setImageBitmap(bitmap)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//        }
+//    }
 
     private fun postJob() {
         if (validateInputs()) {
@@ -144,11 +168,8 @@ class PostingFragment : Fragment() {
         val jobArea = myJobArea.selectedItem.toString()
         val jobPayRate = myJobPayRate.text.toString().trim().toDouble()
         val imageUriString = selectedImageUri.toString()
-        val imageName = imageUriString.substringAfterLast("/").substringBeforeLast(".")
-        val resourceId =
-            resources.getIdentifier(imageName, "drawable", requireContext().packageName)
         val job = EmployerJob(
-            jobImage = resourceId,
+            jobImage = imageUriString,
             jobID = ++lastAssignedJobId,
             jobName = jobName,
             jobDescription = jobDescription,

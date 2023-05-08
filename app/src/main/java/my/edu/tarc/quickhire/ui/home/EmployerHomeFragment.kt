@@ -43,15 +43,16 @@ class EmployerHomeFragment : Fragment() {
                         }
                     }
                     // Check for nullability before setting the adapter
-                    if (recyclerView.adapter != null) {
-//                        recyclerView.adapter?.notifyDataSetChanged()
-                    } else {
+                    if (recyclerView.adapter == null) {
                         recyclerView.adapter = EmployerHomeAdapter(dataList)
+                    } else {
+//                        recyclerView.adapter?.notifyDataSetChanged()
                     }
                     // Show a message to the user indicating that no jobs were found
                 } else {
                     // Hide the RecyclerView and show a message indicating that there are no jobs available
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {

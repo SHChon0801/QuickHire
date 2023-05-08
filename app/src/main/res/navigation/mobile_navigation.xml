@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_employer_home">
+    app:startDestination="@+id/nav_post">
+<!--    app:startDestination="@+id/nav_employer_home">-->
 <!--    app:startDestination="@+id/navigation_home"-->
 
 
@@ -100,6 +101,10 @@
         android:name="my.edu.tarc.quickhire.ui.notifications.organization.NotificationDetail2Fragment"
         android:label="fragment_notification_detail2"
         tools:layout="@layout/fragment_notification_detail2" />
+    <fragment
+        android:id="@+id/nav_post"
+        android:name="my.edu.tarc.quickhire.ui.SearchandPost.PostingFragment"
+        android:label="@string/title_post" />
 
 
 </navigation>
