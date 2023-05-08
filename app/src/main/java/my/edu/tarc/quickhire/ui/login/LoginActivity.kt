@@ -33,38 +33,44 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        val database = FirebaseDatabase.getInstance()
+        //val database = FirebaseDatabase.getInstance()
 
 
 
         binding.btnLogin.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextPassword.text.toString()
-            Log.d("TEST","DEEZ")
+
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if(it.isSuccessful){
                         val user = FirebaseAuth.getInstance().currentUser
-                        val uid = user?.uid
-                        val employeesRef = FirebaseDatabase.getInstance().reference.child("Employees").child(uid?:"")
-                        val organizationsRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(uid?:"")
+                        val userEmail = user?.email
+
+                        val encodedEmail = userEmail?.replace(".","-")
+                        val employeesRef = FirebaseDatabase.getInstance().reference.child("Employees").child(encodedEmail?:"")
+
+
+                        val organizationsRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(encodedEmail?:"")
 
                         employeesRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(employeesSnapshot: DataSnapshot) {
                                 if (employeesSnapshot.exists()) {
                                     val role = employeesSnapshot.child("role").getValue(String::class.java)
-                                    Log.d("TAG", "Employee role: $role")
-                                    binding.textView17.text = role.toString()
+                                    Log.d("TAG", "UID : $userEmail")
+                                    Log.d("TAG", "role: $role")
+                                    binding.textView17.text = role
                                 } else {
                                     organizationsRef.addListenerForSingleValueEvent(object : ValueEventListener {
                                         override fun onDataChange(organizationsSnapshot: DataSnapshot) {
                                             if (organizationsSnapshot.exists()) {
                                                 val role = organizationsSnapshot.child("role").getValue(String::class.java)
-                                                Log.d("TAG", "Organization role: $role")
-                                                binding.textView17.text = role.toString()
+                                                Log.d("TAG", "UID : $userEmail")
+                                                Log.d("TAG", "role: $role")
+                                                binding.textView17.text = role
                                             } else {
-                                                // Handle the case where the user does not exist in either node
+
                                             }
                                         }
 

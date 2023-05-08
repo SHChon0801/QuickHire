@@ -2,6 +2,7 @@ package my.edu.tarc.quickhire.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,9 +31,9 @@ class RegisterPage2Fragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
-        databaseReferenceEmp = database.getReference("Employees")
+        //databaseReferenceEmp = database.reference
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
+        //val currentUser = FirebaseAuth.getInstance().currentUser
 
 
         binding.btnEmpReg.setOnClickListener {
@@ -44,6 +45,17 @@ class RegisterPage2Fragment : Fragment() {
             val phone = binding.editTextPhone.text.toString()
             val role = "Employee"
 
+            val encodedEmail = email.replace(".","-")
+
+
+
+
+            val employeesRef = database.reference.child("Employees")
+
+
+
+            val newEmployeeRef = employeesRef.child(encodedEmail)
+
             if(email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() &&
                     firstName.isNotEmpty() && lastName.isNotEmpty()){
                 if(password == confirmPassword){
@@ -51,50 +63,15 @@ class RegisterPage2Fragment : Fragment() {
                         if(it.isSuccessful){
 
                             val newEmp = Employee(email,password,firstName,lastName,phone,role)
-                            if(currentUser!=null){
-
-                                databaseReferenceEmp.child(currentUser.uid).setValue(newEmp)
 
 
-                                val employeeRef = databaseReferenceEmp.push()
-
-                                employeeRef.setValue(newEmp).addOnCompleteListener { task ->
-                                    if (task.isSuccessful){
-                                        val employeeId = employeeRef.key
-
-
-
-                                        val newemployeeRef = databaseReferenceEmp.child(employeeId?:"")
-                                        newemployeeRef.addListenerForSingleValueEvent(object :
-                                            ValueEventListener {
-                                            override fun onDataChange(snapshot: DataSnapshot) {
-                                                if (snapshot.exists()) {
-                                                    val employee = snapshot.getValue(Employee::class.java)
-                                                    val role = employee?.role // Extract the role value from the employee object
-                                                    val intent = Intent(activity, LoginActivity::class.java)
-                                                    intent.putExtra("empRole",role)
-                                                    startActivity(intent)
-
-                                                    binding.textView16.setText(role)
-
-                                                }
-                                            }
-
-                                            override fun onCancelled(error: DatabaseError) {
-                                                // Handle the error
-                                            }
-                                        })
+                            newEmployeeRef.setValue(newEmp)
 
 
 
 
-                                    }
 
 
-                                }
-
-
-                            }
 
 
 

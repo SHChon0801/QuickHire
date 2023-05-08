@@ -9,6 +9,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import my.edu.tarc.quickhire.Employee
+import my.edu.tarc.quickhire.Organization
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage2Binding
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage3Binding
@@ -40,13 +42,28 @@ class RegisterPage3Fragment : Fragment() {
             val password = binding.editTextOrgPass.text.toString()
             val confirmPassword = binding.editTextOrgConfirmPass.text.toString()
             val name = binding.editTextOrgName.text.toString()
+            val phone = binding.editTextPhoneOrg.text.toString()
             var role = "Organization"
+
+            val encodedEmail = email.replace(".","-")
+
+
+
+
+            val orgRef = database.reference.child("Organizations")
+
+            val newOrgRef = orgRef.child(encodedEmail)
 
             if(email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() &&
                 name.isNotEmpty()){
                 if(password == confirmPassword){
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if(it.isSuccessful){
+
+                            val newOrg = Organization(email,password,name,phone,role)
+
+
+                            newOrgRef.setValue(newOrg)
 
                         }  else{
                             showToast(it.exception.toString(),Toast.LENGTH_SHORT)
