@@ -70,19 +70,24 @@ class EditProfileOrganizationFragment : Fragment() {
             val about=binding.inputDes.text.toString()
             val uri = imageUri.toString()
 
+            val user = FirebaseAuth.getInstance().currentUser
+            val userEmail = user?.email
 
-            database =
-                FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                    .getReference("Organizations")
+            val encodedEmail = userEmail?.replace(".","-")
+            val dataRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(encodedEmail?:"")
+
+//            database =
+//                FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//                    .getReference("Organizations")
 
             if (currentUser != null) {
-                database.child(currentUser.uid).child("name").setValue(name)
-                database.child(currentUser.uid).child("about").setValue(about)
-                database.child(currentUser.uid).child("job").setValue(job)
-                database.child(currentUser.uid).child("address").setValue(address)
-                database.child(currentUser.uid).child("email").setValue(email)
-                database.child(currentUser.uid).child("phone").setValue(telNo)
-                database.child(currentUser.uid).child("profilePic").setValue(uri)
+                dataRef.child("name").setValue(name)
+                dataRef.child("about").setValue(about)
+                dataRef.child("job").setValue(job)
+                dataRef.child("address").setValue(address)
+                dataRef.child("email").setValue(email)
+                dataRef.child("phone").setValue(telNo)
+                dataRef.child("profilePic").setValue(uri)
 
             }
             Toast.makeText(requireContext(), "Profile Updated Successfully!!", Toast.LENGTH_SHORT)
@@ -123,11 +128,19 @@ class EditProfileOrganizationFragment : Fragment() {
     private fun loadUserInfo(){
         val datab = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
-        val dataRef = datab.getReference("Organizations").child(auth.currentUser!!.uid)
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+        val dataRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(encodedEmail?:"")
+
+
+
+       // val dataRef = datab.getReference("Organizations").child(auth.currentUser!!.uid)
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value!=null) {
-                    val name = snapshot.child("name").value as String
+                    val name = snapshot.child("orgName").value as String
                     val about = snapshot.child("about").value as String
                     val job = snapshot.child("job").value as String
                     val address = snapshot.child("address").value as String
@@ -165,9 +178,14 @@ class EditProfileOrganizationFragment : Fragment() {
     }
 
     private fun loadPic() {
-        val datab =
-            FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        val dataRef = datab.getReference("Employees").child(auth.currentUser!!.uid)
+
+        val user = FirebaseAuth.getInstance().currentUser
+        val userEmail = user?.email
+
+        val encodedEmail = userEmail?.replace(".","-")
+        val dataRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(encodedEmail?:"")
+
+
         val eventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value != null) {

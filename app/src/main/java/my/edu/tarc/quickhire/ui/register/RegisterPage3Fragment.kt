@@ -25,6 +25,7 @@ class RegisterPage3Fragment : Fragment() {
     private lateinit var database: FirebaseDatabase
 
     //Profile
+    private lateinit var about:String
     private lateinit var job:String
     private lateinit var address:String
     private lateinit var profilePic:String
@@ -55,6 +56,7 @@ class RegisterPage3Fragment : Fragment() {
             profilePic=""
             address=""
             job=""
+            about=""
 
             //Welcome notification
             val calendar = Calendar.getInstance()
@@ -88,7 +90,7 @@ class RegisterPage3Fragment : Fragment() {
                             val notificationClass = NotificationData(n_title, n_des, n_time,n_type,n_UID, n_image)
                             notifications.add(notificationClass)
 
-                            val newOrg = Organization(email,password,name,phone,role,job,address,profilePic)
+                            val newOrg = Organization(email,password,name,phone,role,about,job,address,profilePic)
 
 
                             //newOrgRef.setValue(newOrg)

@@ -92,21 +92,46 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:drawableStart="@drawable/baseline_edit_24"
-                    android:hint="@string/name">
+                    android:hint="@string/first_name">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputName"
+                        android:id="@+id/inputFirstName"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="16dp"
-                        android:drawableStart="@drawable/baseline_person_24" />
+                        android:drawableStart="@drawable/baseline_person_24"
+                        android:drawablePadding="16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEditLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layoutEditName"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:drawableStart="@drawable/baseline_edit_24"
+                    android:hint="@string/last_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputLastName"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_person_24"
+                        android:drawablePadding="16dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutEditEmail"
-                android:layout_below="@id/layoutEditName"
+                android:layout_below="@id/layoutEditLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

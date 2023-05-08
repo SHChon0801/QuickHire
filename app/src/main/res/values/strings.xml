@@ -88,6 +88,8 @@
     <string name="change_photo">Change Photo</string>
     <string name="personal_detail">Personal Detail</string>
     <string name="name">Name</string>
+    <string name="firstname">First Name</string>
+    <string name="secondname">Second Name</string>
     <string name="e_mail">E-mail</string>
     <string name="phone_number">Phone Number</string>
     <string name="stated">Stated</string>
