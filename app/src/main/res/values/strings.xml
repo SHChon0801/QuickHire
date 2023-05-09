@@ -129,6 +129,7 @@
     <string name="reject_detail">Feel sorry. It is a pity that we cannot hire you because your qualifications do not meet our expectations. I hope you can find the job you want as soon as possible.</string>
     <string name="request_job">A new job hire request from job seeker is sent to you. Please do the response as fast as possible.</string>
     <string name="request_job_title">New job hire request</string>
+    <string name="backButton">backButton</string>
 
     <string-array name="areaoptions">
         <item>Alor Setar</item>

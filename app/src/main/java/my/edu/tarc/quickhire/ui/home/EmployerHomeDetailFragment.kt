@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import my.edu.tarc.quickhire.databinding.FragmentEmployerHomeDetailBinding
 
@@ -35,6 +36,10 @@ class EmployerHomeDetailFragment : Fragment() {
         binding.employerJobAreaDetail.text = jobArea
         binding.employerJobSpecialistDetail.text = jobSpecialist
 //        binding.employerJobPayRateDetail.text = jobPayRate
+
+        binding.employerBackBtnDetail.setOnClickListener{
+            findNavController().navigateUp()
+        }
 
         return  binding.root
     }
