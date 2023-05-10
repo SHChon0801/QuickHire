@@ -7,5 +7,6 @@ data class Job(
     val jobDescription: String?=null,
     val jobArea: String?=null,
     val jobSpecialist: String?=null,
-    var jobPayRate: Double?=null
+    val jobPayRate: Double?=null,
+    val jobEmail: String?=null
 )

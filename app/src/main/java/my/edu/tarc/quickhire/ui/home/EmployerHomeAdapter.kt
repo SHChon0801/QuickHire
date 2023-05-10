@@ -25,6 +25,7 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
+
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = currentItem.jobImage.let { storageRef.child(it.toString()) }
         imageRef.downloadUrl.addOnSuccessListener { uri ->
@@ -46,11 +47,12 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
                 putString("jobDescription", currentItem.jobDescription)
                 putString("jobArea", currentItem.jobArea)
                 putString("jobSpecialist", currentItem.jobSpecialist)
-//                putDouble("jobPayRate", currentItem.jobPayRate?)
+                currentItem.jobPayRate?.let { it1 -> putDouble("jobPayRate", it1) }
             }
             holder.itemView.findNavController().navigate(R.id.action_nav_employer_home_to_employerHomeDetailFragment, bundle)
         }
     }
+
 
     class HomeViewHolder(val binding: RecyclerEmployerJobBinding): RecyclerView.ViewHolder(binding.root) {
 
