@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -150,7 +151,7 @@ class PostingFragment : Fragment() {
         val jobSpecialist = myJobSpecialist.selectedItem.toString()
         val jobArea = myJobArea.selectedItem.toString()
         val jobPayRate = myJobPayRate.text.toString().trim().toDouble()
-
+        val user = FirebaseAuth.getInstance().currentUser
         val job = Job(
             jobImage = "images/$imageFileName.jpg",
             jobID = ++lastAssignedJobId,
@@ -158,7 +159,8 @@ class PostingFragment : Fragment() {
             jobDescription = jobDescription,
             jobArea = jobArea,
             jobSpecialist = jobSpecialist,
-            jobPayRate = jobPayRate
+            jobPayRate = jobPayRate,
+            jobEmail = user!!.email
         )
         return job
     }
