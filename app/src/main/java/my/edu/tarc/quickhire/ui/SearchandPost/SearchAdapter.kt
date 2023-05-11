@@ -76,7 +76,7 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
                 putString("jobSpecialist", job.jobSpecialist)
                 job.jobPayRate?.let { putDouble("jobPayRate", it) }
             }
-//                v.findNavController().navigate(R.id.action_nav_search_to_nav_employer_home_detail, bundle)
+                v.findNavController().navigate(R.id.action_nav_search_to_nav_employer_home_detail, bundle)
         }
     }
 }
