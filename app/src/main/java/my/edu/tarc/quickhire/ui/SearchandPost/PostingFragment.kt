@@ -1,4 +1,4 @@
-package my.edu.tarc.quickhire.ui.searchandPost
+package my.edu.tarc.quickhire.ui.SearchandPost
 
 import android.app.Activity
 import android.content.Intent

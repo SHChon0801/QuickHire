@@ -1,4 +1,4 @@
-package my.edu.tarc.quickhire.ui.searchandPost
+package my.edu.tarc.quickhire.ui.SearchandPost
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentSearchBinding
-import my.edu.tarc.quickhire.ui.SearchandPost.SearchAdapter
+import my.edu.tarc.quickhire.ui.FavouriteJobPlace
 import my.edu.tarc.quickhire.ui.home.Job
 
 class SearchFragment : Fragment() {
@@ -24,9 +24,9 @@ class SearchFragment : Fragment() {
     private var selectedArea: String? = null
     private var selectedSpecialist: String? = null
 
-    private fun pushJobToFirebase(job: Job) {
-        val key = databaseHelper.pushJob(job)
-    }
+//    private fun pushJobToFirebase(job: Job) {
+//        val key = databaseHelper.pushJob(job)
+//    }
     private fun readJobsData() {
         databaseHelper.readJobsData(object : FirebaseDatabaseHelper.OnDataFetchListener {
             override fun onDataFetched(jobs: List<Job>) {
@@ -95,6 +95,11 @@ class SearchFragment : Fragment() {
                 selectedArea = parent?.getItemAtPosition(position).toString()
                 // Perform search with updated values
                 performSearch(searchView.query.toString(), selectedArea, selectedSpecialist)
+                val job = FavouriteJobPlace(
+                    jobArea = selectedArea,
+                    clickRate = 0
+                )
+                databaseHelper.postOrUpdateFavouriteJobPlace(job)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -124,5 +129,7 @@ class SearchFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 }
