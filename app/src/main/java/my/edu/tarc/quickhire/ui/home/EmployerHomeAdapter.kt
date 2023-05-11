@@ -25,7 +25,6 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
-
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = currentItem.jobImage.let { storageRef.child(it.toString()) }
         imageRef.downloadUrl.addOnSuccessListener { uri ->
@@ -37,6 +36,7 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
             // Handle any errors
             Log.e(ContentValues.TAG, "Failed to retrieve image download URL: ${exception.message}")
         }
+        holder.binding.employerJobImage.contentDescription = currentItem.jobName
         holder.binding.employerJobName.text = currentItem.jobName
         holder.binding.employerJobDescription.text = currentItem.jobDescription
         holder.binding.employerJobPayRate.text = "Pay Rate Per Hour: " + currentItem.jobPayRate.toString()
@@ -54,7 +54,5 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
     }
 
 
-    class HomeViewHolder(val binding: RecyclerEmployerJobBinding): RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class HomeViewHolder(val binding: RecyclerEmployerJobBinding): RecyclerView.ViewHolder(binding.root)
 }

@@ -130,6 +130,8 @@
     <string name="request_job">A new job hire request from job seeker is sent to you. Please do the response as fast as possible.</string>
     <string name="request_job_title">New job hire request</string>
     <string name="backButton">backButton</string>
+    <string name="JobDescription">Description</string>
+    <string name="job_image">Job Image:</string>
 
     <string-array name="areaoptions">
         <item></item>

@@ -45,7 +45,7 @@ class EmployerHomeDetailFragment : Fragment() {
             // Handle any errors
             Log.e(ContentValues.TAG, "Failed to retrieve image download URL: ${exception.message}")
         }
-
+        binding.employerJobImageDetail.contentDescription = jobName
         binding.employerJobNameDetail.text = jobName
         binding.employerJobDescriptionDetail.text = jobDescription
         binding.employerJobAreaDetail.text = jobArea
