@@ -25,7 +25,6 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = dataList[position]
-
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = currentItem.jobImage.let { storageRef.child(it.toString()) }
         imageRef.downloadUrl.addOnSuccessListener { uri ->

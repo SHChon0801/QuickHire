@@ -32,22 +32,15 @@ class OrganizationHomeFragment : Fragment() {
     private fun getData() {
         database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    for (jobSnapshot in snapshot.children) {
-                        val job = jobSnapshot.getValue(Job::class.java)
-                        if (job != null) {
-                            dataList.add(job)
-                        }
-                    }
-                    if (recyclerView.adapter == null) {
-                        recyclerView.adapter = OrganizationHomeAdapter(dataList)
-                    } else {
-                        recyclerView.adapter?.notifyDataSetChanged()
-                    }
-                } else {
-                    // Hide the RecyclerView and show a message indicating that there are no jobs available
-                }
+                dataList.clear()
 
+                for (jobSnapshot in snapshot.children) {
+                    val job = jobSnapshot.getValue(Job::class.java)
+                    job?.let{
+                        dataList.add(it)
+                    }
+                }
+                recyclerView.adapter = OrganizationHomeAdapter(dataList)
             }
 
             override fun onCancelled(error: DatabaseError) {
