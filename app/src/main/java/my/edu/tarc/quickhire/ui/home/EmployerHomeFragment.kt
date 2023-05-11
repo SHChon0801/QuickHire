@@ -33,26 +33,13 @@ class EmployerHomeFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
 
-                if (snapshot.exists()) {
-                    for (jobSnapshot in snapshot.children) {
-                        val job = jobSnapshot.getValue(Job::class.java)
-                        if (job != null) {
-                            dataList.add(job)
-                        }
+                for (jobSnapshot in snapshot.children) {
+                    val job = jobSnapshot.getValue(Job::class.java)
+                    job?.let{
+                        dataList.add(it)
                     }
-
-                    if (dataList.isEmpty()) {
-                        // Hide the RecyclerView and show a message indicating that there are no jobs available
-                    } else {
-                        if (recyclerView.adapter == null) {
-                            recyclerView.adapter = EmployerHomeAdapter(dataList)
-                        } else {
-                            recyclerView.adapter?.notifyDataSetChanged()
-                        }
-                    }
-                } else {
-                    // Hide the RecyclerView and show a message indicating that there are no jobs available
                 }
+                recyclerView.adapter = EmployerHomeAdapter(dataList)
             }
 
             override fun onCancelled(error: DatabaseError) {
