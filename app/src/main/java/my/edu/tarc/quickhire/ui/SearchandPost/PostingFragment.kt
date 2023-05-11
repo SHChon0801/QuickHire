@@ -48,10 +48,10 @@ class PostingFragment : Fragment() {
         //_binding= FragmentEditProfileBinding.inflate(inflater,container,false)
         binding = FragmentPostingBinding.inflate(inflater, container, false)
         //firebase auth
-        imageView = binding.imageView2
-        binding.imageView2.setImageResource(R.drawable.profileunknown)
+        imageView = binding.organizationImageDetail
+        binding.organizationImageDetail.setImageResource(R.drawable.profileunknown)
         btnPostJob = binding.btnPostJob
-        btnUploadImage = binding.imageButton
+        btnUploadImage = binding.organizationUploadImageBtnDetail
         btnUploadImage.setOnClickListener {
             pickImageGallery()
         }
@@ -77,7 +77,7 @@ class PostingFragment : Fragment() {
                     // Generate a unique image filename
                     imageFileName = UUID.randomUUID().toString()
                     // Call the function to upload the image to Firebase Storage and create the job
-                    binding.imageView2.setImageURI(uri)
+                    binding.organizationImageDetail.setImageURI(uri)
                     uploadImageToStorage(uri)
                 }
             } else {
@@ -96,11 +96,11 @@ class PostingFragment : Fragment() {
     }
 
     private fun validateInputs(): Boolean {
-        myJobName = binding.etJobName
-        myJobDescription = binding.etJobDescription
-        myJobSpecialist = binding.jobspinner
-        myJobArea = binding.areaspinner
-        myJobPayRate = binding.etJobPayRate
+        myJobName = binding.organizationNameDetail
+        myJobDescription = binding.organizationDescriptionDetail
+        myJobSpecialist = binding.organizationSpecialistSpinnerDetail
+        myJobArea = binding.organizationAreaSpinnerDetail
+        myJobPayRate = binding.organizationPayRateDetail
 
         val jobName = myJobName.text.toString().trim()
         val jobDescription = myJobDescription.text.toString().trim()
@@ -168,11 +168,11 @@ class PostingFragment : Fragment() {
     private fun clearInputs() {
         myJobName.text.clear()
         myJobDescription.text.clear()
-        binding.areaspinner.setSelection(0)
+        binding.organizationAreaSpinnerDetail.setSelection(0)
         myJobPayRate.text.clear()
         imageView.setImageResource(0)
         selectedImageUri = null
-        binding.jobspinner.setSelection(0)
+        binding.organizationSpecialistSpinnerDetail.setSelection(0)
     }
     private fun uploadImageToStorage(imageUri: Uri) {
         val storageRef = FirebaseStorage.getInstance().reference
