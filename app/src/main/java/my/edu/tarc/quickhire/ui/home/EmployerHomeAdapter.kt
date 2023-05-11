@@ -37,6 +37,7 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
             // Handle any errors
             Log.e(ContentValues.TAG, "Failed to retrieve image download URL: ${exception.message}")
         }
+        holder.binding.employerJobImage.contentDescription = currentItem.jobName
         holder.binding.employerJobName.text = currentItem.jobName
         holder.binding.employerJobDescription.text = currentItem.jobDescription
         holder.binding.employerJobPayRate.text = "Pay Rate Per Hour: " + currentItem.jobPayRate.toString()
@@ -54,7 +55,5 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
     }
 
 
-    class HomeViewHolder(val binding: RecyclerEmployerJobBinding): RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class HomeViewHolder(val binding: RecyclerEmployerJobBinding): RecyclerView.ViewHolder(binding.root)
 }
