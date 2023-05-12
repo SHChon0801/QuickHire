@@ -84,6 +84,8 @@ class SearchAdapter(private val jobs: MutableList<Job>) : RecyclerView.Adapter<S
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
                 user!!.email?.let { updateUserJobIDApplied(job.jobID!!, it) }
                 Toast.makeText(v.context, "Apply successfully", Toast.LENGTH_SHORT).show()
+
+
             } else {
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
 
