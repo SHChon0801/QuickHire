@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
@@ -68,21 +69,21 @@ class SearchAdapter(private val jobs: MutableList<Job>) : RecyclerView.Adapter<S
                 // Handle any errors
                 Log.e(TAG, "Failed to retrieve image download URL: ${exception.message}")
             }
-            jobNameTextView.text = job.jobName
-            jobDescriptionTextView.text = job.jobDescription
+            jobNameTextView.text = "Job Name : ${job.jobName} "
+            jobDescriptionTextView.text = "Job Description :\n ${job.jobDescription} "
             jobPayRate.text = "Pay Rate Per Hours : ${job.jobPayRate} "
-            if(job.emailIDApplied!!.contains(user!!.email)){
-                applyButton.isEnabled = false
+            if(job.emailIDApplied != null){
+                if(job.emailIDApplied!!.contains(user!!.email)){
+                    applyButton.isEnabled = false
+                }
             }
         }
 
         override fun onClick(v: View) {
             if (v == applyButton) {
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
-                val user = FirebaseAuth.getInstance().currentUser
                 user!!.email?.let { updateUserJobIDApplied(job.jobID!!, it) }
-
-                itemView.findNavController().navigate(R.id.nav_search)
+                Toast.makeText(v.context, "Apply successfully", Toast.LENGTH_SHORT).show()
             } else {
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
 
@@ -92,7 +93,9 @@ class SearchAdapter(private val jobs: MutableList<Job>) : RecyclerView.Adapter<S
                     putString("jobDescription", job.jobDescription)
                     putString("jobArea", job.jobArea)
                     putString("jobSpecialist", job.jobSpecialist)
+                    putInt("jobID",job.jobID!!)
                     job.jobPayRate?.let { putDouble("jobPayRate", it) }
+                    putStringArrayList("emailIDApplied", job.emailIDApplied)
                 }
                 v.findNavController().navigate(R.id.action_nav_search_to_nav_employer_home_detail, bundle)
             }

@@ -48,6 +48,7 @@
             android:layout_marginTop="8dp"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#171616"
             app:layout_constraintEnd_toStartOf="@+id/applyButton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

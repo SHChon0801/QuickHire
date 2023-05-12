@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.RecyclerEmployerJobBinding
@@ -24,6 +25,7 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        val user = FirebaseAuth.getInstance().currentUser
         val currentItem = dataList[position]
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef = currentItem.jobImage.let { storageRef.child(it.toString()) }
@@ -40,6 +42,11 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
         holder.binding.employerJobName.text = currentItem.jobName
         holder.binding.employerJobDescription.text = currentItem.jobDescription
         holder.binding.employerJobPayRate.text = "Pay Rate Per Hour: " + currentItem.jobPayRate.toString()
+        if(currentItem.emailIDApplied != null){
+            if(currentItem.emailIDApplied!!.contains(user!!.email)){
+                holder.binding.applyButton.isEnabled = false
+            }
+        }
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("jobImage", currentItem.jobImage)
@@ -47,7 +54,9 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
                 putString("jobDescription", currentItem.jobDescription)
                 putString("jobArea", currentItem.jobArea)
                 putString("jobSpecialist", currentItem.jobSpecialist)
+                putInt("jobID", currentItem.jobID!!)
                 currentItem.jobPayRate?.let { it1 -> putDouble("jobPayRate", it1) }
+                putStringArrayList("emailIDApplied", currentItem.emailIDApplied)
             }
             holder.itemView.findNavController().navigate(R.id.action_nav_employer_home_to_employerHomeDetailFragment, bundle)
         }
