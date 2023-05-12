@@ -56,6 +56,7 @@ class EmployerHomeDetailFragment : Fragment() {
         binding.employerJobAreaDetail.text = jobArea
         binding.employerJobSpecialistDetail.text = jobSpecialist
         binding.employerJobPayRateDetail.text = jobPayRate.toString()
+        println(emailIDApplied)
         if(emailIDApplied != null){
             if(emailIDApplied.contains(user!!.email)){
                 binding.detailApplyButton.isEnabled = false

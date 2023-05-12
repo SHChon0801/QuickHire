@@ -252,7 +252,8 @@ class OrganizationHomeDetailFragment : Fragment() {
                                 jobArea = jobArea,
                                 jobSpecialist = jobSpecialist,
                                 jobPayRate = jobPayRate,
-                                jobEmail = user!!.email
+                                jobEmail = user!!.email,
+                                emailIDApplied = currentEmailList
                             )
 
                             val jobKey = jobSnapshot.key
@@ -266,15 +267,6 @@ class OrganizationHomeDetailFragment : Fragment() {
                                     .addOnFailureListener { exception ->
                                         // Update failed
                                         println("Failed to edit job list for job with jobID: $jobID. Error: $exception")
-                                    }
-                                jobsRef.child(it).child("emailIDApplied").setValue(currentEmailList)
-                                    .addOnSuccessListener {
-                                        // Update successful
-                                        println("Email added to emailIDApplied list for job with jobID: $jobID")
-                                    }
-                                    .addOnFailureListener { exception ->
-                                        // Update failed
-                                        println("Failed to add email to emailIDApplied list for job with jobID: $jobID. Error: $exception")
                                     }
                             }
 

@@ -23,7 +23,6 @@ import my.edu.tarc.quickhire.ui.home.Job
 
 class SearchAdapter(private val jobs: MutableList<Job>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
-    private val stringBuilder = StringBuilder()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_employer_job, parent, false)
@@ -84,7 +83,7 @@ class SearchAdapter(private val jobs: MutableList<Job>) : RecyclerView.Adapter<S
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
                 user!!.email?.let { updateUserJobIDApplied(job.jobID!!, it) }
                 Toast.makeText(v.context, "Apply successfully", Toast.LENGTH_SHORT).show()
-
+                v.findNavController().navigate(R.id.nav_search)
 
             } else {
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
