@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -58,7 +57,7 @@ class EmployerHomeDetailFragment : Fragment() {
         binding.employerJobSpecialistDetail.text = jobSpecialist
         binding.employerJobPayRateDetail.text = jobPayRate.toString()
         if(emailIDApplied != null){
-            if(emailIDApplied!!.contains(user!!.email)){
+            if(emailIDApplied.contains(user!!.email)){
                 binding.detailApplyButton.isEnabled = false
             }
         }
@@ -82,7 +81,7 @@ class EmployerHomeDetailFragment : Fragment() {
         _binding = null
     }
 
-    fun updateUserJobIDApplied(jobID: Int, emailID: String) {
+    private fun updateUserJobIDApplied(jobID: Int, emailID: String) {
         val jobsRef = FirebaseDatabase.getInstance().getReference("Jobs")
 
         val query = jobsRef.orderByChild("jobID").equalTo(jobID.toDouble())
