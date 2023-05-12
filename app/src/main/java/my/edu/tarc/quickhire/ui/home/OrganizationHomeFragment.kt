@@ -11,6 +11,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -34,13 +35,22 @@ class OrganizationHomeFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
 
+                val user = FirebaseAuth.getInstance().currentUser
                 for (jobSnapshot in snapshot.children) {
                     val job = jobSnapshot.getValue(Job::class.java)
                     job?.let{
-                        dataList.add(it)
+                        if (user?.email == job.jobEmail) { // filter out jobs with current user's email
+                            dataList.add(it)
+                        }
                     }
                 }
-                recyclerView.adapter = OrganizationHomeAdapter(dataList)
+
+                if (dataList.isEmpty()) {
+                    binding.organizationJobRecyclerView.visibility = View.GONE // hide RecyclerView
+                } else {
+                    binding.organizationJobRecyclerView.visibility = View.VISIBLE // show RecyclerView
+                    recyclerView.adapter = OrganizationHomeAdapter(dataList)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -50,11 +60,12 @@ class OrganizationHomeFragment : Fragment() {
         })
     }
 
+
     private fun performSearch(query: String) {
         val filteredList = dataList.filter { job ->
             val isMatchingQuery = job.jobName!!.contains(query, ignoreCase = true)
             isMatchingQuery
-        }
+        }.toMutableList()
         recyclerView.adapter = OrganizationHomeAdapter(filteredList)
     }
 
