@@ -180,7 +180,7 @@ class PostingFragment : Fragment() {
             jobArea = jobArea,
             jobSpecialist = jobSpecialist,
             jobPayRate = jobPayRate,
-            jobEmail = user!!.email
+            jobEmail = user!!.email,
         )
         return job
     }

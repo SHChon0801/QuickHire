@@ -10,15 +10,19 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.ui.home.Job
 
-class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(private val jobs: MutableList<Job>) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
-
+    private val stringBuilder = StringBuilder()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_employer_job, parent, false)
@@ -36,6 +40,7 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
 
     inner class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
+        val user = FirebaseAuth.getInstance().currentUser
         private val applyButton: Button = itemView.findViewById(R.id.applyButton)
         private val jobImage: ImageView = itemView.findViewById(R.id.employerJobImage)
         private val jobNameTextView: TextView = itemView.findViewById(R.id.employerJobName)
@@ -66,11 +71,18 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
             jobNameTextView.text = job.jobName
             jobDescriptionTextView.text = job.jobDescription
             jobPayRate.text = "Pay Rate Per Hours : ${job.jobPayRate} "
+            if(job.emailIDApplied!!.contains(user!!.email)){
+                applyButton.isEnabled = false
+            }
         }
 
         override fun onClick(v: View) {
             if (v == applyButton) {
+                val job = jobs[adapterPosition] // Get the clicked job at the current position
+                val user = FirebaseAuth.getInstance().currentUser
+                user!!.email?.let { updateUserJobIDApplied(job.jobID!!, it) }
 
+                itemView.findNavController().navigate(R.id.nav_search)
             } else {
                 val job = jobs[adapterPosition] // Get the clicked job at the current position
 
@@ -86,6 +98,77 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
             }
         }
     }
+
+    fun updateUserJobIDApplied(jobID: Int, emailID: String) {
+        val jobsRef = FirebaseDatabase.getInstance().getReference("Jobs")
+
+        val query = jobsRef.orderByChild("jobID").equalTo(jobID.toDouble())
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Loop through the jobs in the adapter
+                    for (i in jobs.indices) {
+                        val job = jobs[i]
+
+                        // Find the matching job in the dataSnapshot
+                        for (jobSnapshot in dataSnapshot.children) {
+                            val snapshotJobID = jobSnapshot.child("jobID").getValue(Int::class.java)
+                            if (snapshotJobID == jobID && snapshotJobID == job.jobID) {
+                                // Retrieve and modify the emailIDApplied list
+                                val emailIDAppliedType = object : GenericTypeIndicator<ArrayList<String>>() {}
+                                val currentEmailList =
+                                    jobSnapshot.child("emailIDApplied").getValue(emailIDAppliedType)
+
+                                // Check if the currentEmailList is not null
+                                if (currentEmailList != null) {
+                                    // Add the new email to the list if it doesn't exist already
+                                    if (!currentEmailList.contains(emailID)) {
+                                        currentEmailList.add(emailID)
+
+                                        val jobKey = jobSnapshot.key
+                                        jobKey?.let {
+                                            jobsRef.child(it).child("emailIDApplied")
+                                                .setValue(currentEmailList)
+                                                .addOnSuccessListener {
+                                                    // Update successful
+                                                    println("Email added to emailIDApplied list for job with jobID: $jobID")
+                                                }
+                                                .addOnFailureListener { exception ->
+                                                    // Update failed
+                                                    println("Failed to add email to emailIDApplied list for job with jobID: $jobID. Error: $exception")
+                                                }
+                                        }
+                                    }
+                                } else {
+                                    // If the currentEmailList is null, create a new list with the email
+                                    val newEmailList = ArrayList<String>()
+                                    newEmailList.add(emailID)
+                                    jobSnapshot.child("emailIDApplied").ref.setValue(newEmailList)
+                                }
+
+                                // Update the job in the adapter
+                                jobs[i] = jobSnapshot.getValue(Job::class.java)!!
+
+                                // Notify the adapter that the dataset has changed for the specific item
+                                notifyItemChanged(i)
+
+                                break
+                            }
+                        }
+                    }
+                } else {
+                    println("No matching jobs found for jobID: $jobID")
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle onCancelled event
+            }
+        })
+    }
+
 }
+
+
 
 

@@ -55,7 +55,6 @@ class RegisterPage2Fragment : Fragment() {
             val lastName = binding.editTextLastName.text.toString()
             val phone = binding.editTextEmpPhone.text.toString()
             val role = "Employee"
-
             //Profile
             profilePic=""
             about=""
@@ -103,7 +102,7 @@ class RegisterPage2Fragment : Fragment() {
                             val newEmp = Employee(email,password,firstName,lastName,phone,role,about,state,currentJob,timePrefer,education,skill,profilePic)
 
 
-                            //newEmployeeRef.setValue(newEmp)
+//                            newEmployeeRef.setValue(newEmp)
 
                             // Save the notification data to Realtime Database
                             newEmployeeRef.apply {

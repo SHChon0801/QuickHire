@@ -8,5 +8,6 @@ data class Job(
     val jobArea: String?=null,
     val jobSpecialist: String?=null,
     val jobPayRate: Double?=null,
-    val jobEmail: String?=null
+    val jobEmail: String?=null,
+    val emailIDApplied: ArrayList<String>? = null
 )

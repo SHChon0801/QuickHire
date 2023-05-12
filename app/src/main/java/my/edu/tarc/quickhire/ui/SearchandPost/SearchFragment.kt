@@ -49,7 +49,7 @@ class SearchFragment : Fragment() {
             val isMatchingArea = jobArea.isNullOrEmpty() || job.jobArea.equals(jobArea, ignoreCase = true)
             val isMatchingSpecialist = jobSpecialist.isNullOrEmpty() || job.jobSpecialist.equals(jobSpecialist, ignoreCase = true)
             isMatchingQuery && isMatchingArea && isMatchingSpecialist
-        }
+        }.toMutableList()
         recyclerView.adapter = SearchAdapter(filteredList)
     }
     override fun onCreateView(

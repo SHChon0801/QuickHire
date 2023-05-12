@@ -13,7 +13,7 @@ data class Employee (
     val timePrefer:String?=null,
     val education:String?=null,
     val skill:String?=null,
-    val profilePic:String?=null
-
+    val profilePic:String?=null,
+    val jobIDApplied: ArrayList<Int>? = null
 
 )
