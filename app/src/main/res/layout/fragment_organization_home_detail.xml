@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:backgroundTint="#FFFFFF"
+                android:backgroundTint="#7A7676"
                 android:contentDescription="@string/this_is_my_image_button"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
