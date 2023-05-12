@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
@@ -35,6 +36,7 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
 
     inner class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
+        private val applyButton: Button = itemView.findViewById(R.id.applyButton)
         private val jobImage: ImageView = itemView.findViewById(R.id.employerJobImage)
         private val jobNameTextView: TextView = itemView.findViewById(R.id.employerJobName)
         private val jobDescriptionTextView: TextView =
@@ -43,6 +45,7 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
 
         init {
             itemView.setOnClickListener(this)
+            applyButton.setOnClickListener(this)
         }
 
         fun bind(job: Job) {
@@ -66,17 +69,21 @@ class SearchAdapter(private val jobs: List<Job>) : RecyclerView.Adapter<SearchAd
         }
 
         override fun onClick(v: View) {
-            val job = jobs[adapterPosition] // Get the clicked job at the current position
+            if (v == applyButton) {
 
-            val bundle = Bundle().apply {
-                putString("jobImage", job.jobImage)
-                putString("jobName", job.jobName)
-                putString("jobDescription", job.jobDescription)
-                putString("jobArea", job.jobArea)
-                putString("jobSpecialist", job.jobSpecialist)
-                job.jobPayRate?.let { putDouble("jobPayRate", it) }
-            }
+            } else {
+                val job = jobs[adapterPosition] // Get the clicked job at the current position
+
+                val bundle = Bundle().apply {
+                    putString("jobImage", job.jobImage)
+                    putString("jobName", job.jobName)
+                    putString("jobDescription", job.jobDescription)
+                    putString("jobArea", job.jobArea)
+                    putString("jobSpecialist", job.jobSpecialist)
+                    job.jobPayRate?.let { putDouble("jobPayRate", it) }
+                }
                 v.findNavController().navigate(R.id.action_nav_search_to_nav_employer_home_detail, bundle)
+            }
         }
     }
 }
