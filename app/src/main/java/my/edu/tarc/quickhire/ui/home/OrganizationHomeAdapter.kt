@@ -40,6 +40,7 @@ class OrganizationHomeAdapter(private val dataList: List<Job>): RecyclerView.Ada
         holder.binding.organizationJobName.text = currentItem.jobName
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
+                currentItem.jobID?.let { it1 -> putInt("jobId", it1) }
                 putString("jobImage", currentItem.jobImage)
                 putString("jobName", currentItem.jobName)
                 putString("jobDescription", currentItem.jobDescription)

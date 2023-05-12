@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.OrganizationHomeDetailFragment">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="60dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -21,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#0000FFFF"
+                android:backgroundTint="#FFFFFF"
                 android:contentDescription="@string/backButton"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
@@ -38,7 +43,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Edit the Job"
+                android:text="@string/edit_the_job"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="24sp"
@@ -53,12 +58,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#0000FFFF"
+                android:backgroundTint="#FFFFFF"
+                android:contentDescription="@string/delete_job"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:src="@drawable/baseline_delete_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -77,15 +85,18 @@
                 android:id="@+id/organizationImageDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars"
+                android:contentDescription="@string/todo" />
 
             <ImageButton
                 android:id="@+id/organizationUploadImageBtnDetail"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:backgroundTint="#FFFFFF"
-                android:contentDescription="This is my image button"
+                android:contentDescription="@string/this_is_my_image_button"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 android:src="@drawable/baseline_upload_24" />
 
         </FrameLayout>
@@ -109,10 +120,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTintMode="add"
-                android:hint="Job Name"
+                android:hint="@string/job_name"
                 android:inputType="textLongMessage"
                 android:textColorHint="#B3ACAC"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:autofillHints="@string/job_name" />
         </LinearLayout>
 
         <LinearLayout
@@ -134,10 +146,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTintMode="add"
-                android:hint="Job Description"
-                android:inputType="textLongMessage"
+                android:hint="@string/job_des"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="10"
+                android:minLines="1"
                 android:textColorHint="#B3ACAC"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:autofillHints="@string/job_des" />
         </LinearLayout>
 
         <LinearLayout
@@ -164,6 +179,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -188,6 +204,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -208,10 +225,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTintMode="add"
-                android:hint="Job Pay Rate"
+                android:hint="@string/job_pay_rate"
                 android:inputType="number"
                 android:textColorHint="#B3ACAC"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:autofillHints="" />
         </LinearLayout>
 
         <Button
@@ -219,8 +237,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:text="Edit Job" />
+            android:text="@string/edit_job" />
 
     </LinearLayout>
 
-</FrameLayout>
+
+</ScrollView>
