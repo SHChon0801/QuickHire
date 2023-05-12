@@ -12,8 +12,7 @@ import android.widget.*
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentPostingBinding
@@ -30,10 +29,12 @@ class PostingFragment : Fragment() {
     private lateinit var myJobArea: Spinner
     private lateinit var myJobPayRate: EditText
     private lateinit var btnPostJob: Button
+    private lateinit var btnClear: Button
     private lateinit var btnUploadImage: ImageButton
     private lateinit var imageView: ImageView
     private var selectedImageUri: Uri? = null
     private lateinit var database: DatabaseReference
+    private var maxJobId: Int = 0
 
     companion object {
         private const val PICK_IMAGE_REQUEST = 1
@@ -47,18 +48,43 @@ class PostingFragment : Fragment() {
         database = FirebaseDatabase.getInstance().reference
         //_binding= FragmentEditProfileBinding.inflate(inflater,container,false)
         binding = FragmentPostingBinding.inflate(inflater, container, false)
-        //firebase auth
+
+        database.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    val job = snapshot.getValue(Job::class.java)
+                    if (job != null && job.jobID!! > maxJobId) {
+                        maxJobId = job.jobID
+                    }
+                }
+                // Increment the last assigned job ID
+                lastAssignedJobId = maxJobId
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
+            }
+        })
         imageView = binding.organizationImageDetail
+        myJobName = binding.organizationNameDetail
+        myJobDescription = binding.organizationDescriptionDetail
+        myJobSpecialist = binding.organizationSpecialistSpinnerDetail
+        myJobArea = binding.organizationAreaSpinnerDetail
+        myJobPayRate = binding.organizationPayRateDetail
         binding.organizationImageDetail.setImageResource(R.drawable.profileunknown)
         btnPostJob = binding.btnPostJob
+        btnClear = binding.btnClear
         btnUploadImage = binding.organizationUploadImageBtnDetail
+
         btnUploadImage.setOnClickListener {
             pickImageGallery()
         }
         btnPostJob.setOnClickListener {
             postJob()
         }
-
+        btnClear.setOnClickListener {
+            clearInputs()
+        }
         return binding.root
     }
     private fun pickImageGallery() {
@@ -96,12 +122,6 @@ class PostingFragment : Fragment() {
     }
 
     private fun validateInputs(): Boolean {
-        myJobName = binding.organizationNameDetail
-        myJobDescription = binding.organizationDescriptionDetail
-        myJobSpecialist = binding.organizationSpecialistSpinnerDetail
-        myJobArea = binding.organizationAreaSpinnerDetail
-        myJobPayRate = binding.organizationPayRateDetail
-
         val jobName = myJobName.text.toString().trim()
         val jobDescription = myJobDescription.text.toString().trim()
         val jobSpecialist = myJobSpecialist.selectedItem.toString()
@@ -188,33 +208,12 @@ class PostingFragment : Fragment() {
             imageRef.downloadUrl
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val imageUrl = task.result.toString()
-                // Call the function to save the image URL to the Realtime Database
-                saveImageUrlToDatabase(imageUrl)
+
             } else {
-                // Handle the failure case
+
             }
         }
     }
 
-    private fun saveImageUrlToDatabase(imageUrl: String) {
-        val databaseRef = FirebaseDatabase.getInstance().reference
-        val jobRef = databaseRef.child("jobs").push()
-
-        val job = Job(
-            jobImage = imageUrl,
-            // Set other properties of the Job object as needed
-            // ...
-        )
-
-        jobRef.setValue(job)
-            .addOnSuccessListener {
-                // Image URL and other job details are saved successfully
-                // Handle the success case
-            }
-            .addOnFailureListener {
-                // Handle the failure case
-            }
-    }
 }
 
