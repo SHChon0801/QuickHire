@@ -47,6 +47,7 @@ class OrganizationHomeAdapter(private val dataList: List<Job>): RecyclerView.Ada
                 putString("jobArea", currentItem.jobArea)
                 putString("jobSpecialist", currentItem.jobSpecialist)
                 currentItem.jobPayRate?.let { it1 -> putDouble("jobPayRate", it1) }
+                putString("jobEmail", currentItem.jobEmail)
             }
             holder.itemView.findNavController().navigate(R.id.action_nav_organization_home_to_organizationHomeDetailFragment, bundle)
         }

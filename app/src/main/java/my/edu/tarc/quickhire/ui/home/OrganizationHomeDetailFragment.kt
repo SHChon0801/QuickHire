@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
@@ -27,10 +28,6 @@ class OrganizationHomeDetailFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentOrganizationHomeDetailBinding.inflate(inflater, container, false)
-        // Get a reference to the Firebase Realtime Database
-        val database = FirebaseDatabase.getInstance()
-        // Get a reference to the "jobs" node in the database
-        val jobsRef = database.getReference("Jobs")
 
         //    Retrieve data from bundle
         val jobId = arguments?.getInt("jobId")
@@ -41,10 +38,10 @@ class OrganizationHomeDetailFragment : Fragment() {
         val jobSpecialist = arguments?.getString("jobSpecialist")
         val jobPayRate = arguments?.getDouble("jobPayRate")
 
-//Retrieve StringArray from strings.xml
+        //Retrieve StringArray from strings.xml
         val areaOptions = resources.getStringArray(R.array.areaoptions)
         val jobOptions = resources.getStringArray(R.array.joboptions)
-//Retrieve Spinner Index
+        //Retrieve Spinner Index
         val areaIndex = areaOptions.indexOf(jobArea)
         val jobIndex = jobOptions.indexOf(jobSpecialist)
 
@@ -69,35 +66,89 @@ class OrganizationHomeDetailFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.organizationUploadImageBtnDetail.setOnClickListener {
+
+        }
+
         binding.btnPostJob.setOnClickListener {
-            // Get the updated job data from the UI
-            val updatedJob = hashMapOf(
-                "name" to binding.organizationNameDetail.text.toString(),
-                "description" to binding.organizationDescriptionDetail.text.toString(),
-                "area" to binding.organizationAreaSpinnerDetail.selectedItem.toString(),
-                "specialist" to binding.organizationSpecialistSpinnerDetail.selectedItem.toString(),
-                "payRate" to binding.organizationPayRateDetail.text.toString().toDouble()
-            )
-
-            // Update the job data in the database
-            jobsRef.child(jobId.toString()).updateChildren(updatedJob as Map<String, Any>)
-                .addOnSuccessListener {
-                    // Show a success message
-                    Toast.makeText(context, "Job updated successfully", Toast.LENGTH_SHORT).show()
-
-                    // Navigate back to the job list
-                    findNavController().navigateUp()
-                }
-                .addOnFailureListener {
-                    // Show an error message
-                    Toast.makeText(context, "Failed to update job", Toast.LENGTH_SHORT).show()
-                }
+            if (jobId != null) {
+                updateJob(jobId)
+            }
         }
 
         return binding.root
     }
 
+    private fun validateInputs(): Boolean {
+        val jobName = binding.organizationNameDetail.text.toString().trim()
+        val jobDescription = binding.organizationDescriptionDetail.text.toString().trim()
+        val jobSpecialist = binding.organizationSpecialistSpinnerDetail.selectedItem.toString()
+        val jobArea = binding.organizationAreaSpinnerDetail.selectedItem.toString()
+        val jobPayRate = binding.organizationPayRateDetail.text.toString().trim()
 
+        if (jobName.isEmpty()) {
+            binding.organizationNameDetail.error = "Job name is required"
+            binding.organizationNameDetail.requestFocus()
+            return false
+        }
+
+        if (jobDescription.isEmpty()) {
+            binding.organizationDescriptionDetail.error = "Job description is required"
+            binding.organizationDescriptionDetail.requestFocus()
+            return false
+        }
+
+        if (jobSpecialist.isEmpty()) {
+            Toast.makeText(requireContext(), "Please Select a Specialist", Toast.LENGTH_SHORT)
+                .show()
+            binding.organizationSpecialistSpinnerDetail.requestFocus()
+            return false
+        }
+        if (jobArea.isEmpty()) {
+            Toast.makeText(requireContext(), "Please Select a Job Area", Toast.LENGTH_SHORT).show()
+            binding.organizationAreaSpinnerDetail.requestFocus()
+            return false
+        }
+        if (jobPayRate.isEmpty()) {
+            binding.organizationPayRateDetail.error = "Job pay rate is required"
+            binding.organizationPayRateDetail.requestFocus()
+            return false
+        }
+
+        return true
+    }
+    private fun updateJob(jobId: Int) {
+        if (validateInputs()) {
+            val jobImage = arguments?.getString("jobImage")
+            val jobName = binding.organizationNameDetail.text.toString().trim()
+            val jobDescription = binding.organizationDescriptionDetail.text.toString().trim()
+            val jobSpecialist = binding.organizationSpecialistSpinnerDetail.selectedItem.toString()
+            val jobArea = binding.organizationAreaSpinnerDetail.selectedItem.toString()
+            val jobPayRate = binding.organizationPayRateDetail.text.toString().trim().toDouble()
+
+            val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val mReferenceJob: DatabaseReference = mDatabase.reference.child("Jobs").child(jobId.toString())
+            val updatedJob = Job(
+                jobImage = jobImage,
+                jobID = jobId,
+                jobName = jobName,
+                jobDescription = jobDescription,
+                jobArea = jobArea,
+                jobSpecialist = jobSpecialist,
+                jobPayRate = jobPayRate,
+                jobEmail = arguments?.getString("jobEmail")
+            )
+            mReferenceJob.setValue(updatedJob)
+                .addOnSuccessListener {
+                    // Data updated successfully
+                    findNavController().navigateUp()
+                }
+                .addOnFailureListener {
+                    // Failed to update data
+                    Toast.makeText(requireContext(), "Failed to update job", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
