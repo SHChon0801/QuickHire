@@ -72,7 +72,7 @@ class EmployerHomeDetailFragment : Fragment() {
             Toast.makeText(context, "Apply successfully", Toast.LENGTH_SHORT).show()
             binding.detailApplyButton.isEnabled = false
 
-            
+
         }
         return  binding.root
     }

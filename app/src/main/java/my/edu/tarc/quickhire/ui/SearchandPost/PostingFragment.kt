@@ -162,6 +162,14 @@ class PostingFragment : Fragment() {
             return false
         }
 
+        try {
+            jobPayRate.toDouble()
+        } catch (e: NumberFormatException) {
+            myJobPayRate.error = "Invalid pay rate"
+            myJobPayRate.requestFocus()
+            return false
+        }
+
         return true
     }
 
