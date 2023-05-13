@@ -19,12 +19,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import my.edu.tarc.quickhire.Employee
+import my.edu.tarc.quickhire.OrganisationMainActivity
 import my.edu.tarc.quickhire.R
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private var isEmployee: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding.editTextEmail.setText(prefEmail)
         binding.editTextPassword.setText(prefPass)
-
 
 
 
@@ -76,7 +77,8 @@ class LoginActivity : AppCompatActivity() {
                                     Log.d("ENCRYPTED email ",getEncryptedSharedPreferences()?.getString("email","").toString())
                                     Log.d("ENCRYPTED password ",getEncryptedSharedPreferences()?.getString("password","").toString())
 
-
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    startActivity(intent)
 
                                 } else {
                                     organizationsRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -93,7 +95,8 @@ class LoginActivity : AppCompatActivity() {
                                                     ?.apply()
 
                                                 Log.d("TAG",getEncryptedSharedPreferences()?.getString("email",null).toString())
-
+                                                val intent = Intent(this@LoginActivity, OrganisationMainActivity::class.java)
+                                                startActivity(intent)
 
                                             } else {
 
@@ -116,12 +119,6 @@ class LoginActivity : AppCompatActivity() {
                             }
                         })
 
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-
-
-
-
                     }else{
                         Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -132,7 +129,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-
 
 
         binding.textViewRegisterPage.setOnClickListener {

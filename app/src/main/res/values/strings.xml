@@ -201,4 +201,5 @@
         <item>Business Analyst</item>
         <item>Project Manager</item>
     </string-array>
+    <string name="title_activity_organisation_main">OrganisationMainActivity</string>
 </resources>

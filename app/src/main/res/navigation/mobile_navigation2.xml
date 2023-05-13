@@ -2,11 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_employer_home">
-    <!--    app:startDestination="@+id/nav_employer_home">-->
-    <!--    app:startDestination="@+id/navigation_home"-->
-
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@id/nav_organization_home">
 
     <fragment
         android:id="@+id/nav_employer_home"
@@ -51,11 +48,6 @@
         android:name="my.edu.tarc.quickhire.ui.Profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/nav_upload"
-        android:name="my.edu.tarc.quickhire.ui.notifications.UploadFragment"
-        android:label="fragment_upload"
-        tools:layout="@layout/fragment_upload" />
     <activity
         android:id="@+id/nav_loginActivity"
         android:name="my.edu.tarc.quickhire.ui.login.LoginActivity"
@@ -127,6 +119,5 @@
         android:name="my.edu.tarc.quickhire.ui.home.OrganizationHomeDetailFragment"
         android:label="fragment_organization_home_detail"
         tools:layout="@layout/fragment_organization_home_detail" />
-
 
 </navigation>

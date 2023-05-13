@@ -7,31 +7,26 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import my.edu.tarc.quickhire.databinding.ActivityMainBinding
+import my.edu.tarc.quickhire.databinding.ActivityOrganisationMainBinding
 
-class MainActivity : AppCompatActivity() {
+class OrganisationMainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
+    private lateinit var binding: ActivityOrganisationMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityOrganisationMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        val navView: BottomNavigationView = binding.navViewOrganisation
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val navController = findNavController(R.id.nav_host_fragment_activity_organisation_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_employer_home, R.id.nav_search,R.id.nav_notification,R.id.nav_profile
+                R.id.nav_organization_home, R.id.nav_post, R.id.nav_notificationOrganization,R.id.nav_profileOrganization
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

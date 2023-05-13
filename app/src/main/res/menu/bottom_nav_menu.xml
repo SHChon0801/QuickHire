@@ -6,49 +6,48 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
+<!--    <item-->
+<!--        android:id="@+id/nav_organization_home"-->
+<!--        android:icon="@drawable/ic_home_black_24dp"-->
+<!--        android:title="@string/title_home" />-->
+
+    <!--    <item-->
+    <!--        android:id="@+id/nav_dashboard"-->
+    <!--        android:icon="@drawable/ic_dashboard_black_24dp"-->
+    <!--        android:title="@string/title_dashboard" />-->
     <item
-        android:id="@+id/nav_organization_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/nav_search"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/title_search" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="@string/title_notifications" />
 
-<!--    <item-->
-<!--        android:id="@+id/nav_dashboard"-->
-<!--        android:icon="@drawable/ic_dashboard_black_24dp"-->
-<!--        android:title="@string/title_dashboard" />-->
-
-<!--    <item-->
-<!--        android:id="@+id/nav_notification"-->
-<!--        android:icon="@drawable/ic_notifications_black_24dp"-->
-<!--        android:title="@string/title_notifications" />-->
-
-<!--    <item-->
-<!--        android:id="@+id/nav_notification"-->
-<!--        android:icon="@drawable/ic_notifications_black_24dp"-->
-<!--        android:title="@string/title_notifications" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/nav_notification"-->
+    <!--        android:icon="@drawable/ic_notifications_black_24dp"-->
+    <!--        android:title="@string/title_notifications" />-->
 
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/baseline_person_24"
         android:title="@string/title_profile" />
 
-<!--    <item-->
-<!--        android:id="@+id/nav_notificationOrganization"-->
-<!--        android:icon="@drawable/ic_notifications_black_24dp"-->
-<!--        android:title="@string/title_notifications" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/nav_notificationOrganization"-->
+    <!--        android:icon="@drawable/ic_notifications_black_24dp"-->
+    <!--        android:title="@string/title_notifications" />-->
+
+    <!--    <item-->
+    <!--        android:id="@+id/nav_profileOrganization"-->
+    <!--        android:icon="@drawable/baseline_person_24"-->
+    <!--        android:title="@string/title_profile" />-->
+
 
 <!--    <item-->
-<!--        android:id="@+id/nav_profileOrganization"-->
-<!--        android:icon="@drawable/baseline_person_24"-->
-<!--        android:title="@string/title_profile" />-->
-
-    <item
-        android:id="@+id/nav_search"
-        android:icon="@drawable/baseline_search_24"
-        android:title="@string/title_search" />
-
-    <item
-        android:id="@+id/nav_post"
-        android:icon="@drawable/baseline_add_circle_outline_24"
-        android:title="@string/title_post" />
+<!--        android:id="@+id/nav_post"-->
+<!--        android:icon="@drawable/baseline_add_circle_outline_24"-->
+<!--        android:title="@string/title_post" />-->
 
 </menu>
