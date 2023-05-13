@@ -57,16 +57,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/lavender_border"
-        android:closeIcon="@drawable/baseline_close_24"
         android:focusable="false"
-        android:iconifiedByDefault="false"
-        android:queryHint="@string/car_ui_toolbar_default_search_hint"
-        android:searchIcon="@drawable/baseline_search_24"
+        app:closeIcon="@drawable/baseline_close_24"
+        app:iconifiedByDefault="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:searchHintIcon="@null" />
+        app:queryHint="Search..."
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/baseline_search_24" />
 
     <ImageButton
         android:id="@+id/imageButton2"
