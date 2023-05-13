@@ -75,7 +75,7 @@ class NotificationDetail2Fragment : Fragment() {
             val n_des = getString(R.string.Congrate_detail)
             val n_time = "$date-$month-$year"
             val n_type = "first_type"
-            val n_UID = "EfXOASI7MfRCwzGioeGJhU0O5Ui1"
+            val n_UID = currentUser?.email.toString()
             val n_image =
                 "https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fsuccess.jpg?alt=media&token=49feeaba-a91c-4c8c-9878-04f3de7fd879"
 
@@ -103,8 +103,7 @@ class NotificationDetail2Fragment : Fragment() {
 
                     // Update the employee's list of notifications in the database
                     database.setValue(notificationsEmp).addOnSuccessListener {
-                        Toast.makeText(requireContext(), "Notification added", Toast.LENGTH_SHORT)
-                            .show()
+
                     }.addOnFailureListener {
                         Toast.makeText(
                             requireContext(),

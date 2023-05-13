@@ -83,6 +83,7 @@ class EmployerHomeFragment : Fragment() {
             }
         })
 
+
         return binding.root
     }
 

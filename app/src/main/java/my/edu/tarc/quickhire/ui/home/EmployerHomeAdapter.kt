@@ -1,6 +1,7 @@
 package my.edu.tarc.quickhire.ui.home
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,16 +11,18 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.GenericTypeIndicator
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.RecyclerEmployerJobBinding
+import my.edu.tarc.quickhire.ui.notifications.NotificationData
+import java.util.*
+import kotlin.collections.ArrayList
 
 class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter<EmployerHomeAdapter.HomeViewHolder>() {
+
+    //Notification
+    private lateinit var database: DatabaseReference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val binding = RecyclerEmployerJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -70,8 +73,69 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
 
         holder.binding.applyButton.setOnClickListener{
             user!!.email?.let { updateUserJobIDApplied(currentItem.jobID!!, it) }
+
+            //Apply Notification
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
+            val date = calendar.get(Calendar.DATE)
+
+            //Send email
+            //val UID = "aaa@gmail-com"
+            val encodeUID=currentItem.jobEmail.toString()
+
+            val UID = encodeUID.replace(".","-")
+
+            val user = FirebaseAuth.getInstance().currentUser
+            val userEmail = user?.email
+
+            val encodedEmail = userEmail?.replace(".","-")
+
+            val n_title ="New job hire request"
+            val n_des ="A new job hire request from job seeker is sent to you. Please do the response as fast as possible."
+            val n_time = "$date-$month-$year"
+            val n_type = "second_type"
+            val n_UID =encodedEmail
+            val n_image ="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fjob_want.jpg?alt=media&token=3144914c-33a8-4698-b25e-a62d7d191b42"
+
+            // Initialize the database reference
+            database = FirebaseDatabase.getInstance()
+                .getReference("Organizations").child(UID).child("notification")
+
+            // Retrieve the employee's list of notifications from the database
+            database.get().addOnSuccessListener { snapshot ->
+                val notificationsEmp = snapshot.getValue(object :
+                    GenericTypeIndicator<java.util.ArrayList<NotificationData>>() {})
+
+                // Create a new notification and add it to the list
+                val notificationEmp =
+                    NotificationData(n_title, n_des, n_time, n_type, n_UID, n_image)
+                notificationsEmp?.add(notificationEmp)
+
+                // Update the employee's list of notifications in the database
+                database.setValue(notificationsEmp).addOnSuccessListener {
+//                    Toast.makeText(requireContext(), "Notification added", Toast.LENGTH_SHORT)
+//                        .show()
+                }.addOnFailureListener {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Failed to add notification",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                }
+            }.addOnFailureListener {
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Failed to retrieve notifications",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+            }
+
+
             Toast.makeText(holder.itemView.context, "Apply successfully", Toast.LENGTH_SHORT).show()
             holder.binding.applyButton.isEnabled = false
+
+
         }
     }
 

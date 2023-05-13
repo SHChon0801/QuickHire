@@ -70,6 +70,7 @@ class EditProfileFragment : Fragment() {
 
         changePhoto.setOnClickListener{
             pickImageGallery()
+
         }
 
         confirmButton.setOnClickListener{
@@ -79,7 +80,7 @@ class EditProfileFragment : Fragment() {
             val telNo = binding.inputPhone.text.toString()
             val state=binding.statedEdit.text.toString()
             val currentJob=binding.currentJobEdit.text.toString()
-            val timePrefer=binding.preferTimeEdit.text.toString()
+            val timePrefer=binding.preferTimeFromEdit.text.toString()+" to "+binding.preferTimeEndEdit.text.toString()
             val education=binding.educationEdit.text.toString()
             val skill=binding.skillEdit.text.toString()
             val about=binding.inputDes.text.toString()
@@ -187,7 +188,6 @@ class EditProfileFragment : Fragment() {
                             binding.currentJobEdit.setText(currentJob)
                             binding.inputMail.setText(email)
                             binding.inputPhone.setText(phone)
-                            binding.preferTimeEdit.setText(timePrefer)
                             binding.educationEdit.setText(education)
                             binding.skillEdit.setText(skill)
                         }

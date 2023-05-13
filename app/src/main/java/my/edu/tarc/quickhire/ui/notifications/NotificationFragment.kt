@@ -103,68 +103,69 @@ class NotificationFragment : Fragment() {
             }
         })
 
-        binding.test.setOnClickListener {
-
-            //Apply notification
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
-            val date = calendar.get(Calendar.DATE)
-
-            val user = FirebaseAuth.getInstance().currentUser
-            val userEmail = user?.email
-
-            val encodedEmail = userEmail?.replace(".","-")
-
-            val n_title =getString(R.string.request_job_title)
-            val n_des =getString(R.string.request_job)
-            val n_time = "$date-$month-$year"
-            val n_type = "second_type"
-            val n_UID =encodedEmail
-            val n_image ="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fjob_want.jpg?alt=media&token=3144914c-33a8-4698-b25e-a62d7d191b42"
+        //BackUp
+//        binding.test.setOnClickListener {
 //
+//            //Apply notification
+//            val calendar = Calendar.getInstance()
+//            val year = calendar.get(Calendar.YEAR)
+//            val month = calendar.get(Calendar.MONTH) + 1 // months are zero-based, so add 1
+//            val date = calendar.get(Calendar.DATE)
+//
+//            val user = FirebaseAuth.getInstance().currentUser
+//            val userEmail = user?.email
+//
+//            val encodedEmail = userEmail?.replace(".","-")
+//
+//            val n_title =getString(R.string.request_job_title)
+//            val n_des =getString(R.string.request_job)
+//            val n_time = "$date-$month-$year"
+//            val n_type = "second_type"
+//            val n_UID =encodedEmail
+//            val n_image ="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Fjob_want.jpg?alt=media&token=3144914c-33a8-4698-b25e-a62d7d191b42"
+////
+////            database = FirebaseDatabase.getInstance()
+////                .getReference("Organizations").child(currentUser!!.uid).child("notification")
+////
+//            // Retrieve the employee's list of notifications from the database
+//
+//
+//            // Initialize the database reference
 //            database = FirebaseDatabase.getInstance()
-//                .getReference("Organizations").child(currentUser!!.uid).child("notification")
+//                .getReference("Organizations").child(UID).child("notification")
 //
-            // Retrieve the employee's list of notifications from the database
-
-
-            // Initialize the database reference
-            database = FirebaseDatabase.getInstance()
-                .getReference("Organizations").child(UID).child("notification")
-
-            // Retrieve the employee's list of notifications from the database
-            database.get().addOnSuccessListener { snapshot ->
-                val notificationsEmp = snapshot.getValue(object :
-                    GenericTypeIndicator<ArrayList<NotificationData>>() {})
-
-                // Create a new notification and add it to the list
-                val notificationEmp =
-                    NotificationData(n_title, n_des, n_time, n_type, n_UID, n_image)
-                notificationsEmp?.add(notificationEmp)
-
-                // Update the employee's list of notifications in the database
-                database.setValue(notificationsEmp).addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Notification added", Toast.LENGTH_SHORT)
-                        .show()
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        requireContext(),
-                        "Failed to add notification",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }.addOnFailureListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to retrieve notifications",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            Toast.makeText(requireContext(), "Apply Success", Toast.LENGTH_SHORT).show()
-
-        }
+//            // Retrieve the employee's list of notifications from the database
+//            database.get().addOnSuccessListener { snapshot ->
+//                val notificationsEmp = snapshot.getValue(object :
+//                    GenericTypeIndicator<ArrayList<NotificationData>>() {})
+//
+//                // Create a new notification and add it to the list
+//                val notificationEmp =
+//                    NotificationData(n_title, n_des, n_time, n_type, n_UID, n_image)
+//                notificationsEmp?.add(notificationEmp)
+//
+//                // Update the employee's list of notifications in the database
+//                database.setValue(notificationsEmp).addOnSuccessListener {
+//                    Toast.makeText(requireContext(), "Notification added", Toast.LENGTH_SHORT)
+//                        .show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Failed to add notification",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }.addOnFailureListener {
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Failed to retrieve notifications",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//
+//            Toast.makeText(requireContext(), "Apply Success", Toast.LENGTH_SHORT).show()
+//
+//        }
 
         binding.search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
