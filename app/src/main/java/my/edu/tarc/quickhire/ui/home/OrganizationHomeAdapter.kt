@@ -52,6 +52,7 @@ class OrganizationHomeAdapter(private val dataList: List<Job>): RecyclerView.Ada
             }
             holder.itemView.findNavController().navigate(R.id.action_nav_organization_home_to_organizationHomeDetailFragment, bundle)
         }
+
     }
 
     class HomeViewHolder(val binding: RecyclerOrganizationJobBinding): RecyclerView.ViewHolder(binding.root)
