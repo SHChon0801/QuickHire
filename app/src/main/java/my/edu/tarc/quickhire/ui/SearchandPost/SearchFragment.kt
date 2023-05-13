@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.quickhire.R
@@ -76,7 +75,7 @@ class SearchFragment : Fragment() {
         val areaSpinner = binding.spinner
         val specialistSpinner = binding.spinner1
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // Perform search when user submits the query (e.g., presses search button)
                 performSearch(query, selectedArea, selectedSpecialist)

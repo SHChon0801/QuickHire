@@ -48,14 +48,14 @@ class OrganizationHomeAdapter(private val dataList: List<Job>): RecyclerView.Ada
                 putString("jobSpecialist", currentItem.jobSpecialist)
                 currentItem.jobPayRate?.let { it1 -> putDouble("jobPayRate", it1) }
                 putString("jobEmail", currentItem.jobEmail)
+                currentItem.ignoredViewCount?.let { it1 -> putInt("jobViewCount", it1) }
             }
             holder.itemView.findNavController().navigate(R.id.action_nav_organization_home_to_organizationHomeDetailFragment, bundle)
         }
-    }
-
-    class HomeViewHolder(val binding: RecyclerOrganizationJobBinding): RecyclerView.ViewHolder(binding.root) {
 
     }
+
+    class HomeViewHolder(val binding: RecyclerOrganizationJobBinding): RecyclerView.ViewHolder(binding.root)
 
 
 }

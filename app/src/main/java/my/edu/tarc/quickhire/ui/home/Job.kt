@@ -10,5 +10,5 @@ data class Job(
     val jobPayRate: Double?=null,
     val jobEmail: String?=null,
     val emailIDApplied: ArrayList<String>? = null,
-    val viewCount: Int?= null
+    val ignoredViewCount: Int?= null
 )
