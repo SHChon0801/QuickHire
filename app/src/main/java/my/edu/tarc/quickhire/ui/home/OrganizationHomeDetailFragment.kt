@@ -227,6 +227,7 @@ class OrganizationHomeDetailFragment : Fragment() {
                         // Retrieve and modify the emailIDApplied list
                         val emailIDAppliedType = object : GenericTypeIndicator<ArrayList<String>>() {}
                         val currentEmailList = jobSnapshot.child("emailIDApplied").getValue(emailIDAppliedType)
+                        val ignoredJobViewCount = arguments?.getInt("jobViewCount")
 
                         val snapshotJobID = jobSnapshot.child("jobID").getValue(Int::class.java)
                         if (snapshotJobID == jobID) {
@@ -253,7 +254,8 @@ class OrganizationHomeDetailFragment : Fragment() {
                                 jobSpecialist = jobSpecialist,
                                 jobPayRate = jobPayRate,
                                 jobEmail = user!!.email,
-                                emailIDApplied = currentEmailList
+                                emailIDApplied = currentEmailList,
+                                ignoredViewCount = ignoredJobViewCount
                             )
 
                             val jobKey = jobSnapshot.key

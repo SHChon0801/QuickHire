@@ -48,21 +48,24 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="64dp" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/lavender_border"
+        android:closeIcon="@drawable/baseline_close_24"
         android:forceHasOverlappingRendering="false"
         android:iconifiedByDefault="false"
+        android:queryHint="@string/car_ui_toolbar_default_search_hint"
+        android:searchIcon="@drawable/baseline_search_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton2"

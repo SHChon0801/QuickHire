@@ -1,6 +1,7 @@
 package my.edu.tarc.quickhire.ui.home
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.RecyclerEmployerJobBinding
 
-class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter<EmployerHomeAdapter.HomeViewHolder>() {
+class EmployerHomeAdapter(private val context: Context, private val dataList: List<Job>): RecyclerView.Adapter<EmployerHomeAdapter.HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val binding = RecyclerEmployerJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -47,7 +48,8 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
         holder.binding.employerJobImage.contentDescription = currentItem.jobName
         holder.binding.employerJobName.text = currentItem.jobName
         holder.binding.employerJobDescription.text = currentItem.jobDescription
-        holder.binding.employerJobPayRate.text = "Pay Rate Per Hour: " + currentItem.jobPayRate.toString()
+        holder.binding.employerJobPayRate.text = context.getString(R.string.pay_rate_per_hour, currentItem.jobPayRate.toString())
+
         if(currentItem.emailIDApplied != null){
             if(currentItem.emailIDApplied.contains(user!!.email)){
                 holder.binding.applyButton.isEnabled = false
@@ -146,16 +148,16 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
 
                     for (jobSnapshot in dataSnapshot.children) {
                         // Retrieve and modify the viewCount
-                        val currentViewCount = jobSnapshot.child("viewCount").getValue(Int::class.java)
+                        val currentViewCount = jobSnapshot.child("ignoredViewCount").getValue(Int::class.java)
 
                         // Check if the currentViewCount is not null
                         if (currentViewCount != null) {
                             // Increment the viewCount
                             val newViewCount = currentViewCount + 1
-                            jobSnapshot.child("viewCount").ref.setValue(newViewCount)
+                            jobSnapshot.child("ignoredViewCount").ref.setValue(newViewCount)
                         } else {
                             // If the currentViewCount is null, set the viewCount to the jobView
-                            jobSnapshot.child("viewCount").ref.setValue(1)
+                            jobSnapshot.child("ignoredViewCount").ref.setValue(1)
                         }
 
                         // Create a Job object with the updated data

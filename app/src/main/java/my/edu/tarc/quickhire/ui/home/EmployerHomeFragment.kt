@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +38,7 @@ class EmployerHomeFragment : Fragment() {
                         dataList.add(it)
                     }
                 }
-                recyclerView.adapter = EmployerHomeAdapter(dataList)
+                recyclerView.adapter = EmployerHomeAdapter(requireContext(), dataList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -54,7 +53,7 @@ class EmployerHomeFragment : Fragment() {
             val isMatchingQuery = job.jobName!!.contains(query, ignoreCase = true)
             isMatchingQuery
         }
-        recyclerView.adapter = EmployerHomeAdapter(filteredList)
+        recyclerView.adapter = EmployerHomeAdapter(requireContext(), filteredList)
     }
 
     override fun onCreateView(
@@ -71,7 +70,7 @@ class EmployerHomeFragment : Fragment() {
         getData()
 
         val searchView = binding.searchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 performSearch(query)
                 return true

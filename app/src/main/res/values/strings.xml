@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">QuickHire</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_search">Search</string>
     <string name="title_post">Post</string>
     <string name="you_might_be_interested_in">You might be interested in</string>
+    <string name="pay_rate_per_hour">Pay Rate Per Hour: %1$s</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="textview">TextView</string>

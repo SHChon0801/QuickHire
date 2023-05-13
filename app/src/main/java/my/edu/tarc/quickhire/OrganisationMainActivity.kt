@@ -16,6 +16,10 @@ class OrganisationMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+
         binding = ActivityOrganisationMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

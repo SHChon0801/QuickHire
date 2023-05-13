@@ -67,7 +67,7 @@ class EmployerHomeDetailFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.detailApplyButton.setOnClickListener(){
+        binding.detailApplyButton.setOnClickListener {
             user!!.email?.let { updateUserJobIDApplied(jobID!!, it) }
             Toast.makeText(context, "Apply successfully", Toast.LENGTH_SHORT).show()
             binding.detailApplyButton.isEnabled = false
