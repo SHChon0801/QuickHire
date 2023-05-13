@@ -54,6 +54,7 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
             }
         }
         holder.itemView.setOnClickListener {
+            currentItem.jobID?.let { it1 -> updateJobViews(it1) }
             val bundle = Bundle().apply {
                 putString("jobImage", currentItem.jobImage)
                 putString("jobName", currentItem.jobName)
@@ -133,5 +134,46 @@ class EmployerHomeAdapter(private val dataList: List<Job>): RecyclerView.Adapter
         })
     }
 
+    private fun updateJobViews(jobID: Int) {
+        val jobsRef = FirebaseDatabase.getInstance().getReference("Jobs")
+
+        val query = jobsRef.orderByChild("jobID").equalTo(jobID.toDouble())
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Create a temporary list to hold the updated jobs
+                    val updatedJobs = mutableListOf<Job>()
+
+                    for (jobSnapshot in dataSnapshot.children) {
+                        // Retrieve and modify the viewCount
+                        val currentViewCount = jobSnapshot.child("viewCount").getValue(Int::class.java)
+
+                        // Check if the currentViewCount is not null
+                        if (currentViewCount != null) {
+                            // Increment the viewCount
+                            val newViewCount = currentViewCount + 1
+                            jobSnapshot.child("viewCount").ref.setValue(newViewCount)
+                        } else {
+                            // If the currentViewCount is null, set the viewCount to the jobView
+                            jobSnapshot.child("viewCount").ref.setValue(1)
+                        }
+
+                        // Create a Job object with the updated data
+                        val updatedJob = jobSnapshot.getValue(Job::class.java)
+                        updatedJob?.let {
+                            updatedJobs.add(it)
+                        }
+                    }
+
+                } else {
+                    println("No matching jobs found for jobID: $jobID")
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle onCancelled event
+            }
+        })
+    }
     class HomeViewHolder(val binding: RecyclerEmployerJobBinding): RecyclerView.ViewHolder(binding.root)
 }
