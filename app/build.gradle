@@ -70,4 +70,5 @@ dependencies {
 
     //Expended View
     implementation 'com.ms-square:expandableTextView:0.1.4'
+
 }

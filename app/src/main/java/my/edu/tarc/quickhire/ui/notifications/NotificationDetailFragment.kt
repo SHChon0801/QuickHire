@@ -45,11 +45,7 @@ class NotificationDetailFragment : Fragment() {
             findNavController().navigate(R.id.nav_notification)
         }
 
-        binding.delete.setOnClickListener {
 
-
-            findNavController().navigate(R.id.nav_notification)
-        }
 
         return binding.root
     }

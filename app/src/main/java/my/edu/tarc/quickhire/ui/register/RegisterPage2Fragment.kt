@@ -1,6 +1,12 @@
 package my.edu.tarc.quickhire.ui.register
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +14,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import my.edu.tarc.quickhire.Employee
@@ -33,6 +42,10 @@ class RegisterPage2Fragment : Fragment() {
     private lateinit var timePrefer:String
     private lateinit var education:String
     private lateinit var skill:String
+
+    //Notification
+    private val CHANNEL_ID="channel_id_example_01"
+    private val notificationId=101
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,13 +122,8 @@ class RegisterPage2Fragment : Fragment() {
                                 setValue(newEmp)
                                 child("notification").setValue(notifications)
                             }
-
-
-
-
-
-
-
+                            createNotificationChannel()
+                            sendNotification()
 
 
                         }  else{
@@ -146,5 +154,44 @@ class RegisterPage2Fragment : Fragment() {
         }
     }
 
-}
+    //Push Notification
+    private fun createNotificationChannel()
+    {
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O)
+        {
+            val name="Notificaiton Title"
+            val descriptionText="Notification Description"
+            val importance= NotificationManager.IMPORTANCE_DEFAULT
+            val channel= NotificationChannel(CHANNEL_ID,name,importance).apply {
+                description=descriptionText
+            }
 
+            val notificationManager: NotificationManager =requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun sendNotification()
+    {
+        val buider= NotificationCompat.Builder(requireContext(),CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo)
+            .setContentTitle(getString(R.string.welcome_title))
+            .setContentText(getString(R.string.welcome_des))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext()))
+        {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notify(notificationId,buider.build())
+
+        }
+
+    }
+
+}

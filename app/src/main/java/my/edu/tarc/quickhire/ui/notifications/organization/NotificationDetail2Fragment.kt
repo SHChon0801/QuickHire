@@ -1,11 +1,20 @@
 package my.edu.tarc.quickhire.ui.notifications.organization
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -13,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentNotificationDetail2Binding
+import my.edu.tarc.quickhire.ui.notifications.NotificationAdapter
 import my.edu.tarc.quickhire.ui.notifications.NotificationData
 import java.lang.Exception
 import java.util.*
@@ -30,6 +40,8 @@ class NotificationDetail2Fragment : Fragment() {
 
     var imageURL=""
 
+    private val CHANNEL_ID="channel_id_example_01"
+    private val notificationId=101
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +66,8 @@ class NotificationDetail2Fragment : Fragment() {
         binding.back.setOnClickListener{
             findNavController().navigate(R.id.nav_notificationOrganization)
         }
+
+        createNotificationChannel()
 
         binding.apply.setOnClickListener {
 
@@ -116,6 +130,7 @@ class NotificationDetail2Fragment : Fragment() {
                     ).show()
                 }
 
+                sendNotification()
                 Toast.makeText(requireContext(), "Apply Success", Toast.LENGTH_SHORT).show()
 
             }
@@ -182,6 +197,7 @@ class NotificationDetail2Fragment : Fragment() {
                     ).show()
                 }
 
+                sendNotification2()
                 Toast.makeText(requireContext(), "Rejected Success", Toast.LENGTH_SHORT).show()
 
             }
@@ -259,7 +275,66 @@ class NotificationDetail2Fragment : Fragment() {
 
     private fun createNotificationChannel()
     {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            val name="Notificaiton Title"
+            val descriptionText="Notification Description"
+            val importance=NotificationManager.IMPORTANCE_DEFAULT
+            val channel=NotificationChannel(CHANNEL_ID,name,importance).apply {
+                description=descriptionText
+            }
+
+            val notificationManager:NotificationManager=requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun sendNotification()
+    {
+        val buider=NotificationCompat.Builder(requireContext(),CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo)
+            .setContentTitle("Success Apply the job seeker")
+            .setContentText("Please be patient waiting the contact.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext()))
+        {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notify(notificationId,buider.build())
+
+        }
 
     }
 
+    private fun sendNotification2()
+    {
+        val buider=NotificationCompat.Builder(requireContext(),CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo)
+            .setContentTitle("Success Reject the job seeker")
+            .setContentText("Please stay for more suitable job seeker.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext()))
+        {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notify(notificationId,buider.build())
+
+        }
+
+    }
+
+
 }
+

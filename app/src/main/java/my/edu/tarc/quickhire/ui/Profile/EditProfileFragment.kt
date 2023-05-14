@@ -197,11 +197,19 @@ class EditProfileFragment : Fragment() {
                     val education=snapshot.child("education").value as String
                     val skill=snapshot.child("skill").value as String
 
-                    //Split Time
-                    val (fromTime, toTime) = timePrefer.split(" to ")
 
                     dataRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                            //Split Time
+                            if(timePrefer=="")
+                            {
+
+                            }else {
+                                val (fromTime, toTime) = timePrefer.split(" to ")
+                                binding.preferTimeFromEdit.setText(fromTime)
+                                binding.preferTimeEndEdit.setText(toTime)
+                            }
 
                             binding.inputFirstName.setText(firstname)
                             binding.inputLastName.setText(lastname)
@@ -209,8 +217,7 @@ class EditProfileFragment : Fragment() {
                             binding.statedEdit.setText(state)
                             binding.currentJobEdit.setText(currentJob)
                             binding.inputMail.setText(email)
-                            binding.preferTimeFromEdit.setText(fromTime)
-                            binding.preferTimeEndEdit.setText(toTime)
+
                             binding.inputPhone.setText(phone)
                             binding.educationEdit.setText(education)
                             binding.skillEdit.setText(skill)
