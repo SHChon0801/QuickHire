@@ -283,7 +283,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/preferTimeEndEdit"
-                        android:layout_width="140dp"
+                        android:layout_width="145dp"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/baseline_access_time_24"
                         android:drawablePadding="16dp" />

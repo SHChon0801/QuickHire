@@ -65,7 +65,6 @@ class EditProfileOrganizationFragment : Fragment() {
             val name = binding.inputName.text.toString()
             val email = binding.inputMail.text.toString()
             val telNo = binding.inputPhone.text.toString()
-            val job=binding.inputJobProvided.text.toString()
             val address=binding.inputAddress.text.toString()
             val about=binding.inputDes.text.toString()
             val uri = imageUri.toString()
@@ -83,7 +82,6 @@ class EditProfileOrganizationFragment : Fragment() {
             if (currentUser != null) {
                 dataRef.child("name").setValue(name)
                 dataRef.child("about").setValue(about)
-                dataRef.child("job").setValue(job)
                 dataRef.child("address").setValue(address)
                 dataRef.child("email").setValue(email)
                 dataRef.child("phone").setValue(telNo)
@@ -115,7 +113,10 @@ class EditProfileOrganizationFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data
                 imageUri = data!!.data
-                binding.profileImage.setImageURI(imageUri)
+                Glide.with(requireContext())
+                    .load(imageUri)
+                    .into(binding.profileImage)
+                //binding.profileImage.setImageURI(imageUri)
                 val TAG: String = "EditProfileFragment"
                 Log.d(TAG, imageUri.toString())
             } else {
@@ -152,7 +153,6 @@ class EditProfileOrganizationFragment : Fragment() {
 
                             binding.inputName.setText(name)
                             binding.inputDes.setText(about)
-                            binding.inputJobProvided.setText(job)
                             binding.inputAddress.setText(address)
                             binding.inputMail.setText(email)
                             binding.inputPhone.setText(phone)

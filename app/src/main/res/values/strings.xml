@@ -42,9 +42,9 @@
     <string name="des_image">image</string>
     <string name="des_imageview">imageView</string>
     <string name="exp_about">A job seeker who are more patient for the work</string>
-    <string name="exp_name">Ong Shen Hoi</string>
+    <string name="exp_name">Alex</string>
     <string name="current_job_tab">Current Job</string>
-    <string name="exp_job">Engineer</string>
+    <string name="exp_job">1</string>
     <string name="stated_tag">Stated</string>
     <string name="exp_stated">Kuala Lumpur</string>
     <string name="time_prefered_tag">Time Preferred</string>
@@ -120,7 +120,7 @@
     <string name="company_detail">Company Detail</string>
     <string name="job_provided">Job Provided</string>
     <string name="address">Address</string>
-    <string name="job_provided_tag">Job Provided</string>
+    <string name="job_provided_tag">Number Job Provided</string>
     <string name="address_tag">Address</string>
     <string name="reject">Reject</string>
     <string name="Congrate">Congratulations, you are hired</string>

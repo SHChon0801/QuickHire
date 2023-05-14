@@ -37,20 +37,102 @@ class NotificationOrganizationFragment : Fragment() {
     var eventListener: ValueEventListener?=null
 
 
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        _binding = FragmentNotificationOrganizationBinding.inflate(inflater, container, false)
+//
+//        val gridLayoutManager= GridLayoutManager(requireContext(),1)
+//        binding.recycleViewNotification.layoutManager=gridLayoutManager
+//
+//        val builder = AlertDialog.Builder(requireContext())
+//        builder.setCancelable(false)
+//        builder.setView(R.layout.progress_layout)
+//        val dialog = builder.create()
+//        dialog.show()
+//
+//        val user = FirebaseAuth.getInstance().currentUser
+//        val userEmail = user?.email
+//
+//        val encodedEmail = userEmail?.replace(".","-")
+//
+//        notificationList = ArrayList()
+//        notificationAdapter = NotificationAdapterOrganization(requireContext(), notificationList)
+//        binding.recycleViewNotification.adapter = notificationAdapter
+//        databaseReference = FirebaseDatabase.getInstance()
+//            .getReference("Organizations").child(encodedEmail?:"").child("notification")
+//
+////        databaseReference = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+////            .getReference("Employees").child(currentUser!!.uid).child("notification")
+//        dialog.show()
+//
+//        eventListener = databaseReference!!.addValueEventListener(object : ValueEventListener {
+//            @SuppressLint("NotifyDataSetChanged")
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                notificationList.clear()
+//                for (itemSnapshot in snapshot.children) {
+//                    val dataClass = itemSnapshot.getValue(NotificationData::class.java)
+//                    if (dataClass != null) {
+//                        notificationList.add(dataClass)
+//                    }
+//                }
+//
+//                notificationAdapter.notifyDataSetChanged()
+//                dialog.dismiss()
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//                dialog.dismiss()
+//            }
+//        })
+//
+//        binding.search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                return false
+//            }
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                searchList(newText)
+//                return true
+//            }
+//        })
+//
+//        return binding.root
+//    }
+//
+//    fun searchList(text: String) {
+//        val searchList = java.util.ArrayList<NotificationData>()
+//        for (dataClass in notificationList) {
+//            if (dataClass.notificationTitle?.lowercase()
+//                    ?.contains(text.lowercase(Locale.getDefault())) == true
+//            ) {
+//                searchList.add(dataClass)
+//            }
+//        }
+//        notificationAdapter.searchDataList(searchList)
+//    }
+//
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentNotificationOrganizationBinding.inflate(inflater, container, false)
 
-        val gridLayoutManager= GridLayoutManager(requireContext(),1)
-        binding.recycleViewNotification.layoutManager=gridLayoutManager
+        val gridLayoutManager = GridLayoutManager(requireContext(), 1)
+        binding.recycleViewNotification.layoutManager = gridLayoutManager
+        binding.search.clearFocus()
 
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setCancelable(false)
-        builder.setView(R.layout.progress_layout)
-        val dialog = builder.create()
-        dialog.show()
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         val user = FirebaseAuth.getInstance().currentUser
         val userEmail = user?.email
@@ -63,8 +145,10 @@ class NotificationOrganizationFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance()
             .getReference("Organizations").child(encodedEmail?:"").child("notification")
 
-//        databaseReference = FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
-//            .getReference("Employees").child(currentUser!!.uid).child("notification")
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setCancelable(false)
+        builder.setView(R.layout.progress_layout)
+        val dialog = builder.create()
         dialog.show()
 
         eventListener = databaseReference!!.addValueEventListener(object : ValueEventListener {
@@ -82,6 +166,7 @@ class NotificationOrganizationFragment : Fragment() {
                 notificationAdapter.notifyDataSetChanged()
                 dialog.dismiss()
             }
+
             override fun onCancelled(error: DatabaseError) {
                 dialog.dismiss()
             }
@@ -96,9 +181,14 @@ class NotificationOrganizationFragment : Fragment() {
                 return true
             }
         })
-
-        return binding.root
     }
+
+    override fun onPause() {
+        super.onPause()
+        // Remove the event listener to avoid data duplication
+        databaseReference?.removeEventListener(eventListener!!)
+    }
+
 
     fun searchList(text: String) {
         val searchList = java.util.ArrayList<NotificationData>()

@@ -142,7 +142,11 @@ class EditProfileFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data
                 imageUri = data!!.data
-                binding.profileImage.setImageURI(imageUri)
+                //binding.profileImage.setImageURI(imageUri)
+                Glide.with(requireContext())
+                    .load(imageUri)
+                    .into(binding.profileImage)
+
                 val TAG: String = "EditProfileFragment"
                 Log.d(TAG, imageUri.toString())
             } else {
@@ -178,6 +182,9 @@ class EditProfileFragment : Fragment() {
                     val education=snapshot.child("education").value as String
                     val skill=snapshot.child("skill").value as String
 
+                    //Split Time
+                    val (fromTime, toTime) = timePrefer.split(" to ")
+
                     dataRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -187,6 +194,8 @@ class EditProfileFragment : Fragment() {
                             binding.statedEdit.setText(state)
                             binding.currentJobEdit.setText(currentJob)
                             binding.inputMail.setText(email)
+                            binding.preferTimeFromEdit.setText(fromTime)
+                            binding.preferTimeEndEdit.setText(toTime)
                             binding.inputPhone.setText(phone)
                             binding.educationEdit.setText(education)
                             binding.skillEdit.setText(skill)

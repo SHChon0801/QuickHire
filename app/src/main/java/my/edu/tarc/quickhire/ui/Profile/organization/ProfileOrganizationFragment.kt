@@ -1,6 +1,8 @@
 package my.edu.tarc.quickhire.ui.Profile.organization
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentProfileBinding
 import my.edu.tarc.quickhire.databinding.FragmentProfileOrganizationBinding
+import my.edu.tarc.quickhire.ui.home.Job
+import my.edu.tarc.quickhire.ui.home.OrganizationHomeAdapter
 import java.lang.Exception
 
 class ProfileOrganizationFragment : Fragment() {
@@ -50,6 +56,9 @@ class ProfileOrganizationFragment : Fragment() {
 
     //firebase auth
     private lateinit var auth: FirebaseAuth
+
+    private val databaseNew = Firebase.database.reference
+    private lateinit var dataList: ArrayList<Job>
 
 
     override fun onCreateView(
@@ -106,7 +115,7 @@ class ProfileOrganizationFragment : Fragment() {
                     //set data
                     binding.name.text = name
                     binding.about.text = about
-                    binding.jobProvided.text = job
+                    //binding.jobProvided.text = job
                     binding.address.text = address
                     binding.Email.text = email
                     binding.ContactNumber.text = phone
@@ -123,6 +132,36 @@ class ProfileOrganizationFragment : Fragment() {
                 }else{
                     Toast.makeText(requireContext(), "Retrieved failed", Toast.LENGTH_SHORT).show()
                 }
+
+                //Calculate Number Of Jobs
+
+
+                databaseNew.child("Jobs").addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        val user = FirebaseAuth.getInstance().currentUser
+                        var numberJob=0
+                        for (jobSnapshot in snapshot.children) {
+                            val job = jobSnapshot.getValue(Job::class.java)
+                            job?.let{
+                                if (user?.email == job.jobEmail) { // filter out jobs with current user's email
+
+                                    numberJob+=1
+                                }
+                            }
+                        }
+
+                        binding.jobProvided.text=numberJob.toString()
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+                })
+
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {
