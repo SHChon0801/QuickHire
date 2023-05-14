@@ -257,4 +257,9 @@ class NotificationDetail2Fragment : Fragment() {
         return binding.root
     }
 
+    private fun createNotificationChannel()
+    {
+
+    }
+
 }

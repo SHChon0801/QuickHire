@@ -23,6 +23,7 @@ class NotificationDetailFragment : Fragment() {
     var imageURL=""
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,35 +41,19 @@ class NotificationDetailFragment : Fragment() {
         binding.detailTime.text = time
         Glide.with(this).load(image).into(binding.detailImage)
 
-//        val bundle = arguments
-//        if (bundle != null) {
-//            binding.detailDesc.text = bundle.getString("Description")
-//            binding.detailTitle.text = bundle.getString("Title")
-//            binding.detailPriority.text = bundle.getString("Priority")
-//            imageURL = bundle.getString("Image")!!
-//            Glide.with(this).load(bundle.getString("Image"))
-//                .into(binding.detailImage)
-//        }
-
-
-
-//
-//        //val bundle = intent.extras
-//        if (bundle != null) {
-//            binding.detailDesc.text = bundle.getString("Description")
-//            binding.detailTitle.text = bundle.getString("Title")
-//            binding.detailPriority.text = bundle.getString("Priority")
-//            imageURL = bundle.getString("Image")!!
-//            Glide.with(this).load(bundle.getString("Image"))
-//                .into(binding.detailImage)
-//        }
-
-
         binding.back.setOnClickListener{
             findNavController().navigate(R.id.nav_notification)
         }
 
+        binding.delete.setOnClickListener {
+
+
+            findNavController().navigate(R.id.nav_notification)
+        }
 
         return binding.root
     }
+
+
+
 }
