@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -17,9 +18,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import my.edu.tarc.quickhire.Employee
+import my.edu.tarc.quickhire.MainActivity
+import my.edu.tarc.quickhire.OrganisationMainActivity
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage1Binding
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage2Binding
@@ -58,7 +63,8 @@ class RegisterPage2Fragment : Fragment() {
         //databaseReferenceEmp = database.reference
 
         //val currentUser = FirebaseAuth.getInstance().currentUser
-
+        val prefEmail = getEncryptedSharedPreferences()?.getString("email","").toString()
+        val prefPass = getEncryptedSharedPreferences()?.getString("password","").toString()
 
         binding.btnEmpReg.setOnClickListener {
             val email = binding.editTextEmpEmail.text.toString()
@@ -114,7 +120,10 @@ class RegisterPage2Fragment : Fragment() {
 
                             val newEmp = Employee(email,password,firstName,lastName,phone,role,about,state,currentJob,timePrefer,education,skill,profilePic)
 
-
+                            getEncryptedSharedPreferences()?.edit()
+                                ?.putString("email",email)
+                                ?.putString("password",password)
+                                ?.apply()
 //                            newEmployeeRef.setValue(newEmp)
 
                             // Save the notification data to Realtime Database
@@ -125,6 +134,11 @@ class RegisterPage2Fragment : Fragment() {
                             createNotificationChannel()
                             sendNotification()
 
+                            showToast("Account Successfully Created",Toast.LENGTH_SHORT)
+
+
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent)
 
                         }  else{
                             showToast(it.exception.toString(),Toast.LENGTH_SHORT)
@@ -192,6 +206,17 @@ class RegisterPage2Fragment : Fragment() {
 
         }
 
+    }
+
+    fun getEncryptedSharedPreferences(): SharedPreferences? {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            "secret_shared_prefs_file",
+            masterKeyAlias,
+            requireContext(),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 
 }

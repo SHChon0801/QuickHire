@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,12 +17,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import my.edu.tarc.quickhire.Employee
-import my.edu.tarc.quickhire.Organization
-import my.edu.tarc.quickhire.R
+import my.edu.tarc.quickhire.*
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage2Binding
 import my.edu.tarc.quickhire.databinding.FragmentRegisterPage3Binding
 import my.edu.tarc.quickhire.ui.notifications.NotificationData
@@ -56,6 +58,8 @@ class RegisterPage3Fragment : Fragment() {
         databaseReferenceOrg = database.getReference("Organization")
 
 
+        val prefEmail = getEncryptedSharedPreferences()?.getString("email","").toString()
+        val prefPass = getEncryptedSharedPreferences()?.getString("password","").toString()
         binding.btnOrgReg.setOnClickListener {
             val email = binding.editTextOrgEmail.text.toString()
             val password = binding.editTextOrgPass.text.toString()
@@ -105,7 +109,10 @@ class RegisterPage3Fragment : Fragment() {
 
                             val newOrg = Organization(email,password,name,phone,role,about,job,address,profilePic)
 
-
+                            getEncryptedSharedPreferences()?.edit()
+                                ?.putString("email",email)
+                                ?.putString("password",password)
+                                ?.apply()
                             //newOrgRef.setValue(newOrg)
                             newOrgRef.apply {
                                 setValue(newOrg)
@@ -115,6 +122,10 @@ class RegisterPage3Fragment : Fragment() {
                             createNotificationChannel()
                             sendNotification()
 
+                            showToast("Account Successfully Created",Toast.LENGTH_SHORT)
+
+                            val intent = Intent(requireContext(), OrganisationMainActivity::class.java)
+                            startActivity(intent)
                         }  else{
                             showToast(it.exception.toString(),Toast.LENGTH_SHORT)
                         }
@@ -184,6 +195,17 @@ class RegisterPage3Fragment : Fragment() {
 
         }
 
+    }
+
+    fun getEncryptedSharedPreferences(): SharedPreferences? {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            "secret_shared_prefs_file",
+            masterKeyAlias,
+            requireContext(),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 
 }
