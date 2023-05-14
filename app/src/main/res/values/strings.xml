@@ -85,8 +85,7 @@
 
     //Edit Page
     <string name="change_photo">Change Photo</string>
-    <string name="view_more"><u>View More User Detail -></u></string>
-    <string name="view_more2"><u>View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail ->View More User Detail -></u></string>
+    <string name="view_more"><u>View More User Detail</u></string>
     <string name="personal_detail">Personal Detail</string>
     <string name="name">Name</string>
     <string name="firstname">First Name</string>

@@ -86,12 +86,6 @@ class EditProfileFragment : Fragment() {
             val about=binding.inputDes.text.toString()
             val uri = imageUri.toString()
 
-
-            validateName()
-            validateTel()
-            validateEmail()
-
-
             val user = FirebaseAuth.getInstance().currentUser
             val userEmail = user?.email
 
@@ -103,23 +97,44 @@ class EditProfileFragment : Fragment() {
                 FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                     .getReference("Employees")
 
-            if (currentUser != null) {
-                dataRef.child("firstName").setValue(firstname)
-                dataRef.child("lastName").setValue(lastname)
-                dataRef.child("about").setValue(about)
-                dataRef.child("state").setValue(state)
-                dataRef.child("currentJob").setValue(currentJob)
-                dataRef.child("email").setValue(email)
-                dataRef.child("phone").setValue(telNo)
-                dataRef.child("timePrefer").setValue(timePrefer)
-                dataRef.child("education").setValue(education)
-                dataRef.child("skill").setValue(skill)
-                dataRef.child("profilePic").setValue(uri)
+            if(firstname.isNotEmpty()&&lastname.isNotEmpty()&&state.isNotEmpty()&&
+                about.isNotEmpty()&&currentJob.isNotEmpty()&&email.isNotEmpty()&&
+                telNo.isNotEmpty()&& timePrefer.isNotEmpty()&&education.isNotEmpty()&&skill.isNotEmpty())
+            {
+                if(email.contains("@")) {
+                    if (currentUser != null) {
+                        dataRef.child("firstName").setValue(firstname)
+                        dataRef.child("lastName").setValue(lastname)
+                        dataRef.child("about").setValue(about)
+                        dataRef.child("state").setValue(state)
+                        dataRef.child("currentJob").setValue(currentJob)
+                        dataRef.child("email").setValue(email)
+                        dataRef.child("phone").setValue(telNo)
+                        dataRef.child("timePrefer").setValue(timePrefer)
+                        dataRef.child("education").setValue(education)
+                        dataRef.child("skill").setValue(skill)
+                        dataRef.child("profilePic").setValue(uri)
 
+                    }
+                    Toast.makeText(
+                        requireContext(),
+                        "Profile Updated Successfully!!",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    findNavController().navigate(R.id.action_nav_editProfile_to_nav_profileFragment)
+
+                }else{
+                    Toast.makeText(requireContext(), "Please input correct email format !!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }else{
+                Toast.makeText(requireContext(), "Fields cannot be empty", Toast.LENGTH_SHORT)
+                    .show()
             }
-            Toast.makeText(requireContext(), "Profile Updated Successfully!!", Toast.LENGTH_SHORT)
-                .show()
-            findNavController().navigate(R.id.action_nav_editProfile_to_nav_profileFragment)
+
+
         }
 
         cancelButton.setOnClickListener{
@@ -261,29 +276,6 @@ class EditProfileFragment : Fragment() {
 
     }
 
-
-    private fun validateName() {
-        val name = binding.inputFirstName.text.toString()
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(requireContext(), "Enter your name", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    private fun validateTel() {
-        val telNo = binding.inputPhone.text.toString()
-        if (TextUtils.isEmpty(telNo)) {
-            Toast.makeText(requireContext(), "Enter your telephone number", Toast.LENGTH_SHORT)
-                .show()
-        }
-    }
-
-    private fun validateEmail() {
-        val email = binding.inputMail.text.toString()
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(requireContext(), "Enter your email", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

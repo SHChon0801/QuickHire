@@ -1,24 +1,22 @@
 package my.edu.tarc.quickhire.ui.notifications.organization
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.GenericTypeIndicator
+import com.google.firebase.database.*
 import my.edu.tarc.quickhire.R
 import my.edu.tarc.quickhire.databinding.FragmentNotificationDetail2Binding
-import my.edu.tarc.quickhire.databinding.FragmentNotificationDetailOrganizationBinding
 import my.edu.tarc.quickhire.ui.notifications.NotificationData
+import java.lang.Exception
 import java.util.*
+
 
 class NotificationDetail2Fragment : Fragment() {
     private var _binding: FragmentNotificationDetail2Binding? = null
@@ -190,24 +188,73 @@ class NotificationDetail2Fragment : Fragment() {
 
         }
 
-        val MAX_LINES = 3 // the number of lines to show initially
-
-        val textView = binding.viewDetail
-        val expandIcon = binding.identify
-
-// set the maximum number of lines to show initially
-        textView.maxLines = MAX_LINES
-
         binding.viewDetail.setOnClickListener{
-            if (textView.maxLines == MAX_LINES) {
-                textView.maxLines = Integer.MAX_VALUE
-               expandIcon.setImageResource(R.drawable.baseline_add_24)
+
+            val UID = arguments?.getString("UID")
+            val encodedEmail = UID?.replace(".","-")
+
+            val dataRef = FirebaseDatabase.getInstance().reference.child("Employees").child(encodedEmail?:"")
+
+            val eventListener = object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.value!=null) {
+                        val firstname = snapshot.child("firstName").value as String
+
+
+                        val lastname = snapshot.child("lastName").value as String
+                        val state = snapshot.child("state").value as String
+
+
+                        val email1 = snapshot.child("email").value as String
+
+                        val phone = snapshot.child("phone").value as String
+                        val timePrefer = snapshot.child("timePrefer").value as String
+                        val education=snapshot.child("education").value as String
+                        val skill=snapshot.child("skill").value as String
+                        val profilePic = snapshot.child("profilePic").value as String
+
+                        //set data
+                        binding.name.text = firstname+" "+lastname
+                        binding.stated.text = state
+                        binding.TimePrefer.text = timePrefer
+                        binding.Email.text = email1
+                        binding.ContactNumber.text = phone
+                        binding.educational.text = education
+                        binding.skill.text = skill
+
+                        //set image
+                        try{
+                            Glide.with(requireContext())
+                                .load(profilePic)
+                                .placeholder(R.drawable.profileunknown)
+                                .into(binding.profileImage)
+                        }catch (e: Exception){
+
+                        }
+                    }else{
+                        Toast.makeText(requireContext(), "Retrieved failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+            dataRef.addListenerForSingleValueEvent(eventListener)
+
+            val expandableView: LinearLayout = binding.expandedView
+            if (expandableView.visibility == View.GONE) {
+                binding.identify.setImageResource(R.drawable.baseline_expand_more_24)
+                expandableView.visibility = View.VISIBLE
             } else {
-                textView.maxLines = MAX_LINES
-                expandIcon.setImageResource(R.drawable.baseline_check_24)
+                expandableView.visibility = View.GONE
+                binding.identify.setImageResource(R.drawable.baseline_chevron_right_24)
             }
         }
 
+
         return binding.root
     }
+
 }

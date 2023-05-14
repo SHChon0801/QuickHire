@@ -75,22 +75,34 @@ class EditProfileOrganizationFragment : Fragment() {
             val encodedEmail = userEmail?.replace(".","-")
             val dataRef = FirebaseDatabase.getInstance().reference.child("Organizations").child(encodedEmail?:"")
 
-//            database =
-//                FirebaseDatabase.getInstance("https://quickhire-409e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
-//                    .getReference("Organizations")
 
-            if (currentUser != null) {
-                dataRef.child("name").setValue(name)
-                dataRef.child("about").setValue(about)
-                dataRef.child("address").setValue(address)
-                dataRef.child("email").setValue(email)
-                dataRef.child("phone").setValue(telNo)
-                dataRef.child("profilePic").setValue(uri)
+            if(name.isNotEmpty()&&address.isNotEmpty()&&email.isNotEmpty()&&
+                about.isNotEmpty()&&telNo.isNotEmpty())
+            {
+                if(email.contains("@")) {
 
+                    if (currentUser != null) {
+                        dataRef.child("name").setValue(name)
+                        dataRef.child("about").setValue(about)
+                        dataRef.child("address").setValue(address)
+                        dataRef.child("email").setValue(email)
+                        dataRef.child("phone").setValue(telNo)
+                        dataRef.child("profilePic").setValue(uri)
+
+                    }
+                    Toast.makeText(requireContext(), "Profile Updated Successfully!!", Toast.LENGTH_SHORT)
+                        .show()
+                    findNavController().navigate(R.id.action_nav_editProfileOrganization_to_nav_profileOrganization)
+                }else{
+                    Toast.makeText(requireContext(), "Please input correct email format !!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }else{
+                Toast.makeText(requireContext(), "Fields cannot be empty", Toast.LENGTH_SHORT)
+                    .show()
             }
-            Toast.makeText(requireContext(), "Profile Updated Successfully!!", Toast.LENGTH_SHORT)
-                .show()
-            findNavController().navigate(R.id.action_nav_editProfileOrganization_to_nav_profileOrganization)
+
         }
 
         cancelButton.setOnClickListener{
