@@ -106,7 +106,7 @@
 
     //Notification
     <string name="welcome_title">Welcome to Quick Hire</string>
-    <string name="welcome_des">Welcome to our application Quick Hire. You can enjoy all the feature inside to find a new job or find a new partner in your job enviroonment</string>
+    <string name="welcome_des">Welcome to our application Quick Hire. You can enjoy all the feature inside to find a new job or find a new partner in your job environment</string>
 
     //search and post
     <string name="upload_image">Upload Image</string>
