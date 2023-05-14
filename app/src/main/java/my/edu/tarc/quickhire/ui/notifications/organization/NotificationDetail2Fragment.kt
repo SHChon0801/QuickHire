@@ -46,7 +46,6 @@ class NotificationDetail2Fragment : Fragment() {
         val type = arguments?.getString("Type")
         val UID = arguments?.getString("UID")
 
-
         binding.detailDesc.text = description
         binding.detailTitle.text = title
         binding.detailTime.text = time
@@ -142,7 +141,7 @@ class NotificationDetail2Fragment : Fragment() {
             val n_des = getString(R.string.reject_detail)
             val n_time = "$date-$month-$year"
             val n_type = "first_type"
-            val n_UID = "EfXOASI7MfRCwzGioeGJhU0O5Ui1"
+            val n_UID = currentUser?.email.toString()
             val n_image ="https://firebasestorage.googleapis.com/v0/b/quickhire-409e0.appspot.com/o/images%2Freject.jpg?alt=media&token=71325a2a-1591-4ba3-b077-15a0ad38d534"
 //
 //            database = FirebaseDatabase.getInstance()
@@ -189,6 +188,24 @@ class NotificationDetail2Fragment : Fragment() {
 
             }
 
+        }
+
+        val MAX_LINES = 3 // the number of lines to show initially
+
+        val textView = binding.viewDetail
+        val expandIcon = binding.identify
+
+// set the maximum number of lines to show initially
+        textView.maxLines = MAX_LINES
+
+        binding.viewDetail.setOnClickListener{
+            if (textView.maxLines == MAX_LINES) {
+                textView.maxLines = Integer.MAX_VALUE
+               expandIcon.setImageResource(R.drawable.baseline_add_24)
+            } else {
+                textView.maxLines = MAX_LINES
+                expandIcon.setImageResource(R.drawable.baseline_check_24)
+            }
         }
 
         return binding.root

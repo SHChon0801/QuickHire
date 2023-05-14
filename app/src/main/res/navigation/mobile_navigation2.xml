@@ -99,7 +99,11 @@
         android:id="@+id/nav_notificationDetail2"
         android:name="my.edu.tarc.quickhire.ui.notifications.organization.NotificationDetail2Fragment"
         android:label="fragment_notification_detail2"
-        tools:layout="@layout/fragment_notification_detail2" />
+        tools:layout="@layout/fragment_notification_detail2" >
+        <action
+            android:id="@+id/action_nav_notificationDetail2_to_nav_userDetail"
+            app:destination="@id/nav_userDetail" />
+    </fragment>
     <fragment
         android:id="@+id/nav_post"
         android:name="my.edu.tarc.quickhire.ui.SearchandPost.PostingFragment"
@@ -114,5 +118,14 @@
         android:name="my.edu.tarc.quickhire.ui.home.OrganizationHomeDetailFragment"
         android:label="fragment_organization_home_detail"
         tools:layout="@layout/fragment_organization_home_detail" />
+    <fragment
+        android:id="@+id/nav_userDetail"
+        android:name="my.edu.tarc.quickhire.ui.notifications.organization.UserDetailFragment"
+        android:label="fragment_user_detail"
+        tools:layout="@layout/fragment_user_detail" >
+        <action
+            android:id="@+id/action_nav_userDetail_to_nav_notificationDetail2"
+            app:destination="@id/nav_notificationDetail2" />
+    </fragment>
 
 </navigation>
